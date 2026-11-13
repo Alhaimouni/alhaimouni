@@ -6,7 +6,7 @@ Engineering galleries read these files. Drop a JPG with the exact name into the 
 |---|---|
 | `42-amman/` | Done: `00-campus.jpg` `01-3d.jpg` `02-3d.jpg` `03-3d.jpg` `04-plan.jpg` (add more by editing the gallery list) |
 | `42-irbid/` | Done: `01-3d.jpg` `02-plan.jpg` |
-| `42-aqaba/` | `01-site.jpg` `02-3d.jpg` `03-plan.jpg` `04-plan.jpg` |
+| `42-aqaba/` | Done: `01-plan.png` `02-plan.png` (add site photos or 3D views by editing the gallery list) |
 | `ritz-carlton-amman/` | Done: `01-towers.jpg` `02-render.jpg` `03-construction.jpg` `04-plan.jpg` |
 | `hikma-nahda/` | Done: `01-building.jpg` `02-construction.jpg` `03-facade.jpg` `04-plan.jpg` |
 
