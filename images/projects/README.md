@@ -4,7 +4,7 @@ Engineering galleries read these files. Drop a JPG with the exact name into the 
 
 | Folder | Files |
 |---|---|
-| `42-amman/` | `01-site.jpg` `02-site.jpg` `03-3d.jpg` `04-3d.jpg` `05-plan.jpg` `06-plan.jpg` |
+| `42-amman/` | Done: `01-3d.jpg` `02-3d.jpg` `03-3d.jpg` `04-plan.jpg` (add more by editing the gallery list) |
 | `42-irbid/` | `01-site.jpg` `02-3d.jpg` `03-plan.jpg` `04-plan.jpg` |
 | `42-aqaba/` | `01-site.jpg` `02-3d.jpg` `03-plan.jpg` `04-plan.jpg` |
 | `ritz-carlton-amman/` | `01-site.jpg` `02-site.jpg` `03-plan.jpg` |

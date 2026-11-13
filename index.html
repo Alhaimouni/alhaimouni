@@ -134,7 +134,8 @@ html.calm .portrait-frame { animation: none; }
 /* ---- Project cards: gallery badge + dialog gallery ---- */
 .badge { position: absolute; right: 12px; bottom: 12px; font: 500 var(--fs-xs) var(--font-mono); padding: 5px 10px; border-radius: var(--r-pill); background: rgba(11,13,18,.75); color: #E8ECF4; backdrop-filter: blur(6px); border: 1px solid var(--line); }
 .live-pill { position: absolute; left: 12px; top: 12px; z-index: 2; font: 600 var(--fs-xs) var(--font-mono); padding: 5px 10px; border-radius: var(--r-pill); background: #0E8A5A; color: #fff; letter-spacing: .04em; }
-.ph-wrap { width: 100%; height: 100%; } .ph-wrap svg { width: 100%; height: 100%; }
+.ph-wrap { width: 100%; height: 100%; }
+.gal img.fit, .thumbs img.fit, .thumb img.fit { object-fit: contain; background: #fff; } .ph-wrap svg { width: 100%; height: 100%; }
 .links a.live { color: var(--on-accent); background: var(--accent); padding: 6px 12px; border-radius: var(--r-pill); font-weight: 600; }
 .links { display: flex; flex-wrap: wrap; gap: var(--s4); margin-top: var(--s2); }
 .links a { font-size: var(--fs-sm); color: var(--accent); border-bottom: 1px solid transparent; }
@@ -670,13 +671,14 @@ const PROJECTS = [
       { ph:true, cap:'Add: meeting log screenshot' }, { ph:true, cap:'Add: Outlook integration' } ] },
   /* ================= ENGINEERING =================
      Drop your files into images/projects/<folder>/ using the names below. Missing files show a placeholder. */
-  { id:10, cat:'engineering', title:'42 Amman Campus', year:'', badge:'Site · 3D · Plans',
-    desc:'Tender, electrical design and site supervision for the 42 Amman campus. The gallery covers the site, 3D views and the design plans.',
+  { id:10, cat:'engineering', title:'42 Amman Campus', year:'', badge:'3D views · Plan',
+    desc:'Tender, electrical design and site supervision for the 42 Amman campus. The gallery shows 3D views of the learning lab and corridors, and the furniture layout plan.',
     tags:['Tender','Electrical design','Supervision','3D views','Plans'], links:[],
     gallery:[
-      { src:'images/projects/42-amman/01-site.jpg', cap:'The site' }, { src:'images/projects/42-amman/02-site.jpg', cap:'The site' },
-      { src:'images/projects/42-amman/03-3d.jpg', cap:'3D view' }, { src:'images/projects/42-amman/04-3d.jpg', cap:'3D view' },
-      { src:'images/projects/42-amman/05-plan.jpg', cap:'Plan' }, { src:'images/projects/42-amman/06-plan.jpg', cap:'Plan' } ] },
+      { src:'images/projects/42-amman/01-3d.jpg', cap:'3D view: learning lab' },
+      { src:'images/projects/42-amman/02-3d.jpg', cap:'3D view: corridor and lab' },
+      { src:'images/projects/42-amman/03-3d.jpg', cap:'3D view: lab from above' },
+      { src:'images/projects/42-amman/04-plan.jpg', cap:'Furniture layout plan', fit:'contain' } ] },
   { id:11, cat:'engineering', title:'42 Irbid Campus', year:'', badge:'Site · 3D · Plans',
     desc:'Tender, electrical design and site supervision for the 42 Irbid campus.',
     tags:['Tender','Electrical design','Supervision'], links:[],
@@ -792,7 +794,7 @@ function slideArt(p, it, idx){
 }
 window.phFallback = (img, pid, idx) => { const p = PROJECTS.find(x => x.id === pid); const d = document.createElement('div'); d.className = 'ph-wrap'; d.innerHTML = placeholderArt(p, idx); img.replaceWith(d); };
 function visual(p, it, idx){
-  if (it.src) return `<img src="${it.src}" alt="${esc(p.title)}, ${esc(it.cap||'')}" loading="lazy" onerror="phFallback(this,${p.id},${idx})">`;
+  if (it.src) return `<img class="${it.fit==='contain'?'fit':''}" src="${it.src}" alt="${esc(p.title)}, ${esc(it.cap||'')}" loading="lazy" onerror="phFallback(this,${p.id},${idx})">`;
   return it.slide ? slideArt(p, it, idx) : placeholderArt(p, idx);
 }
 
