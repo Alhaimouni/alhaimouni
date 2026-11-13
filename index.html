@@ -54,7 +54,7 @@
    4. CAREER TIMELINE — pinned chapters, scroll progress drives --p (0 → 1)
    ========================================================================== */
 .timeline-intro { padding-block: var(--s9) var(--s7); }
-.chapter { height: 280vh; position: relative; --p: 0; }
+.chapter { height: 190vh; position: relative; --p: 0; }
 .pin { position: sticky; top: 0; height: 100svh; padding-top: var(--nav-h); display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--s7); align-items: center; width: min(var(--container), 100% - 2*var(--gutter)); margin-inline: auto; }
 .copy { display: grid; gap: var(--s4); align-content: center; }
 .copy .years { font: 500 var(--fs-sm) var(--font-mono); color: var(--muted); }
@@ -204,6 +204,20 @@ html.calm .chapter { height: auto; --p: 1; } html.calm .pin { position: static; 
 html.calm .reveal { opacity: 1; transform: none; } html.calm .hero h1 .l > span { transform: none; animation: none; }
 html.calm .wave, html.calm .scroll-cue::after { animation: none; }
 
+
+/* ---- Scroll hint: tells people the chapter animates as they scroll, and lets them skip ---- */
+.scroll-hint { position: absolute; left: 50%; bottom: 22px; transform: translateX(-50%); z-index: 5; display: flex; align-items: center; gap: var(--s3); padding: 10px 14px 10px 16px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--surface) 90%, transparent); backdrop-filter: blur(10px); border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line)); font: 500 var(--fs-xs) var(--font-mono); letter-spacing: .06em; color: var(--text); white-space: nowrap; box-shadow: var(--shadow-1); transition: opacity var(--t-base), transform var(--t-base) var(--ease); }
+.sh-chev { width: 9px; height: 9px; border-right: 2px solid var(--accent); border-bottom: 2px solid var(--accent); transform: rotate(45deg); animation: chev 1.2s ease-in-out infinite; margin-top: -4px; }
+@keyframes chev { 0%,100% { transform: translateY(0) rotate(45deg); opacity: .5; } 50% { transform: translateY(5px) rotate(45deg); opacity: 1; } }
+.sh-pct { color: var(--accent); min-width: 3ch; text-align: right; font-variant-numeric: tabular-nums; }
+.sh-skip { color: var(--muted); padding-left: var(--s3); border-left: 1px solid var(--line); transition: color var(--t-fast); }
+.sh-skip:hover { color: var(--accent); }
+.scroll-hint.done { border-color: var(--accent); background: var(--accent); color: #0B0D12; }
+.scroll-hint.done .sh-chev { border-color: #0B0D12; } .scroll-hint.done .sh-pct { display: none; } .scroll-hint.done .sh-skip { display: none; }
+.scroll-hint.off { opacity: 0; pointer-events: none; transform: translate(-50%, 12px); }
+html.calm .scroll-hint { display: none; }
+@media (max-width: 960px) { .scroll-hint { bottom: 14px; } }
+
 /* ==========================================================================
    5. PROJECTS
    ========================================================================== */
@@ -322,6 +336,7 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   <!-- 01 SERVICE -->
   <div class="chapter" id="ch-service" data-theme="service" data-fx="service">
     <div class="pin">
+      <div class="scroll-hint" data-next="Electrical engineering"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#ch-electrical">Skip ›</a></div>
       <div class="copy">
         <span class="eyebrow">Chapter 01</span>
         <span class="years">Early career</span>
@@ -349,6 +364,7 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   <!-- 02 ELECTRICAL -->
   <div class="chapter" id="ch-electrical" data-theme="electrical" data-fx="electrical">
     <div class="pin">
+      <div class="scroll-hint" data-next="Software engineering"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#ch-software">Skip ›</a></div>
       <div class="copy">
         <span class="eyebrow">Chapter 02</span>
         <span class="years">2014 — 2022</span>
@@ -384,6 +400,7 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   <!-- 03 SOFTWARE -->
   <div class="chapter" id="ch-software" data-theme="software" data-fx="software">
     <div class="pin">
+      <div class="scroll-hint" data-next="Management"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#ch-management">Skip ›</a></div>
       <div class="copy">
         <span class="eyebrow">Chapter 03</span>
         <span class="years">2022 — 2024</span>
@@ -412,6 +429,7 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   <!-- 04 MANAGEMENT -->
   <div class="chapter" id="ch-management" data-theme="management" data-fx="management">
     <div class="pin">
+      <div class="scroll-hint" data-next="Selected work"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#work">Skip ›</a></div>
       <div class="copy">
         <span class="eyebrow">Chapter 04</span>
         <span class="years">2024 — Today</span>
@@ -478,7 +496,7 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
 </section>
 </main>
 
-<footer class="footer"><div class="container"><span>© 2026 Mohammad Al-Haimouni</span><span><a href="design-system.html">Design system</a></span></div></footer>
+<footer class="footer"><div class="container"><span>© 2026 Mohammad Al-Haimouni</span></div></footer>
 
 
 <!-- ============ Floating résumé button + settings sidebar ============ -->
@@ -531,7 +549,6 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   <div class="set-foot">
     <a class="btn btn-primary" href="Mohammad_Al-Haimouni.pdf" download="Mohammad_Al-Haimouni_Resume.pdf">↓ Download résumé</a>
     <button class="btn" id="s-reset">Reset to defaults</button>
-    <a class="btn" href="design-system.html">View design system</a>
   </div>
 </aside>
 
@@ -799,9 +816,12 @@ function update() {
   let active = null;
   runners.forEach(({ ch, run, counters }) => {
     const r = ch.getBoundingClientRect();
-    const p = (reduceMQ || calm) ? 1 : clamp(-r.top / Math.max(1, r.height - vh));
+    const p = (reduceMQ || calm) ? 1 : clamp(-r.top / Math.max(1, (r.height - vh) * .85));
     ch.style.setProperty('--p', p);
     run(p);
+    const h = ch.querySelector('.scroll-hint');
+    if (h) { const inView = r.top <= 8 && r.bottom > vh*.6; h.classList.toggle('off', !inView); h.classList.toggle('done', p >= .98);
+      h.querySelector('.sh-label').textContent = p >= .98 ? 'Next: ' + h.dataset.next + ' ↓' : (p < .03 ? 'Scroll to play' : 'Keep scrolling'); h.querySelector('.sh-pct').textContent = Math.round(p*100) + '%'; }
     counters.forEach(c => { const t = +c.dataset.count; c.textContent = Math.round(t * seg(p,.05,.8)).toLocaleString() + (c.dataset.suffix || ''); });
     if (r.top < vh*.5 && r.bottom > vh*.5) active = ch;
   });
