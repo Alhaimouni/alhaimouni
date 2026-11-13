@@ -3,130 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Alhaimouni — Portfolio</title>
-<meta name="description" content="Portfolio of M. Alhaimouni — customer service, electrical engineering, software engineering and management.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<title>Mohammad Al-Haimouni — Portfolio</title>
+<meta name="description" content="Mohammad Al-Haimouni — Program Manager with a background in electrical engineering and software engineering.">
+<link rel="stylesheet" href="design-system.css">
 
 <style>
-/* ==========================================================================
-   1. DESIGN SYSTEM — tokens first, everything below consumes them
-   ========================================================================== */
-@property --accent { syntax: '<color>'; inherits: true; initial-value: #7C8CFF; }
-
-:root {
-  /* Color — neutrals */
-  --bg:        #0B0D12;
-  --surface:   #121620;
-  --surface-2: #1A1F2C;
-  --line:      rgba(255,255,255,.09);
-  --text:      #E8ECF4;
-  --muted:     #98A2B6;
-
-  /* Color — discipline accents (one per career chapter) */
-  --c-service:    #FFB547;   /* warm  · people            */
-  --c-electrical: #38D5FF;   /* cyan  · current           */
-  --c-software:   #8B8CFF;   /* indigo· code              */
-  --c-management: #3DDC97;   /* green · growth            */
-  --accent: var(--c-service);
-
-  /* Typography */
-  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
-  --font-body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
-  --fs-xs:   .8rem;
-  --fs-sm:   .92rem;
-  --fs-base: 1.05rem;
-  --fs-lg:   clamp(1.15rem, 1rem + .6vw, 1.4rem);
-  --fs-h3:   clamp(1.3rem, 1.1rem + 1vw, 1.8rem);
-  --fs-h2:   clamp(2rem, 1.3rem + 3vw, 3.6rem);
-  --fs-h1:   clamp(2.6rem, 1rem + 5.6vw, 5.6rem);
-
-  /* Spacing — 4px base scale */
-  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
-  --s6: 32px; --s7: 48px; --s8: 72px; --s9: 112px;
-
-  /* Shape & depth */
-  --r-sm: 8px; --r-md: 14px; --r-lg: 22px; --r-pill: 999px;
-  --shadow-1: 0 1px 0 rgba(255,255,255,.04) inset, 0 8px 24px rgba(0,0,0,.35);
-  --shadow-glow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent), 0 10px 40px color-mix(in srgb, var(--accent) 22%, transparent);
-
-  /* Motion */
-  --ease: cubic-bezier(.2,.7,.2,1);
-  --t-fast: .18s; --t-base: .45s; --t-slow: .9s;
-
-  /* Layout */
-  --container: 1200px;
-  --gutter: clamp(20px, 5vw, 48px);
-  --nav-h: 64px;
-}
-/* Breakpoints used below: 640px (sm) · 960px (md) */
-
-*,*::before,*::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; }
-body {
-  margin: 0; background: var(--bg); color: var(--text);
-  font: 400 var(--fs-base)/1.65 var(--font-body);
-  -webkit-font-smoothing: antialiased; overflow-x: hidden;
-  transition: --accent var(--t-slow) var(--ease);
-}
-body[data-theme="service"]    { --accent: var(--c-service); }
-body[data-theme="electrical"] { --accent: var(--c-electrical); }
-body[data-theme="software"]   { --accent: var(--c-software); }
-body[data-theme="management"] { --accent: var(--c-management); }
-
-/* ambient accent glow that follows the active chapter */
-body::before {
-  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
-  background:
-    radial-gradient(60vw 50vh at 85% 10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
-    radial-gradient(50vw 50vh at 0% 100%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%);
-}
-img, svg { display: block; max-width: 100%; }
-a { color: inherit; text-decoration: none; }
-::selection { background: var(--accent); color: #000; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
-
-/* ---- Type ---- */
-h1,h2,h3 { font-family: var(--font-display); line-height: 1.05; letter-spacing: -.02em; margin: 0; }
-h1 { font-size: var(--fs-h1); font-weight: 700; }
-h2 { font-size: var(--fs-h2); font-weight: 700; }
-h3 { font-size: var(--fs-h3); font-weight: 600; letter-spacing: -.01em; }
-p  { margin: 0; color: var(--muted); }
-.eyebrow { font: 500 var(--fs-xs)/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
-.lead { font-size: var(--fs-lg); color: var(--text); opacity: .86; max-width: 46ch; }
-
-/* ---- Layout primitives ---- */
-.container { width: min(var(--container), 100% - 2*var(--gutter)); margin-inline: auto; }
-.section { padding-block: var(--s9); position: relative; }
-.grid { display: grid; gap: var(--s5); grid-template-columns: repeat(12, 1fr); }
-.section-head { display: grid; gap: var(--s4); margin-bottom: var(--s7); max-width: 720px; }
-
-/* ---- Components ---- */
-.btn {
-  display: inline-flex; align-items: center; gap: var(--s2);
-  padding: 14px 24px; border-radius: var(--r-pill); border: 1px solid var(--line);
-  font: 500 var(--fs-sm)/1 var(--font-body); cursor: pointer; background: transparent; color: var(--text);
-  transition: transform var(--t-fast) var(--ease), background var(--t-fast), border-color var(--t-fast), box-shadow var(--t-base);
-}
-.btn:hover { transform: translateY(-2px); border-color: var(--accent); }
-.btn-primary { background: var(--accent); color: #0B0D12; border-color: transparent; font-weight: 600; }
-.btn-primary:hover { box-shadow: var(--shadow-glow); }
-.chip {
-  padding: 8px 16px; border-radius: var(--r-pill); border: 1px solid var(--line);
-  font: 500 var(--fs-sm)/1 var(--font-body); color: var(--muted); background: transparent; cursor: pointer;
-  transition: all var(--t-fast);
-}
-.chip:hover { color: var(--text); border-color: var(--muted); }
-.chip[aria-pressed="true"] { background: var(--accent); color: #0B0D12; border-color: transparent; font-weight: 600; }
-.tag { font: 500 var(--fs-xs)/1 var(--font-mono); padding: 5px 9px; border-radius: var(--r-sm); background: var(--surface-2); color: var(--muted); }
-.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-1); overflow: hidden; transition: transform var(--t-base) var(--ease), border-color var(--t-base), box-shadow var(--t-base); }
-.card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--accent) 50%, transparent); box-shadow: var(--shadow-glow); }
-
-/* reveal-on-scroll utility */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease); transition-delay: var(--d, 0s); }
-.reveal.in { opacity: 1; transform: none; }
-
 /* ==========================================================================
    2. SHELL — nav, progress, chapter rail
    ========================================================================== */
@@ -248,6 +129,31 @@ p  { margin: 0; color: var(--muted); }
 .road div { height: 10px; border-radius: 6px; background: var(--line); overflow: hidden; }
 .road div i { display: block; height: 100%; width: 100%; background: var(--accent); border-radius: 6px; transform-origin: 0 50%; transform: scaleX(var(--w, 0)); }
 
+/* ---- Hero layout + portrait ---- */
+.hero-wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--s7); align-items: center; }
+.hero .roles { margin-top: var(--s7); }
+.portrait { margin: 0; display: grid; gap: var(--s3); justify-items: center; }
+.portrait-frame { position: relative; width: min(100%, 340px); aspect-ratio: 4/5; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-glow); }
+.portrait-frame svg, .portrait-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 960px) { .hero-wrap { grid-template-columns: 1fr; } .portrait { order: -1; justify-items: start; } .portrait-frame { width: 140px; } .portrait figcaption { display: none; } }
+
+/* ---- Project cards: gallery badge + dialog gallery ---- */
+.badge { position: absolute; right: 12px; bottom: 12px; font: 500 var(--fs-xs) var(--font-mono); padding: 5px 10px; border-radius: var(--r-pill); background: rgba(11,13,18,.75); backdrop-filter: blur(6px); border: 1px solid var(--line); }
+.links { display: flex; flex-wrap: wrap; gap: var(--s4); margin-top: var(--s2); }
+.links a { font-size: var(--fs-sm); color: var(--accent); border-bottom: 1px solid transparent; }
+.links a:hover { border-color: var(--accent); }
+.gal { position: relative; background: var(--bg); aspect-ratio: 16/9; overflow: hidden; }
+.gal img, .gal svg { width: 100%; height: 100%; object-fit: cover; }
+.gal .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: rgba(11,13,18,.7); color: var(--text); cursor: pointer; font-size: 1.1rem; backdrop-filter: blur(6px); transition: border-color var(--t-fast); }
+.gal .nav-btn:hover { border-color: var(--accent); }
+.gal .prev { left: 12px; } .gal .next { right: 12px; }
+.cap { display: flex; justify-content: space-between; gap: var(--s3); font: 500 var(--fs-xs) var(--font-mono); color: var(--muted); padding: var(--s3) var(--s5) 0; }
+.thumbs { display: flex; gap: var(--s2); padding: var(--s3) var(--s5) 0; overflow-x: auto; }
+.thumbs button { flex: none; width: 84px; aspect-ratio: 16/10; border-radius: var(--r-sm); overflow: hidden; border: 2px solid transparent; padding: 0; cursor: pointer; opacity: .55; background: var(--bg); transition: all var(--t-fast); }
+.thumbs button[aria-current="true"] { opacity: 1; border-color: var(--accent); }
+.thumbs img, .thumbs svg { width: 100%; height: 100%; object-fit: cover; }
+dialog .body { padding: var(--s5); }
+
 /* ==========================================================================
    5. PROJECTS
    ========================================================================== */
@@ -267,7 +173,7 @@ p  { margin: 0; color: var(--muted); }
 .tags { display: flex; flex-wrap: wrap; gap: 6px; }
 .kind { font: 500 var(--fs-xs) var(--font-mono); color: var(--accent); letter-spacing: .1em; text-transform: uppercase; }
 
-dialog { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); color: var(--text); padding: 0; width: min(880px, 92vw); box-shadow: 0 40px 120px rgba(0,0,0,.7); --accent: var(--pc); }
+dialog { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); color: var(--text); padding: 0; width: min(880px, 92vw); max-height: 92vh; overflow: auto; box-shadow: 0 40px 120px rgba(0,0,0,.7); --accent: var(--pc); }
 dialog::backdrop { background: rgba(5,6,9,.78); backdrop-filter: blur(6px); }
 dialog .thumb { aspect-ratio: 16/9; }
 dialog .body { padding: var(--s6); display: grid; gap: var(--s3); }
@@ -281,20 +187,6 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
 .contact .hero-actions { justify-content: center; }
 .footer { border-top: 1px solid var(--line); padding-block: var(--s6); color: var(--muted); font-size: var(--fs-sm); }
 .footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s3); }
-
-.spec { display: grid; gap: var(--s7); }
-.spec h3 { font-size: var(--fs-lg); margin-bottom: var(--s4); }
-.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--s3); }
-.sw { border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; font: 400 var(--fs-xs) var(--font-mono); color: var(--muted); }
-.sw i { display: block; height: 56px; background: var(--c); } .sw span { display: block; padding: 8px 10px; background: var(--surface); }
-.type-row { display: flex; align-items: baseline; gap: var(--s5); padding-block: var(--s3); border-bottom: 1px solid var(--line); }
-.type-row code, .spec code { font: 400 var(--fs-xs) var(--font-mono); color: var(--muted); min-width: 110px; }
-.space-row { display: flex; flex-wrap: wrap; gap: var(--s4); align-items: flex-end; }
-.space-row div { display: grid; gap: 6px; justify-items: center; font: 400 var(--fs-xs) var(--font-mono); color: var(--muted); }
-.space-row i { display: block; width: var(--w); height: var(--w); background: var(--accent); border-radius: 3px; }
-.layout-demo { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; height: 64px; }
-.layout-demo i { background: color-mix(in srgb, var(--accent) 25%, transparent); border: 1px dashed var(--accent); border-radius: 4px; }
-.row { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -315,7 +207,7 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
       <ul>
         <li><a href="#career">Career</a></li>
         <li><a href="#work">Work</a></li>
-        <li><a href="#system">Design system</a></li>
+        <li><a href="Mohammad_Al-Haimouni.pdf" download>Résumé</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
@@ -334,24 +226,34 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
 <!-- ============================ HERO ============================ -->
 <section class="hero">
   <div class="hero-grid" aria-hidden="true"></div>
-  <div class="container">
-    <p class="eyebrow">Portfolio — 2026</p>
-    <h1 style="margin-top:var(--s4)">
-      <span class="l"><span style="--d:.1s">From the front</span></span>
-      <span class="l"><span style="--d:.22s">line to the <em>circuit</em></span></span>
-      <span class="l"><span style="--d:.34s">to the code to the <em>team</em>.</span></span>
-    </h1>
-    <p class="lead">I'm M. Alhaimouni. I've worked where people, hardware, software and organisations meet — and I carry something from each into everything I build and lead.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="#career">Scroll my career ↓</a>
-      <a class="btn" href="#work">See projects</a>
+  <div class="container hero-wrap">
+    <div>
+      <p class="eyebrow">Program Manager · Amman, Jordan</p>
+      <h1 style="margin-top:var(--s4)">
+        <span class="l"><span style="--d:.1s">Mohammad</span></span>
+        <span class="l"><span style="--d:.22s">Al-<em>Haimouni</em></span></span>
+      </h1>
+      <p class="lead">Education program management with 5+ years of hybrid roles across management and software engineering — built on an electrical engineering foundation. I translate complex technical ideas for stakeholders and drive projects to completion.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="Mohammad_Al-Haimouni.pdf" download="Mohammad_Al-Haimouni_Resume.pdf">↓ Download résumé</a>
+        <a class="btn" href="#career">Scroll my career</a>
+        <a class="btn" href="#work">See projects</a>
+      </div>
+      <div class="roles">
+        <a class="role" href="#ch-service"    style="--c:var(--c-service)"><b></b>Customer service</a>
+        <a class="role" href="#ch-electrical" style="--c:var(--c-electrical)"><b></b>Electrical engineering</a>
+        <a class="role" href="#ch-software"   style="--c:var(--c-software)"><b></b>Software engineering</a>
+        <a class="role" href="#ch-management" style="--c:var(--c-management)"><b></b>Management</a>
+      </div>
     </div>
-    <div class="roles">
-      <a class="role" href="#ch-service"    style="--c:var(--c-service)"><b></b>Customer service</a>
-      <a class="role" href="#ch-electrical" style="--c:var(--c-electrical)"><b></b>Electrical engineering</a>
-      <a class="role" href="#ch-software"   style="--c:var(--c-software)"><b></b>Software engineering</a>
-      <a class="role" href="#ch-management" style="--c:var(--c-management)"><b></b>Management</a>
-    </div>
+    <!-- PORTRAIT: drop your photo at images/profile.jpg (4:5 works best). Until then the placeholder shows. -->
+    <figure class="portrait" aria-label="Portrait of Mohammad Al-Haimouni">
+      <div class="portrait-frame">
+        <svg viewBox="0 0 200 250" aria-hidden="true"><rect width="200" height="250" fill="var(--surface-2)"/><circle cx="100" cy="95" r="42" fill="var(--line)"/><path d="M20 250c0-56 36-92 80-92s80 36 80 92z" fill="var(--line)"/><text x="100" y="236" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--muted)" letter-spacing="2">YOUR PHOTO HERE</text></svg>
+        <img src="images/profile.jpg" alt="Mohammad Al-Haimouni" onerror="this.remove()">
+      </div>
+      <figcaption class="eyebrow">Mohammad Al-Haimouni</figcaption>
+    </figure>
   </div>
   <div class="scroll-cue" aria-hidden="true">SCROLL</div>
 </section>
@@ -371,18 +273,11 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
     <div class="pin">
       <div class="copy">
         <span class="eyebrow">Chapter 01</span>
-        <span class="years">2012 — 2015</span>
+        <span class="years">Early career</span>
         <h2>Customer <span>service</span></h2>
-        <p class="lead">Where I learned to listen first, solve fast and stay human under pressure.</p>
-        <ul>
-          <li>Resolved customer issues across phone, chat and email</li>
-          <li>Turned recurring complaints into process fixes</li>
-          <li>Trained new teammates on tone and escalation</li>
-        </ul>
-        <div class="metrics">
-          <div><b data-count="12000" data-suffix="+">0</b><span>conversations</span></div>
-          <div><b data-count="96" data-suffix="%">0</b><span>satisfaction</span></div>
-        </div>
+        <p class="lead">Where I learned to listen first, solve fast and stay human under pressure — the habit that still shapes how I lead.</p>
+        <ul><li>Resolving customer issues across phone, chat and email</li><li>Turning recurring complaints into process fixes</li><li>Coaching teammates on tone and escalation</li></ul>
+        <div class="metrics"><div><b data-count="3" data-suffix="">0</b><span>channels</span></div><div><b data-count="1" data-suffix="st">0</b><span>contact resolution mindset</span></div></div>
         <div class="chapter-bar"><i></i></div>
       </div>
       <div class="stage" aria-hidden="true">
@@ -405,18 +300,11 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
     <div class="pin">
       <div class="copy">
         <span class="eyebrow">Chapter 02</span>
-        <span class="years">2015 — 2019</span>
+        <span class="years">2014 — 2022</span>
         <h2>Electrical <span>engineering</span></h2>
-        <p class="lead">Designing the things that carry current — and learning that precision is a form of care.</p>
-        <ul>
-          <li>Schematic and PCB design, from concept to prototype</li>
-          <li>Power systems, control panels and instrumentation</li>
-          <li>Testing, fault-finding and documentation to standard</li>
-        </ul>
-        <div class="metrics">
-          <div><b data-count="40" data-suffix="+">0</b><span>designs shipped</span></div>
-          <div><b data-count="480" data-suffix="V">0</b><span>systems handled</span></div>
-        </div>
+        <p class="lead">Bachelor of Electrical Power Engineering (Al-Balqa Applied University, 2014–2019), then two years as Electrical Design Engineer at Active Engineering Consultant (AEC).</p>
+        <ul><li>Designed electrical systems for high-rise buildings, commercial sites, hotels and villas</li><li>Planned tender timelines and coordinated project implementation</li><li>Learned to deliver to standard, on schedule and on budget</li></ul>
+        <div class="metrics"><div><b data-count="5" data-suffix="">0</b><span>years of study</span></div><div><b data-count="2" data-suffix="">0</b><span>years in design practice</span></div></div>
         <div class="chapter-bar"><i></i></div>
       </div>
       <div class="stage" aria-hidden="true">
@@ -447,18 +335,11 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
     <div class="pin">
       <div class="copy">
         <span class="eyebrow">Chapter 03</span>
-        <span class="years">2019 — 2022</span>
+        <span class="years">2022 — 2024</span>
         <h2>Software <span>engineering</span></h2>
-        <p class="lead">Taking the engineer's rigour and the service mindset into code people actually enjoy using.</p>
-        <ul>
-          <li>Web apps, APIs and internal tooling from idea to release</li>
-          <li>Automation that removes repetitive work for whole teams</li>
-          <li>Clean, tested, documented code with CI from day one</li>
-        </ul>
-        <div class="metrics">
-          <div><b data-count="25" data-suffix="+">0</b><span>apps &amp; tools</span></div>
-          <div><b data-count="128" data-suffix="">0</b><span>tests passing</span></div>
-        </div>
+        <p class="lead">Full Stack Web Development Program at Luminus Technical University College (Jul–Dec 2022), then Coding Instructor there until March 2024.</p>
+        <ul><li>Built full-stack web apps with React, Node.js, Next.js and NestJS</li><li>Simplified complex concepts into structured, learner-friendly content</li><li>Monitored performance and supported at-risk learners with targeted plans</li></ul>
+        <div class="metrics"><div><b data-count="6" data-suffix="">0</b><span>month full-stack program</span></div><div><b data-count="1" data-suffix="">0</b><span>year as coding instructor</span></div></div>
         <div class="chapter-bar"><i></i></div>
       </div>
       <div class="stage" aria-hidden="true">
@@ -482,18 +363,11 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
     <div class="pin">
       <div class="copy">
         <span class="eyebrow">Chapter 04</span>
-        <span class="years">2022 — Today</span>
+        <span class="years">2024 — Today</span>
         <h2><span>Management</span></h2>
-        <p class="lead">Bringing it all together: leading people, planning delivery and making the whole system work.</p>
-        <ul>
-          <li>Leading cross-functional teams across engineering and service</li>
-          <li>Roadmaps, budgets, hiring and stakeholder alignment</li>
-          <li>Building process and culture that scale</li>
-        </ul>
-        <div class="metrics">
-          <div><b data-count="15" data-suffix="">0</b><span>people led</span></div>
-          <div><b data-count="30" data-suffix="%">0</b><span>faster delivery</span></div>
-        </div>
+        <p class="lead">Program Coordinator, then Campus Lead at Crown Prince Foundation – 42 Amman: structuring learning programs, partnerships and community.</p>
+        <ul><li>Lead workshops, hackathons and learning sessions that lift engagement</li><li>Develop learning frameworks aligned to program standards and measurable KPIs</li><li>Evaluate strategic partnerships; designed and built the official campus website</li></ul>
+        <div class="metrics"><div><b data-count="5" data-suffix="+">0</b><span>years hybrid roles</span></div><div><b data-count="2" data-suffix="">0</b><span>roles at 42 Amman</span></div></div>
         <div class="chapter-bar"><i></i></div>
       </div>
       <div class="stage" aria-hidden="true">
@@ -524,48 +398,16 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   <div class="container">
     <div class="section-head reveal">
       <p class="eyebrow">Selected work</p>
-      <h2>Projects across the four disciplines.</h2>
-      <p class="lead">Click any project for the details. Thumbnails are placeholders until your real photos are added (see the note in the code).</p>
+      <h2>Projects by discipline.</h2>
+      <p class="lead">Software projects come from my GitHub. Open any project for its image gallery.</p>
     </div>
     <div class="filters" role="group" aria-label="Filter projects">
       <button class="chip" aria-pressed="true" data-f="all">All</button>
-      <button class="chip" aria-pressed="false" data-f="service">Customer service</button>
-      <button class="chip" aria-pressed="false" data-f="electrical">Electrical</button>
-      <button class="chip" aria-pressed="false" data-f="software">Software</button>
       <button class="chip" aria-pressed="false" data-f="management">Management</button>
+      <button class="chip" aria-pressed="false" data-f="engineering">Engineering</button>
+      <button class="chip" aria-pressed="false" data-f="software">Software</button>
     </div>
     <div class="projects" id="projects"></div>
-  </div>
-</section>
-
-<!-- ============================ DESIGN SYSTEM ============================ -->
-<section class="section" id="system">
-  <div class="container">
-    <div class="section-head reveal">
-      <p class="eyebrow">Design system</p>
-      <h2>The rules behind this page.</h2>
-      <p class="lead">Every colour, size and motion on this page comes from the tokens defined at the top of the stylesheet.</p>
-    </div>
-    <div class="spec reveal">
-      <div><h3>Colour</h3><div class="swatches" id="sw"></div></div>
-      <div><h3>Type — Space Grotesk · Inter · JetBrains Mono</h3>
-        <div class="type-row"><code>--fs-h1</code><span style="font:700 clamp(2rem,6vw,4rem)/1 var(--font-display)">Display</span></div>
-        <div class="type-row"><code>--fs-h2</code><span style="font:700 var(--fs-h2)/1 var(--font-display)">Heading two</span></div>
-        <div class="type-row"><code>--fs-h3</code><span style="font:600 var(--fs-h3)/1.1 var(--font-display)">Heading three</span></div>
-        <div class="type-row"><code>--fs-base</code><span>Body copy reads at a comfortable 1.65 line-height.</span></div>
-        <div class="type-row"><code>--fs-xs mono</code><span class="eyebrow">Eyebrow · label</span></div>
-      </div>
-      <div><h3>Spacing — 4px base</h3><div class="space-row" id="sp"></div></div>
-      <div><h3>Layout — 12-column grid · 1200px container · breakpoints 640 / 960</h3><div class="layout-demo" id="lay"></div></div>
-      <div><h3>Components</h3>
-        <div class="row">
-          <a class="btn btn-primary" href="#system">Primary</a><a class="btn" href="#system">Secondary</a>
-          <button class="chip" aria-pressed="true">Chip on</button><button class="chip" aria-pressed="false">Chip off</button>
-          <span class="tag">tag</span><span class="kind">kind label</span>
-        </div>
-      </div>
-      <div><h3>Motion</h3><p>Easing <code>cubic-bezier(.2,.7,.2,1)</code> · fast .18s · base .45s · slow .9s · scroll-linked progress <code>--p</code> (0→1) per chapter · all effects disabled under <code>prefers-reduced-motion</code>.</p></div>
-    </div>
   </div>
 </section>
 
@@ -574,71 +416,153 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   <div class="container reveal">
     <p class="eyebrow">Contact</p>
     <h2 style="margin-top:var(--s4)">Let's build something.</h2>
-    <p class="lead" style="margin:0 auto var(--s6)">Open to roles, collaborations and good conversations.</p>
+    <p class="lead" style="margin:0 auto var(--s6)">Open to program management, education and engineering-meets-software roles. +962 77 996 5862 · m.alhaimouni@gmail.com</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="mailto:m.alhaimouni@gmail.com">Email me</a>
+      <a class="btn" href="Mohammad_Al-Haimouni.pdf" download="Mohammad_Al-Haimouni_Resume.pdf">↓ Résumé</a>
       <a class="btn" href="https://github.com/Alhaimouni">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/mohammad-al-haimouni-64ab72242/">LinkedIn</a>
     </div>
   </div>
 </section>
 </main>
 
-<footer class="footer"><div class="container"><span>© 2026 M. Alhaimouni</span><span>Built as a single HTML file.</span></div></footer>
+<footer class="footer"><div class="container"><span>© 2026 Mohammad Al-Haimouni</span><span><a href="design-system.html">Design system</a></span></div></footer>
 
 <dialog id="dlg"><button class="close" aria-label="Close">✕</button><div id="dlg-body"></div></dialog>
 
 <script>
 /* ==========================================================================
-   PROJECT DATA  — edit here.
-   To use a real photo instead of the generated art, add  img: "images/my-photo.jpg"
+   PROJECT DATA — edit here.
+   cat:    'management' | 'engineering' | 'software'
+   gallery items:
+     { src:'images/projects/<slug>/01.jpg', cap:'…' }   → a real image
+     { slide:{ title:'…', pts:['…','…'] }, cap:'…' }       → generated info slide
+     { ph:true, cap:'…' }                                  → placeholder; replace with { src } when you have a photo
+   links:  [{ t:'GitHub', u:'https://…' }]
    ========================================================================== */
 const PROJECTS = [
-  { id:1, cat:'service',    title:'Support Playbook Redesign',  desc:'Rebuilt the knowledge base and escalation paths so agents resolve first-contact issues faster.', tags:['Process','Training','KPIs'] },
-  { id:2, cat:'electrical', title:'Smart Power Monitor',        desc:'Custom PCB energy meter with live load measurement, designed from schematic to working prototype.', tags:['PCB','Altium','Power'] },
-  { id:3, cat:'software',   title:'Operations Dashboard',       desc:'Real-time web dashboard that unified tickets, schedules and metrics for the whole team.', tags:['JavaScript','API','UX'] },
-  { id:4, cat:'management', title:'Delivery Roadmap Program',   desc:'Aligned engineering and service on one quarterly roadmap, cutting delivery time by a third.', tags:['Strategy','Planning','Leadership'] },
-  { id:5, cat:'electrical', title:'Motor Control Panel',        desc:'Designed and documented a 480V control panel with protection, metering and clear fault indication.', tags:['Control','Safety','Standards'] },
-  { id:6, cat:'software',   title:'Workflow Automation Toolkit',desc:'Scripts and services that removed hours of manual reporting each week, tested and deployed through CI.', tags:['Python','CI/CD','Automation'] },
-  { id:7, cat:'service',    title:'Customer Feedback Loop',     desc:'Turned survey and chat data into a monthly improvement cycle shared with product teams.', tags:['Insights','CSAT','Voice of customer'] },
-  { id:8, cat:'management', title:'Team Scaling & Hiring',      desc:'Grew the team from a handful to fifteen with structured onboarding and clear career paths.', tags:['Hiring','Culture','Mentoring'] },
+  /* ---------------- SOFTWARE (from GitHub) ---------------- */
+  { id:1, cat:'software', title:'Finance Tracker', year:'2026',
+    desc:'Full-stack personal finance app: income and expense tracking, categories, budgets with live status, and spending summaries behind a JWT-secured API.',
+    tags:['NestJS','TypeORM','React','MUI','TypeScript','Docker'],
+    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/Finance-Tracker'}],
+    gallery:[
+      { slide:{ title:'Finance Tracker', pts:['Track income & expenses','Custom categories per user','Budgets with spent / remaining / % used','Spending summary by date range'] }, cap:'Overview' },
+      { slide:{ title:'Secure by design', pts:['bcrypt-hashed passwords','JWT in an httpOnly cookie','Protected routes + profile endpoint','Zod + React Hook Form validation'] }, cap:'Authentication' },
+      { slide:{ title:'Stack', pts:['NestJS + TypeORM backend','React + MUI v7 DataGrid','Full TypeScript coverage','Docker Compose for local setup'] }, cap:'Architecture' } ] },
+  { id:2, cat:'software', title:'AYC Access Management System', year:'2025',
+    desc:'Membership, visitor, event and room-booking platform for the Arab Youth Center — QR-code entry/exit, role-based access, bilingual Arabic/English UI.',
+    tags:['Node.js','Express','PostgreSQL','Sequelize','React','Vite','i18n'],
+    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/ayc-access-management-system'}],
+    gallery:[
+      { slide:{ title:'AYC Access Management', pts:['Membership + QR code generation','Visitors with 24-hour temporary QR','Events: registration & attendance','Room booking with approval workflow'] }, cap:'Overview' },
+      { slide:{ title:'Entry / exit control', pts:['QR scan logs entry and exit','Duration tracked per visit','6 user roles, role-based access','Admin dashboard & reports'] }, cap:'Access control' },
+      { slide:{ title:'Platform', pts:['Express API · JWT · rate limiting · helmet','PostgreSQL via Sequelize ORM','React 18 + Vite front end','Arabic & English (react-i18next)'] }, cap:'Architecture' } ] },
+  { id:3, cat:'software', title:'CAVT Programs Kiosk', year:'2026',
+    desc:'Touch-first, Arabic (RTL) kiosk PWA presenting CAVT’s 20 vocational programs, built by a team during a 24–48 hour hackathon.',
+    tags:['React','Vite','Tailwind v4','Framer Motion','Zustand','PWA'],
+    links:[{t:'GitHub (team repo)',u:'https://github.com/AyhamAbusninah/CAVT-Informational-website'}],
+    gallery:[
+      { src:'images/projects/cavt-kiosk/01.jpg', cap:'Program: App development' },
+      { src:'images/projects/cavt-kiosk/02.jpg', cap:'Program: EV mechatronics' },
+      { src:'images/projects/cavt-kiosk/03.jpg', cap:'Program: Renewable energy' },
+      { src:'images/projects/cavt-kiosk/04.jpg', cap:'Program: Electronics' },
+      { src:'images/projects/cavt-kiosk/05.jpg', cap:'Program: Mechatronics' },
+      { src:'images/projects/cavt-kiosk/06.jpg', cap:'Program: Networking' },
+      { slide:{ title:'Kiosk flow', pts:['Idle screen → Discovery → Program details','15 interest categories, 20 programs','Arabic first (RTL), English skeleton','Installable, offline-friendly PWA'] }, cap:'Architecture' } ] },
+  { id:4, cat:'software', title:'School Trip App', year:'2022–23',
+    desc:'React front end for a school-trip booking experience around Jordan’s destinations, part of a three-repo system with a back end and an admin dashboard.',
+    tags:['React','REST API','Dashboard'],
+    links:[{t:'Front end',u:'https://github.com/School-trip-app/School-trip-app-frontend'},{t:'Back end',u:'https://github.com/School-trip-app/School-trip-app-backEnd'},{t:'Dashboard',u:'https://github.com/School-trip-app/School-trip-app-dashbord'}],
+    gallery:[
+      { src:'images/projects/school-trip/05.jpg', cap:'Landing hero' },
+      { src:'images/projects/school-trip/01.jpg', cap:'Destination: Umm Qais' },
+      { src:'images/projects/school-trip/02.jpg', cap:'Destination: Dead Sea' },
+      { src:'images/projects/school-trip/03.jpg', cap:'Destination: Ajloun Castle' },
+      { src:'images/projects/school-trip/04.jpg', cap:'Destination: Amman' },
+      { src:'images/projects/school-trip/06.jpg', cap:'About section' } ] },
+  { id:5, cat:'software', title:'Foodies', year:'2025',
+    desc:'Meal-sharing community app: browse meals, share your own recipe and join the community, with a server-rendered Next.js front end and a SQLite database.',
+    tags:['Next.js 14','React','SQLite','better-sqlite3'],
+    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/foodies'}],
+    gallery:[
+      { src:'images/projects/foodies/01.jpg', cap:'Burger' }, { src:'images/projects/foodies/02.jpg', cap:'Pizza' },
+      { src:'images/projects/foodies/03.jpg', cap:'Curry' }, { src:'images/projects/foodies/04.jpg', cap:'Schnitzel' },
+      { src:'images/projects/foodies/05.jpg', cap:'Dumplings' }, { src:'images/projects/foodies/06.jpg', cap:'Mac & cheese' } ] },
+
+  /* ---------------- MANAGEMENT (from résumé) ---------------- */
+  { id:6, cat:'management', title:'Official Campus Website — 42 Amman', year:'2025',
+    desc:'Designed and implemented the official campus website to strengthen communication and brand presence for the Crown Prince Foundation’s 42 Amman campus.',
+    tags:['Web','Brand','Communication'], links:[],
+    gallery:[ { ph:true, cap:'Add: homepage screenshot' }, { ph:true, cap:'Add: programs page' }, { ph:true, cap:'Add: mobile view' } ] },
+  { id:7, cat:'management', title:'Learning Frameworks & KPIs', year:'2024–Now',
+    desc:'Structured learning frameworks aligned with program standards and measurable KPIs, plus learner-engagement strategies that foster a performance-driven learning environment.',
+    tags:['Program design','KPIs','Engagement'], links:[],
+    gallery:[ { ph:true, cap:'Add: framework diagram' }, { ph:true, cap:'Add: KPI dashboard' } ] },
+  { id:8, cat:'management', title:'LMS Performance Analytics', year:'2024–25',
+    desc:'LMS tooling that analyses learner performance to identify at-risk learners early and trigger targeted intervention.',
+    tags:['LMS','Analytics','Power BI','Intervention'], links:[],
+    gallery:[ { ph:true, cap:'Add: dashboard screenshot' }, { ph:true, cap:'Add: at-risk report' } ] },
+  { id:9, cat:'management', title:'Workshops & Hackathons', year:'2025–Now',
+    desc:'Interactive workshops, hackathons and learning sessions that raise learner engagement and academic performance, and strengthen the campus community.',
+    tags:['Events','Community','Partnerships'],
+    links:[{t:'CAVT Hackathon @ 42 Amman (GitHub)',u:'https://github.com/ahmad-nashwan/CAVT-Hackathon-42-Amman'}],
+    gallery:[ { ph:true, cap:'Add: event photo' }, { ph:true, cap:'Add: hackathon photo' }, { ph:true, cap:'Add: workshop photo' } ] },
+
+  /* ---------------- ENGINEERING (from résumé) ---------------- */
+  { id:10, cat:'engineering', title:'High-Rise & Commercial Electrical Design', year:'2020–22',
+    desc:'Electrical systems design for high-rise and commercial buildings as Electrical Design Engineer at Active Engineering Consultant (AEC).',
+    tags:['Electrical design','High-rise','Commercial'], links:[],
+    gallery:[ { ph:true, cap:'Add: drawing or site photo' }, { ph:true, cap:'Add: single-line diagram' } ] },
+  { id:11, cat:'engineering', title:'Hotels & Villas Electrical Systems', year:'2020–22',
+    desc:'Electrical design for hotels and villas, from concept through coordination with the wider project team.',
+    tags:['Hotels','Villas','Coordination'], links:[],
+    gallery:[ { ph:true, cap:'Add: layout drawing' }, { ph:true, cap:'Add: site photo' } ] },
+  { id:12, cat:'engineering', title:'Tender Planning & Implementation Coordination', year:'2020–22',
+    desc:'Planned tender timelines and coordinated project implementation — the first place I practised scheduling and delivery management.',
+    tags:['Tendering','Scheduling','Delivery'], links:[],
+    gallery:[ { ph:true, cap:'Add: timeline / schedule' } ] },
 ];
-const COLORS = { service:'#FFB547', electrical:'#38D5FF', software:'#8B8CFF', management:'#3DDC97' };
-const NAMES  = { service:'Customer service', electrical:'Electrical engineering', software:'Software engineering', management:'Management' };
+const COLORS = { management:'#3DDC97', engineering:'#38D5FF', software:'#8B8CFF' };
+const NAMES  = { management:'Management', engineering:'Engineering', software:'Software' };
 
-/* ---- Generated placeholder art (seeded so each card differs) ---- */
+/* ---- Generated visuals (info slides + placeholders) ---- */
 function rng(seed){ let s = seed*9301+49297; return () => (s = (s*9301+49297) % 233280) / 233280; }
-function art(p){
-  const c = COLORS[p.cat], r = rng(p.id), W = 320, H = 200;
-  let g = '';
-  if (p.cat === 'service') {
-    for (let i = 0; i < 5; i++) { const me = i % 2, w = 90 + r()*80, x = me ? W-w-24 : 24, y = 18 + i*34;
-      g += `<rect x="${x}" y="${y}" width="${w}" height="24" rx="12" fill="${me?c:'#222838'}"/><rect x="${x+12}" y="${y+10}" width="${w-34}" height="4" rx="2" fill="${me?'#0B0D12':'#556'}" opacity=".6"/>`; }
-    g += `<circle cx="${W-40}" cy="40" r="0" />`;
-  } else if (p.cat === 'electrical') {
-    for (let i = 0; i < 6; i++) { const y = 24 + i*30, x2 = 90 + r()*60, x3 = x2 + 30 + r()*40;
-      g += `<path d="M10 ${y} H${x2} V${y+(r()>.5?14:-14)} H${x3} H${W-10}" fill="none" stroke="${c}" stroke-width="2" opacity=".8"/><circle cx="10" cy="${y}" r="4" fill="${c}"/><circle cx="${W-10}" cy="${y}" r="4" fill="${c}" opacity=".5"/>`; }
-    g += `<rect x="125" y="62" width="70" height="76" rx="6" fill="#161B27" stroke="${c}" stroke-width="2"/>`;
-  } else if (p.cat === 'software') {
-    for (let i = 0; i < 9; i++) { const ind = Math.floor(r()*3)*14, w = 40 + r()*140, y = 16 + i*20;
-      g += `<rect x="${34+ind}" y="${y}" width="${w}" height="7" rx="3.5" fill="${i%3===0?c:'#3A4156'}" opacity="${i%3===0?.9:.7}"/><text x="12" y="${y+7}" font-size="7" fill="#556" font-family="monospace">${i+1}</text>`; }
+const esc = t => String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+function placeholderArt(p, idx){
+  const c = COLORS[p.cat], r = rng(p.id*10+idx), W = 640, H = 360; let g = '';
+  if (p.cat === 'engineering') {
+    for (let i = 0; i < 7; i++) { const y = 40+i*44, x2 = 180+r()*120, x3 = x2+60+r()*80;
+      g += `<path d="M20 ${y} H${x2} V${y+(r()>.5?24:-24)} H${x3} H${W-20}" fill="none" stroke="${c}" stroke-width="2.5" opacity=".7"/><circle cx="20" cy="${y}" r="6" fill="${c}"/>`; }
   } else {
-    const bars = 6; for (let i = 0; i < bars; i++) { const h = 30 + r()*110, x = 26 + i*48;
-      g += `<rect x="${x}" y="${H-24-h}" width="30" height="${h}" rx="5" fill="${c}" opacity="${.35+i*.12}"/>`; }
-    g += `<path d="M26 ${H-60} L90 ${H-80} L150 ${H-70} L220 ${H-120} L296 ${H-150}" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".85"/>`;
+    for (let i = 0; i < 7; i++) { const h = 50+r()*190; g += `<rect x="${50+i*84}" y="${H-60-h}" width="52" height="${h}" rx="8" fill="${c}" opacity="${.25+i*.09}"/>`; }
+    g += `<path d="M50 ${H-110} L190 ${H-160} L330 ${H-140} L470 ${H-230} L590 ${H-280}" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".8"/>`;
   }
-  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <defs><linearGradient id="bg${p.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".22"/><stop offset="1" stop-color="#0B0D12"/></linearGradient></defs>
-    <rect width="${W}" height="${H}" fill="url(#bg${p.id})"/>${g}</svg>`;
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder"><defs><linearGradient id="g${p.id}_${idx}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".22"/><stop offset="1" stop-color="#0B0D12"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#g${p.id}_${idx})"/>${g}
+    <rect x="${W/2-130}" y="${H/2-22}" width="260" height="44" rx="22" fill="#0B0D12" opacity=".78"/><text x="${W/2}" y="${H/2+5}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" letter-spacing="2" fill="#E8ECF4">PLACEHOLDER · ADD IMAGE</text></svg>`;
 }
-const media = p => p.img ? `<img src="${p.img}" alt="${p.title}" loading="lazy">` : art(p);
+function slideArt(p, it, idx){
+  const c = COLORS[p.cat], W = 640, H = 360, { title, pts } = it.slide;
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(title)}"><defs><linearGradient id="s${p.id}_${idx}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".28"/><stop offset="1" stop-color="#0B0D12"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#s${p.id}_${idx})"/>
+    <text x="40" y="62" font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="3" fill="${c}">${NAMES[p.cat].toUpperCase()}</text>
+    <text x="40" y="110" font-family="Space Grotesk, Inter, sans-serif" font-size="38" font-weight="700" fill="#E8ECF4">${esc(title)}</text>
+    ${pts.map((t,i)=>`<circle cx="46" cy="${167+i*44}" r="5" fill="${c}"/><text x="64" y="${172+i*44}" font-family="Inter, sans-serif" font-size="20" fill="#C8D0E0">${esc(t)}</text>`).join('')}</svg>`;
+}
+function visual(p, it, idx){
+  if (it.src) return `<img src="${it.src}" alt="${esc(p.title)} — ${esc(it.cap||'')}" loading="lazy">`;
+  return it.slide ? slideArt(p, it, idx) : placeholderArt(p, idx);
+}
 
-/* ---- Render projects ---- */
+/* ---- Render project cards ---- */
 const grid = document.getElementById('projects');
 grid.innerHTML = PROJECTS.map((p,i) => `
-  <button class="card project reveal" style="--pc:${COLORS[p.cat]};--d:${(i%3)*.08}s" data-cat="${p.cat}" data-id="${p.id}">
-    <div class="thumb">${media(p)}</div>
-    <div class="body"><span class="kind">${NAMES[p.cat]}</span><h3>${p.title}</h3><p>${p.desc}</p>
-      <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>
+  <button class="card project reveal" style="--pc:${COLORS[p.cat]};--d:${(i%3)*.08}s" data-cat="${p.cat}" data-id="${p.id}" aria-label="Open ${esc(p.title)} gallery">
+    <div class="thumb">${visual(p, p.gallery[0], 0)}<span class="badge">${p.gallery.length} image${p.gallery.length>1?'s':''}</span></div>
+    <div class="body"><span class="kind">${NAMES[p.cat]} · ${p.year}</span><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p>
+      <div class="tags">${p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div></div>
   </button>`).join('');
 
 document.querySelectorAll('.filters .chip').forEach(b => b.addEventListener('click', () => {
@@ -646,23 +570,36 @@ document.querySelectorAll('.filters .chip').forEach(b => b.addEventListener('cli
   grid.querySelectorAll('.project').forEach(c => c.classList.toggle('hide', b.dataset.f !== 'all' && c.dataset.cat !== b.dataset.f));
 }));
 
-const dlg = document.getElementById('dlg');
-grid.addEventListener('click', e => {
-  const card = e.target.closest('.project'); if (!card) return;
-  const p = PROJECTS.find(x => x.id == card.dataset.id);
-  dlg.style.setProperty('--pc', COLORS[p.cat]);
-  document.getElementById('dlg-body').innerHTML = `<div class="thumb">${media(p)}</div><div class="body"><span class="kind">${NAMES[p.cat]}</span><h3>${p.title}</h3><p>${p.desc}</p><div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>`;
-  dlg.showModal();
-});
+/* ---- Gallery dialog ---- */
+const dlg = document.getElementById('dlg'), dbody = document.getElementById('dlg-body');
+let cur = null, gi = 0;
+function show(i){
+  gi = (i + cur.gallery.length) % cur.gallery.length;
+  const it = cur.gallery[gi];
+  dbody.querySelector('.gal-view').innerHTML = visual(cur, it, gi);
+  dbody.querySelector('.cap span:first-child').textContent = it.cap || '';
+  dbody.querySelector('.cap span:last-child').textContent = `${gi+1} / ${cur.gallery.length}`;
+  dbody.querySelectorAll('.thumbs button').forEach((b,k) => b.setAttribute('aria-current', k === gi));
+}
+function openProject(p){
+  cur = p; dlg.style.setProperty('--pc', COLORS[p.cat]);
+  const many = p.gallery.length > 1;
+  dbody.innerHTML = `
+    <div class="gal"><div class="gal-view" style="height:100%"></div>${many?'<button class="nav-btn prev" aria-label="Previous image">←</button><button class="nav-btn next" aria-label="Next image">→</button>':''}</div>
+    <div class="cap"><span></span><span></span></div>
+    ${many?`<div class="thumbs">${p.gallery.map((it,k)=>`<button aria-label="Image ${k+1}">${visual(p,it,k)}</button>`).join('')}</div>`:''}
+    <div class="body"><span class="kind">${NAMES[p.cat]} · ${p.year}</span><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p>
+      <div class="tags">${p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
+      ${p.links.length?`<div class="links">${p.links.map(l=>`<a href="${l.u}" target="_blank" rel="noopener">${esc(l.t)} ↗</a>`).join('')}</div>`:''}</div>`;
+  dbody.querySelector('.prev')?.addEventListener('click', () => show(gi-1));
+  dbody.querySelector('.next')?.addEventListener('click', () => show(gi+1));
+  dbody.querySelectorAll('.thumbs button').forEach((b,k) => b.addEventListener('click', () => show(k)));
+  show(0); dlg.showModal();
+}
+grid.addEventListener('click', e => { const c = e.target.closest('.project'); if (c) openProject(PROJECTS.find(x => x.id == c.dataset.id)); });
 dlg.querySelector('.close').onclick = () => dlg.close();
 dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
-
-/* ---- Design-system spec rendering ---- */
-document.getElementById('sw').innerHTML = [['--bg','#0B0D12'],['--surface','#121620'],['--surface-2','#1A1F2C'],['--text','#E8ECF4'],['--muted','#98A2B6'],
-  ['--c-service','#FFB547'],['--c-electrical','#38D5FF'],['--c-software','#8B8CFF'],['--c-management','#3DDC97']]
-  .map(([n,v]) => `<div class="sw"><i style="--c:${v}"></i><span>${n}<br>${v}</span></div>`).join('');
-document.getElementById('sp').innerHTML = [4,8,12,16,24,32,48,72].map((v,i) => `<div><i style="--w:${v}px"></i>--s${i+1}<br>${v}</div>`).join('');
-document.getElementById('lay').innerHTML = '<i></i>'.repeat(12);
+dlg.addEventListener('keydown', e => { if (e.key === 'ArrowRight') show(gi+1); if (e.key === 'ArrowLeft') show(gi-1); });
 
 /* ==========================================================================
    SCROLL ENGINE — one rAF loop; each chapter gets progress p ∈ [0,1]

@@ -1,0 +1,126 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
+/* ==========================================================================
+   DESIGN SYSTEM — tokens, base, layout primitives, components.
+   Link this file from any page:  <link rel="stylesheet" href="design-system.css">
+   Spec/preview page: design-system.html
+   ========================================================================== */
+@property --accent { syntax: '<color>'; inherits: true; initial-value: #7C8CFF; }
+
+:root {
+  /* Color — neutrals */
+  --bg:        #0B0D12;
+  --surface:   #121620;
+  --surface-2: #1A1F2C;
+  --line:      rgba(255,255,255,.09);
+  --text:      #E8ECF4;
+  --muted:     #98A2B6;
+
+  /* Color — discipline accents (one per career chapter) */
+  --c-service:    #FFB547;   /* warm  · people            */
+  --c-electrical: #38D5FF;   /* cyan  · current           */
+  --c-software:   #8B8CFF;   /* indigo· code              */
+  --c-management: #3DDC97;   /* green · growth            */
+  --accent: var(--c-service);
+
+  /* Typography */
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --fs-xs:   .8rem;
+  --fs-sm:   .92rem;
+  --fs-base: 1.05rem;
+  --fs-lg:   clamp(1.15rem, 1rem + .6vw, 1.4rem);
+  --fs-h3:   clamp(1.3rem, 1.1rem + 1vw, 1.8rem);
+  --fs-h2:   clamp(2rem, 1.3rem + 3vw, 3.6rem);
+  --fs-h1:   clamp(2.6rem, 1rem + 5.6vw, 5.6rem);
+
+  /* Spacing — 4px base scale */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 72px; --s9: 112px;
+
+  /* Shape & depth */
+  --r-sm: 8px; --r-md: 14px; --r-lg: 22px; --r-pill: 999px;
+  --shadow-1: 0 1px 0 rgba(255,255,255,.04) inset, 0 8px 24px rgba(0,0,0,.35);
+  --shadow-glow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent), 0 10px 40px color-mix(in srgb, var(--accent) 22%, transparent);
+
+  /* Motion */
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --t-fast: .18s; --t-base: .45s; --t-slow: .9s;
+
+  /* Layout */
+  --container: 1200px;
+  --gutter: clamp(20px, 5vw, 48px);
+  --nav-h: 64px;
+}
+/* Breakpoints used below: 640px (sm) · 960px (md) */
+
+*,*::before,*::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 400 var(--fs-base)/1.65 var(--font-body);
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  transition: --accent var(--t-slow) var(--ease);
+}
+body[data-theme="service"]    { --accent: var(--c-service); }
+body[data-theme="electrical"] { --accent: var(--c-electrical); }
+body[data-theme="software"]   { --accent: var(--c-software); }
+body[data-theme="management"] { --accent: var(--c-management); }
+
+/* ambient accent glow that follows the active chapter */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(60vw 50vh at 85% 10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    radial-gradient(50vw 50vh at 0% 100%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%);
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--accent); color: #000; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ---- Type ---- */
+h1,h2,h3 { font-family: var(--font-display); line-height: 1.05; letter-spacing: -.02em; margin: 0; }
+h1 { font-size: var(--fs-h1); font-weight: 700; }
+h2 { font-size: var(--fs-h2); font-weight: 700; }
+h3 { font-size: var(--fs-h3); font-weight: 600; letter-spacing: -.01em; }
+p  { margin: 0; color: var(--muted); }
+.eyebrow { font: 500 var(--fs-xs)/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.lead { font-size: var(--fs-lg); color: var(--text); opacity: .86; max-width: 46ch; }
+
+/* ---- Layout primitives ---- */
+.container { width: min(var(--container), 100% - 2*var(--gutter)); margin-inline: auto; }
+.section { padding-block: var(--s9); position: relative; }
+.grid { display: grid; gap: var(--s5); grid-template-columns: repeat(12, 1fr); }
+.section-head { display: grid; gap: var(--s4); margin-bottom: var(--s7); max-width: 720px; }
+
+/* ---- Components ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  padding: 14px 24px; border-radius: var(--r-pill); border: 1px solid var(--line);
+  font: 500 var(--fs-sm)/1 var(--font-body); cursor: pointer; background: transparent; color: var(--text);
+  transition: transform var(--t-fast) var(--ease), background var(--t-fast), border-color var(--t-fast), box-shadow var(--t-base);
+}
+.btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+.btn-primary { background: var(--accent); color: #0B0D12; border-color: transparent; font-weight: 600; }
+.btn-primary:hover { box-shadow: var(--shadow-glow); }
+.chip {
+  padding: 8px 16px; border-radius: var(--r-pill); border: 1px solid var(--line);
+  font: 500 var(--fs-sm)/1 var(--font-body); color: var(--muted); background: transparent; cursor: pointer;
+  transition: all var(--t-fast);
+}
+.chip:hover { color: var(--text); border-color: var(--muted); }
+.chip[aria-pressed="true"] { background: var(--accent); color: #0B0D12; border-color: transparent; font-weight: 600; }
+.tag { font: 500 var(--fs-xs)/1 var(--font-mono); padding: 5px 9px; border-radius: var(--r-sm); background: var(--surface-2); color: var(--muted); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-1); overflow: hidden; transition: transform var(--t-base) var(--ease), border-color var(--t-base), box-shadow var(--t-base); }
+.card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--accent) 50%, transparent); box-shadow: var(--shadow-glow); }
+
+/* reveal-on-scroll utility */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease); transition-delay: var(--d, 0s); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* Reduced motion for system utilities */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; }
+}
