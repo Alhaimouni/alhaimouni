@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design System — Al-Haimouni</title>
+<link rel="stylesheet" href="design-system.css">
+<style>
+.spec { display: grid; gap: var(--s7); }
+.spec h3 { font-size: var(--fs-lg); margin-bottom: var(--s4); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--s3); }
+.sw { border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; font: 400 var(--fs-xs) var(--font-mono); color: var(--muted); }
+.sw i { display: block; height: 56px; background: var(--c); } .sw span { display: block; padding: 8px 10px; background: var(--surface); }
+.type-row { display: flex; align-items: baseline; gap: var(--s5); padding-block: var(--s3); border-bottom: 1px solid var(--line); }
+.type-row code, .spec code { font: 400 var(--fs-xs) var(--font-mono); color: var(--muted); min-width: 110px; }
+.space-row { display: flex; flex-wrap: wrap; gap: var(--s4); align-items: flex-end; }
+.space-row div { display: grid; gap: 6px; justify-items: center; font: 400 var(--fs-xs) var(--font-mono); color: var(--muted); }
+.space-row i { display: block; width: var(--w); height: var(--w); background: var(--accent); border-radius: 3px; }
+.layout-demo { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; height: 64px; }
+.layout-demo i { background: color-mix(in srgb, var(--accent) 25%, transparent); border: 1px dashed var(--accent); border-radius: 4px; }
+.row { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center; }
+
+
+.wrap { padding-block: var(--s8); }
+.spec > section { display: grid; gap: var(--s4); }
+.spec p code, .spec li code { color: var(--text); }
+pre.snip { margin: 0; padding: var(--s4); background: #0A0C11; border: 1px solid var(--line); border-radius: var(--r-md); font: 400 var(--fs-xs)/1.7 var(--font-mono); color: #C8D0E0; overflow: auto; }
+</style>
+</head>
+<body>
+<main class="container wrap">
+  <div class="section-head">
+    <p class="eyebrow">Design system · v1</p>
+    <h1 style="font-size:var(--fs-h2)">Al-Haimouni Design System</h1>
+    <p class="lead">Tokens, layout rules and components used by the portfolio. Link <code>design-system.css</code> from any new page (profile, case study, blog) and you inherit the whole look.</p>
+    <pre class="snip">&lt;link rel="stylesheet" href="design-system.css"&gt;</pre>
+  </div>
+
+  <div class="spec">
+    <section><h3>1 · Colour</h3>
+      <div class="swatches" id="sw"></div>
+      <p>Each discipline owns one accent. Set <code>data-theme="service|electrical|software|management"</code> on <code>&lt;body&gt;</code> (or any wrapper) and every component re-colours through <code>--accent</code>. Pages without a theme use <code>--accent: var(--c-service)</code>.</p>
+      <div class="row" style="gap:var(--s4)">
+        <div data-theme="service" class="themebox"><span class="eyebrow" style="color:var(--c-service)">service</span></div>
+        <div class="themebox"><span class="eyebrow" style="color:var(--c-electrical)">engineering</span></div>
+        <div class="themebox"><span class="eyebrow" style="color:var(--c-software)">software</span></div>
+        <div class="themebox"><span class="eyebrow" style="color:var(--c-management)">management</span></div>
+      </div>
+    </section>
+
+    <section><h3>2 · Typography — Space Grotesk (display) · Inter (body) · JetBrains Mono (labels, code)</h3>
+      <div class="type-row"><code>--fs-h1</code><span style="font:700 var(--fs-h1)/1 var(--font-display)">Display</span></div>
+      <div class="type-row"><code>--fs-h2</code><span style="font:700 var(--fs-h2)/1 var(--font-display)">Heading two</span></div>
+      <div class="type-row"><code>--fs-h3</code><span style="font:600 var(--fs-h3)/1.1 var(--font-display)">Heading three</span></div>
+      <div class="type-row"><code>--fs-lg</code><span class="lead">Lead paragraph — one sentence that frames the section.</span></div>
+      <div class="type-row"><code>--fs-base</code><span>Body copy reads at 1.05rem with a 1.65 line-height in muted ink.</span></div>
+      <div class="type-row"><code>.eyebrow</code><span class="eyebrow">Eyebrow · mono label</span></div>
+    </section>
+
+    <section><h3>3 · Spacing — 4px base scale</h3><div class="space-row" id="sp"></div></section>
+
+    <section><h3>4 · Layout — 12-column grid · 1200px container · fluid gutter · breakpoints 640 / 960</h3>
+      <div class="layout-demo" id="lay"></div>
+      <p>Use <code>.container</code> for page width, <code>.section</code> for vertical rhythm (112px), <code>.section-head</code> for eyebrow + heading + lead, and <code>.grid</code> for a 12-column grid. Card grids: 3 columns ≥ 960px, 2 columns ≥ 640px, 1 column below.</p>
+    </section>
+
+    <section><h3>5 · Shape, depth &amp; motion</h3>
+      <div class="row"><div class="card" style="padding:var(--s5);width:200px"><span class="kind" style="font:500 var(--fs-xs) var(--font-mono);color:var(--accent)">CARD</span><p>radius 22px · hover lifts 6px + accent glow</p></div></div>
+      <p>Radii <code>--r-sm 8</code> · <code>--r-md 14</code> · <code>--r-lg 22</code> · <code>--r-pill</code>. Easing <code>cubic-bezier(.2,.7,.2,1)</code>; durations <code>.18s</code> / <code>.45s</code> / <code>.9s</code>. Reveal-on-scroll via <code>.reveal</code> + adding <code>.in</code> with IntersectionObserver. Scroll-linked effects use a per-section CSS variable <code>--p</code> (0→1). Always honour <code>prefers-reduced-motion</code>.</p>
+    </section>
+
+    <section><h3>6 · Components</h3>
+      <div class="row">
+        <a class="btn btn-primary" href="#">Primary button</a><a class="btn" href="#">Secondary button</a>
+        <button class="chip" aria-pressed="true">Chip on</button><button class="chip" aria-pressed="false">Chip off</button>
+        <span class="tag">tag</span>
+      </div>
+    </section>
+  </div>
+</main>
+<style>.themebox{padding:var(--s4) var(--s5);border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface)}</style>
+<script>
+document.getElementById('sw').innerHTML = [['--bg','#0B0D12'],['--surface','#121620'],['--surface-2','#1A1F2C'],['--text','#E8ECF4'],['--muted','#98A2B6'],
+  ['--c-service','#FFB547'],['--c-electrical','#38D5FF'],['--c-software','#8B8CFF'],['--c-management','#3DDC97']]
+  .map(([n,v]) => `<div class="sw"><i style="--c:${v}"></i><span>${n}<br>${v}</span></div>`).join('');
+document.getElementById('sp').innerHTML = [4,8,12,16,24,32,48,72].map((v,i) => `<div><i style="--w:${v}px"></i>--s${i+1}<br>${v}</div>`).join('');
+document.getElementById('lay').innerHTML = '<i></i>'.repeat(12);
+document.querySelectorAll('.reveal').forEach(e=>e.classList.add('in'));
+</script>
+</body>
+</html>
