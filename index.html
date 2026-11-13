@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-mode="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -81,21 +81,6 @@
   .copy h2 { font-size: 2.2rem; }
 }
 
-/* --- Effect: SERVICE — conversation, satisfaction ring --- */
-.chat { position: absolute !important; inset: 44px 24px 24px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; }
-.bub { max-width: 72%; padding: 10px 14px; border-radius: 16px; font-size: var(--fs-sm); line-height: 1.4; opacity: 0; transform: translateY(18px) scale(.9); transition: opacity .4s var(--ease), transform .5s var(--ease); }
-.bub.in { opacity: 1; transform: none; }
-.bub.them { background: var(--surface-2); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
-.bub.me { background: var(--accent); color: #0B0D12; font-weight: 500; align-self: flex-end; border-bottom-right-radius: 4px; }
-.ring { position: absolute !important; top: 14px; right: 16px; width: 84px; }
-.ring circle { fill: none; stroke-width: 7; }
-.ring .t { stroke: var(--line); }
-.ring .v { stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--p)); transform: rotate(-90deg); transform-origin: 50% 50%; }
-.ring text { fill: var(--text); font: 700 18px var(--font-display); text-anchor: middle; dominant-baseline: central; }
-.wave { position: absolute !important; left: 50%; top: 40%; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--accent); opacity: 0; animation: ping 3s ease-out infinite; }
-.wave:nth-child(2) { animation-delay: 1s; } .wave:nth-child(3) { animation-delay: 2s; }
-@keyframes ping { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(30); opacity: 0; } }
-
 /* --- Effect: ELECTRICAL — traces draw, pulse travels, nodes energise --- */
 .pcb { position: absolute !important; inset: 0; width: 100%; height: 100%; }
 .pcb .trace { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: drop-shadow(0 0 5px var(--accent)); }
@@ -117,7 +102,7 @@
 .commits { flex: 1; height: 28px; min-width: 0; }
 .commits line { stroke: var(--line); stroke-width: 2; } .commits circle { fill: var(--bg); stroke: var(--accent); stroke-width: 2; transition: all .4s var(--ease); transform-box: fill-box; transform-origin: center; }
 .pass { font: 500 var(--fs-xs) var(--font-mono); padding: 8px 12px; border-radius: var(--r-pill); border: 1px solid var(--line); color: var(--muted); transition: all .5s var(--ease); white-space: nowrap; }
-.pass.ok { color: #0B0D12; background: var(--accent); border-color: transparent; box-shadow: var(--shadow-glow); }
+.pass.ok { color: var(--on-accent); background: var(--accent); border-color: transparent; box-shadow: var(--shadow-glow); }
 
 /* --- Effect: MANAGEMENT — org tree grows, roadmap bars fill, KPIs rise --- */
 .org { position: absolute !important; inset: 0; width: 100%; height: 100%; }
@@ -162,7 +147,7 @@ dialog .body { padding: var(--s5); }
 .gear { left: 20px; width: 48px; height: 48px; border-radius: 50%; justify-content: center; font-size: 1.2rem; }
 .gear:hover, .float-cv:hover { transform: translateY(-3px); border-color: var(--accent); }
 .gear svg { width: 22px; height: 22px; transition: transform var(--t-slow) var(--ease); } .gear:hover svg { transform: rotate(90deg); }
-.float-cv { right: 20px; padding: 13px 20px; border-radius: var(--r-pill); font: 500 var(--fs-sm)/1 var(--font-body); background: var(--accent); color: #0B0D12; border-color: transparent; font-weight: 600; }
+.float-cv { right: 20px; padding: 13px 20px; border-radius: var(--r-pill); font: 500 var(--fs-sm)/1 var(--font-body); background: var(--accent); color: var(--on-accent); border-color: transparent; font-weight: 600; }
 .float-cv:hover { box-shadow: var(--shadow-glow); }
 @media (max-width: 640px) { .float-cv span { display: none; } .float-cv { padding: 14px; } }
 
@@ -176,7 +161,7 @@ body.settings-open #settings { transform: none; visibility: visible; box-shadow:
 .set-group > .eyebrow { margin-bottom: var(--s1); }
 .seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-pill); padding: 3px; }
 .seg button { border: 0; background: transparent; color: var(--muted); padding: 9px 6px; border-radius: var(--r-pill); font: 500 var(--fs-sm) var(--font-body); cursor: pointer; transition: all var(--t-fast); }
-.seg button[aria-pressed="true"] { background: var(--accent); color: #0B0D12; font-weight: 600; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); font-weight: 600; }
 .swatch-row { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center; }
 .swatch-row button, .swatch-row label { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); background: var(--c); cursor: pointer; padding: 0; position: relative; transition: transform var(--t-fast); }
 .swatch-row button:hover, .swatch-row label:hover { transform: scale(1.12); }
@@ -192,7 +177,7 @@ input[type=range] { width: 100%; accent-color: var(--accent); }
 .switch { display: flex; justify-content: space-between; align-items: center; gap: var(--s3); font-size: var(--fs-sm); color: var(--text); cursor: pointer; }
 .switch input { appearance: none; width: 42px; height: 24px; border-radius: 999px; background: var(--line); position: relative; cursor: pointer; transition: background var(--t-fast); flex: none; }
 .switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--text); transition: transform var(--t-fast) var(--ease); }
-.switch input:checked { background: var(--accent); } .switch input:checked::after { transform: translateX(18px); background: #0B0D12; }
+.switch input:checked { background: var(--accent); } .switch input:checked::after { transform: translateX(18px); background: var(--on-accent); }
 .set-foot { padding: var(--s5); display: grid; gap: var(--s3); margin-top: auto; }
 .set-foot .btn { justify-content: center; }
 
@@ -212,11 +197,46 @@ html.calm .wave, html.calm .scroll-cue::after { animation: none; }
 .sh-pct { color: var(--accent); min-width: 3ch; text-align: right; font-variant-numeric: tabular-nums; }
 .sh-skip { color: var(--muted); padding-left: var(--s3); border-left: 1px solid var(--line); transition: color var(--t-fast); }
 .sh-skip:hover { color: var(--accent); }
-.scroll-hint.done { border-color: var(--accent); background: var(--accent); color: #0B0D12; }
-.scroll-hint.done .sh-chev { border-color: #0B0D12; } .scroll-hint.done .sh-pct { display: none; } .scroll-hint.done .sh-skip { display: none; }
+.scroll-hint.done { border-color: var(--accent); background: var(--accent); color: var(--on-accent); }
+.scroll-hint.done .sh-chev { border-color: var(--on-accent); } .scroll-hint.done .sh-pct { display: none; } .scroll-hint.done .sh-skip { display: none; }
 .scroll-hint.off { opacity: 0; pointer-events: none; transform: translate(-50%, 12px); }
 html.calm .scroll-hint { display: none; }
 @media (max-width: 960px) { .scroll-hint { bottom: 14px; } }
+
+
+/* ==========================================================================
+   8. HISTORICAL TIMELINE BAR (pinned under the nav while the career section is in view)
+   ========================================================================== */
+body[data-theme="intro"] { --accent: var(--c-service); }
+.tl { position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 45; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); transform: translateY(-100%); opacity: 0; pointer-events: none; transition: transform var(--t-base) var(--ease), opacity var(--t-base); }
+.tl.show { transform: none; opacity: 1; pointer-events: auto; }
+.tl-inner { display: grid; grid-template-columns: minmax(150px, 230px) 1fr; gap: var(--s6); align-items: center; padding-block: 10px; }
+.tl-now { display: grid; line-height: 1.1; }
+.tl-year { font: 700 clamp(1.7rem, 1.3rem + 1.4vw, 2.4rem)/1 var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: -.02em; }
+.tl-event { font: 500 var(--fs-xs) var(--font-mono); color: var(--muted); margin-top: 4px; min-height: 1.2em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.tl-track { position: relative; height: 38px; margin-inline: 8px; }
+.tl-seg { position: absolute; top: 12px; height: 4px; border-radius: 4px; background: color-mix(in srgb, var(--c) 22%, var(--line)); overflow: hidden; }
+.tl-seg i { display: block; height: 100%; width: 100%; background: var(--c); transform-origin: 0 50%; transform: scaleX(var(--f, 0)); box-shadow: 0 0 10px var(--c); }
+.tl-dot { position: absolute; top: 6px; width: 16px; height: 16px; margin-left: -8px; border-radius: 50%; border: 2px solid var(--line); background: var(--bg); padding: 0; cursor: pointer; transition: all var(--t-base) var(--ease); z-index: 2; }
+.tl-dot:hover { transform: scale(1.35); border-color: var(--c); }
+.tl-dot.on { background: var(--c); border-color: var(--c); box-shadow: 0 0 10px color-mix(in srgb, var(--c) 70%, transparent); }
+.tl-dot b { position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(4px); white-space: nowrap; font: 500 var(--fs-xs) var(--font-mono); background: var(--surface); border: 1px solid var(--line); padding: 5px 9px; border-radius: var(--r-sm); opacity: 0; pointer-events: none; transition: all var(--t-fast); color: var(--text); }
+.tl-dot:hover b, .tl-dot:focus-visible b { opacity: 1; transform: translateX(-50%); }
+.tl-tick { position: absolute; top: 24px; transform: translateX(-50%); font: 400 10px var(--font-mono); color: var(--muted); }
+.tl-tick::before { content: ""; position: absolute; left: 50%; top: -6px; width: 1px; height: 4px; background: var(--line); }
+.tl-mark { position: absolute; top: 8px; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: var(--on-accent); border: 3px solid var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 25%, transparent), 0 0 18px var(--accent); z-index: 3; pointer-events: none; }
+.tl-end { position: absolute; right: -4px; top: 3px; font: 600 10px var(--font-mono); letter-spacing: .1em; color: var(--c-management); transform: translateY(-14px); }
+html.calm .tl { display: none; }
+@media (max-width: 640px) { .tl-inner { grid-template-columns: auto 1fr; gap: var(--s4); } .tl-event { display: none; } .tl-tick.odd { display: none; } .tl-dot b { display: none; } }
+
+/* ---- Connector line between page sections ---- */
+.sec-line { display: flex; flex-direction: column; align-items: center; height: 96px; }
+.sec-line::before { content: ""; flex: 1; width: 2px; border-radius: 2px; background: linear-gradient(to bottom, transparent, var(--accent)); transform-origin: top; }
+.sec-line i { width: 12px; height: 12px; border-radius: 50%; border: 3px solid var(--accent); background: var(--bg); box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 18%, transparent); }
+.sec-line.reveal { transform: scaleY(.6); transform-origin: top; } .sec-line.reveal.in { transform: none; }
+.pin { padding-top: calc(var(--nav-h) + 92px); padding-bottom: 64px; }
+.copy { gap: var(--s3); } .copy ul { gap: var(--s2); }
+@media (max-width: 960px) { .pin { padding-top: calc(var(--nav-h) + 84px); } }
 
 /* ==========================================================================
    5. PROJECTS
@@ -259,10 +279,10 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   .wave, .scroll-cue::after { animation: none; }
 }
 </style>
-<script>try{var m=(JSON.parse(localStorage.getItem("pf-settings")||"{}")).mode||"dark";document.documentElement.dataset.mode=m==="auto"?(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):m}catch(e){}</script>
+<script>try{var m=(JSON.parse(localStorage.getItem("pf-settings")||"{}")).mode||"light";document.documentElement.dataset.mode=m==="auto"?(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):m}catch(e){}</script>
 </head>
 
-<body data-theme="service">
+<body data-theme="intro">
 <div class="progress" aria-hidden="true"></div>
 
 <header class="nav">
@@ -280,7 +300,6 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
 </header>
 
 <nav class="rail" aria-label="Career chapters">
-  <a href="#ch-service"    style="--dot:var(--c-service)"><span>Customer service</span></a>
   <a href="#ch-electrical" style="--dot:var(--c-electrical)"><span>Electrical engineering</span></a>
   <a href="#ch-software"   style="--dot:var(--c-software)"><span>Software engineering</span></a>
   <a href="#ch-management" style="--dot:var(--c-management)"><span>Management</span></a>
@@ -305,7 +324,6 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
         <a class="btn" href="#work">See projects</a>
       </div>
       <div class="roles">
-        <a class="role" href="#ch-service"    style="--c:var(--c-service)"><b></b>Customer service</a>
         <a class="role" href="#ch-electrical" style="--c:var(--c-electrical)"><b></b>Electrical engineering</a>
         <a class="role" href="#ch-software"   style="--c:var(--c-software)"><b></b>Software engineering</a>
         <a class="role" href="#ch-management" style="--c:var(--c-management)"><b></b>Management</a>
@@ -324,49 +342,23 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
 </section>
 
 <!-- ============================ CAREER ============================ -->
+<div class="sec-line reveal" aria-hidden="true"><i></i></div>
 <section id="career">
+  <div class="tl" id="tl" aria-label="Career timeline"><div class="container tl-inner"><div class="tl-now"><span class="tl-year" id="tl-year">2014</span><span class="tl-event" id="tl-event"></span></div><div class="tl-track" id="tl-track"></div></div></div>
   <div class="container timeline-intro">
     <div class="section-head reveal">
       <p class="eyebrow">Career timeline</p>
-      <h2>Four disciplines, one through-line.</h2>
-      <p class="lead">Scroll to move through each chapter — the visual on the right is driven by your scroll position.</p>
-    </div>
-  </div>
-
-  <!-- 01 SERVICE -->
-  <div class="chapter" id="ch-service" data-theme="service" data-fx="service">
-    <div class="pin">
-      <div class="scroll-hint" data-next="Electrical engineering"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#ch-electrical">Skip ›</a></div>
-      <div class="copy">
-        <span class="eyebrow">Chapter 01</span>
-        <span class="years">Early career</span>
-        <h2>Customer <span>service</span></h2>
-        <p class="lead">Where I learned to listen first, solve fast and stay human under pressure — the habit that still shapes how I lead.</p>
-        <ul><li>Resolving customer issues across phone, chat and email</li><li>Turning recurring complaints into process fixes</li><li>Coaching teammates on tone and escalation</li></ul>
-        <div class="metrics"><div><b data-count="3" data-suffix="">0</b><span>channels</span></div><div><b data-count="1" data-suffix="st">0</b><span>contact resolution mindset</span></div></div>
-        <div class="chapter-bar"><i></i></div>
-      </div>
-      <div class="stage" aria-hidden="true">
-        <span class="stage-label">LIVE_CHAT · RESOLVING</span>
-        <i class="wave"></i><i class="wave"></i><i class="wave"></i>
-        <svg class="ring" viewBox="0 0 100 100"><circle class="t" cx="50" cy="50" r="40"/><circle class="v" cx="50" cy="50" r="40" pathLength="1"/><text x="50" y="50" data-ring>0%</text></svg>
-        <div class="chat">
-          <div class="bub them">Hi — my order never arrived and I'm worried.</div>
-          <div class="bub me">I'm sorry about that. Let me look into it right now.</div>
-          <div class="bub them">It was meant for Friday…</div>
-          <div class="bub me">Found it — re-shipping express, free of charge. 📦</div>
-          <div class="bub them">Wow, thank you. That was quick! 🙌</div>
-        </div>
-      </div>
+      <h2>Three disciplines, one through-line.</h2>
+      <p class="lead">Scroll to travel through time. The timeline pinned at the top counts the years as you go — or click any milestone to jump there.</p>
     </div>
   </div>
 
   <!-- 02 ELECTRICAL -->
-  <div class="chapter" id="ch-electrical" data-theme="electrical" data-fx="electrical">
+  <div class="chapter" id="ch-electrical" data-t0="2014.7" data-t1="2022.5" data-theme="electrical" data-fx="electrical">
     <div class="pin">
       <div class="scroll-hint" data-next="Software engineering"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#ch-software">Skip ›</a></div>
       <div class="copy">
-        <span class="eyebrow">Chapter 02</span>
+        <span class="eyebrow">Chapter 01</span>
         <span class="years">2014 — 2022</span>
         <h2>Electrical <span>engineering</span></h2>
         <p class="lead">Bachelor of Electrical Power Engineering (Al-Balqa Applied University, 2014–2019), then two years as Electrical Design Engineer at Active Engineering Consultant (AEC).</p>
@@ -398,11 +390,11 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   </div>
 
   <!-- 03 SOFTWARE -->
-  <div class="chapter" id="ch-software" data-theme="software" data-fx="software">
+  <div class="chapter" id="ch-software" data-t0="2022.5" data-t1="2024.1" data-theme="software" data-fx="software">
     <div class="pin">
       <div class="scroll-hint" data-next="Management"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#ch-management">Skip ›</a></div>
       <div class="copy">
-        <span class="eyebrow">Chapter 03</span>
+        <span class="eyebrow">Chapter 02</span>
         <span class="years">2022 — 2024</span>
         <h2>Software <span>engineering</span></h2>
         <p class="lead">Full Stack Web Development Program at Luminus Technical University College (Jul–Dec 2022), then Coding Instructor there until March 2024.</p>
@@ -427,11 +419,11 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   </div>
 
   <!-- 04 MANAGEMENT -->
-  <div class="chapter" id="ch-management" data-theme="management" data-fx="management">
+  <div class="chapter" id="ch-management" data-t0="2024.1" data-t1="2026.9" data-theme="management" data-fx="management">
     <div class="pin">
       <div class="scroll-hint" data-next="Selected work"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#work">Skip ›</a></div>
       <div class="copy">
-        <span class="eyebrow">Chapter 04</span>
+        <span class="eyebrow">Chapter 03</span>
         <span class="years">2024 — Today</span>
         <h2><span>Management</span></h2>
         <p class="lead">Program Coordinator, then Campus Lead at Crown Prince Foundation – 42 Amman: structuring learning programs, partnerships and community.</p>
@@ -462,6 +454,7 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   </div>
 </section>
 
+<div class="sec-line reveal" aria-hidden="true"><i></i></div>
 <!-- ============================ WORK ============================ -->
 <section class="section" id="work">
   <div class="container">
@@ -480,6 +473,7 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   </div>
 </section>
 
+<div class="sec-line reveal" aria-hidden="true"><i></i></div>
 <!-- ============================ CONTACT ============================ -->
 <section class="section contact" id="contact">
   <div class="container reveal">
@@ -510,7 +504,7 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
 
   <div class="set-group"><span class="eyebrow">Appearance</span>
     <div class="seg" id="s-mode" role="group" aria-label="Colour mode">
-      <button data-v="dark" aria-pressed="true">Dark</button><button data-v="light" aria-pressed="false">Light</button><button data-v="auto" aria-pressed="false">Auto</button>
+      <button data-v="dark" aria-pressed="false">Dark</button><button data-v="light" aria-pressed="true">Light</button><button data-v="auto" aria-pressed="false">Auto</button>
     </div>
   </div>
 
@@ -735,14 +729,7 @@ const chapters = [...document.querySelectorAll('.chapter')];
 const railLinks = [...document.querySelectorAll('.rail a')];
 const bar = document.querySelector('.progress');
 
-/* --- SERVICE --- */
 const fx = {};
-fx.service = ch => {
-  const bubs = ch.querySelectorAll('.bub'), ring = ch.querySelector('[data-ring]');
-  return p => { bubs.forEach((b,i) => b.classList.toggle('in', p > .08 + i*.15));
-    ring.textContent = Math.round(p*96) + '%'; };
-};
-
 /* --- ELECTRICAL --- */
 fx.electrical = ch => {
   const traces = [...ch.querySelectorAll('.trace')], nodes = [...ch.querySelectorAll('.node')],
@@ -809,6 +796,49 @@ fx.management = ch => {
 
 const runners = chapters.map(ch => ({ ch, run: fx[ch.dataset.fx](ch), counters: [...ch.querySelectorAll('[data-count]')] }));
 
+
+/* ==========================================================================
+   HISTORICAL TIMELINE — scroll position ⇄ calendar time
+   ========================================================================== */
+const TL = { t0: 2014.6, t1: 2026.9 };
+const SEGS = [ { a:2014.7, b:2022.5, c:'var(--c-electrical)' }, { a:2022.5, b:2024.1, c:'var(--c-software)' }, { a:2024.1, b:2026.9, c:'var(--c-management)' } ];
+const MILES = [
+  { t:2014.7,  l:'Sep 2014 · B.Sc. Electrical Power Eng. begins' },
+  { t:2019.7,  l:'Sep 2019 · Graduated, Al-Balqa Applied University' },
+  { t:2020.45, l:'Jun 2020 · Electrical Design Engineer, AEC' },
+  { t:2022.55, l:'Jul 2022 · Full Stack Web Development Program' },
+  { t:2023.1,  l:'Feb 2023 · Coding Instructor, Luminus' },
+  { t:2024.1,  l:'Feb 2024 · Program Coordinator, 42 Amman' },
+  { t:2025.6,  l:'Aug 2025 · Campus Lead, 42 Amman' },
+];
+const tlEl = document.getElementById('tl'), track = document.getElementById('tl-track');
+const posOf = t => ((t - TL.t0) / (TL.t1 - TL.t0) * 100);
+const segColor = t => (SEGS.find(g => t >= g.a && t < g.b) || SEGS[SEGS.length-1]).c;
+track.innerHTML =
+  SEGS.map(g => `<div class="tl-seg" style="--c:${g.c};left:${posOf(g.a)}%;width:${posOf(g.b)-posOf(g.a)}%"><i></i></div>`).join('') +
+  Array.from({length: 12}, (_,k) => 2015 + k).map(y => `<span class="tl-tick ${y%2?'odd':''}" style="left:${posOf(y)}%">${y}</span>`).join('') +
+  MILES.map((m,i) => `<button class="tl-dot" data-i="${i}" style="left:${posOf(m.t)}%;--c:${segColor(m.t)}" aria-label="${m.l}"><b>${m.l}</b></button>`).join('') +
+  `<span class="tl-end" style="left:100%">NOW</span><span class="tl-mark"></span>`;
+const tlSegs = [...track.querySelectorAll('.tl-seg')], tlDots = [...track.querySelectorAll('.tl-dot')], tlMark = track.querySelector('.tl-mark');
+const tlYear = document.getElementById('tl-year'), tlEvent = document.getElementById('tl-event');
+function setTime(t, visible) {
+  tlEl.classList.toggle('show', visible);
+  tlYear.textContent = t >= TL.t1 - .02 ? 'Today' : Math.floor(t);
+  tlMark.style.left = posOf(t) + '%';
+  tlSegs.forEach((el, i) => el.style.setProperty('--f', clamp((t - SEGS[i].a) / (SEGS[i].b - SEGS[i].a))));
+  let ev = null; tlDots.forEach((d, i) => { const on = t >= MILES[i].t - .001; d.classList.toggle('on', on); if (on) ev = MILES[i]; });
+  tlEvent.textContent = ev ? ev.l.split(' · ')[1] : '';
+}
+/* click a milestone → scroll to that moment */
+track.addEventListener('click', e => {
+  const d = e.target.closest('.tl-dot'); if (!d) return;
+  const t = MILES[+d.dataset.i].t;
+  const ch = chapters.find(c => t >= +c.dataset.t0 && t <= +c.dataset.t1) || chapters[chapters.length-1];
+  const f = (t - +ch.dataset.t0) / (+ch.dataset.t1 - +ch.dataset.t0);
+  const top = ch.getBoundingClientRect().top + scrollY;
+  scrollTo({ top: top + f * (ch.offsetHeight - innerHeight) * .85, behavior: calm ? 'auto' : 'smooth' });
+});
+
 function update() {
   const vh = innerHeight, y = scrollY;
   document.documentElement.style.setProperty('--scroll', y);
@@ -825,7 +855,11 @@ function update() {
     counters.forEach(c => { const t = +c.dataset.count; c.textContent = Math.round(t * seg(p,.05,.8)).toLocaleString() + (c.dataset.suffix || ''); });
     if (r.top < vh*.5 && r.bottom > vh*.5) active = ch;
   });
-  if (active) document.body.dataset.theme = active.dataset.theme;
+  let tNow = TL.t0 + .1, lastP = 0;
+  chapters.forEach(ch => { const pp = +getComputedStyle(ch).getPropertyValue('--p') || 0; if (pp > 0) { tNow = +ch.dataset.t0 + pp * (+ch.dataset.t1 - +ch.dataset.t0); } });
+  const f0 = chapters[0].getBoundingClientRect(), fl = chapters[chapters.length-1].getBoundingClientRect();
+  setTime(Math.max(TL.t0, tNow), f0.top < vh*.35 && fl.bottom > vh*.55 && !calm);
+  if (active) document.body.dataset.theme = active.dataset.theme; else if (y < chapters[0].offsetTop) document.body.dataset.theme = 'intro';
   railLinks.forEach((a,i) => a.classList.toggle('on', chapters[i] === active));
 }
 let ticking = false;
@@ -836,7 +870,7 @@ update();
 /* ==========================================================================
    SETTINGS — saved in localStorage (if available), applied through CSS variables
    ========================================================================== */
-const DEFAULTS = { mode:'dark', accent:'auto', font:'grotesk', size:100, radius:100, glow:true, grid:true, calm:false };
+const DEFAULTS = { mode:'light', accent:'auto', font:'grotesk', size:100, radius:100, glow:true, grid:true, calm:false };
 const FONTS = { grotesk:"'Space Grotesk','Inter',system-ui,sans-serif", inter:"'Inter',system-ui,sans-serif", serif:"Georgia,'Times New Roman',serif", mono:"'JetBrains Mono',ui-monospace,monospace" };
 let cfg = { ...DEFAULTS };
 try { Object.assign(cfg, JSON.parse(localStorage.getItem('pf-settings') || '{}')); } catch (e) {}
