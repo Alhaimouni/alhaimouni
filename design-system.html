@@ -39,7 +39,7 @@ pre.snip { margin: 0; padding: var(--s4); background: #0A0C11; border: 1px solid
   <div class="spec">
     <section><h3>1 · Colour</h3>
       <div class="swatches" id="sw"></div>
-      <p>Each discipline owns one accent. Set <code>data-theme="service|electrical|software|management"</code> on <code>&lt;body&gt;</code> (or any wrapper) and every component re-colours through <code>--accent</code>. Pages without a theme use <code>--accent: var(--c-service)</code>.</p>
+      <p>Each discipline owns one accent. Set <code>data-theme="service|electrical|software|management"</code> on <code>&lt;body&gt;</code> (or any wrapper) and every component re-colours through <code>--accent</code>. Pages without a theme use <code>--accent: var(--c-brand)</code> (royal blue).</p>
       <div class="row" style="gap:var(--s4)">
         <div data-theme="service" class="themebox"><span class="eyebrow" style="color:var(--c-service)">service</span></div>
         <div class="themebox"><span class="eyebrow" style="color:var(--c-electrical)">engineering</span></div>
@@ -81,7 +81,7 @@ pre.snip { margin: 0; padding: var(--s4); background: #0A0C11; border: 1px solid
 <style>.themebox{padding:var(--s4) var(--s5);border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface)}</style>
 <script>
 document.getElementById('sw').innerHTML = [['--bg','#0B0D12'],['--surface','#121620'],['--surface-2','#1A1F2C'],['--text','#E8ECF4'],['--muted','#98A2B6'],
-  ['--c-service','#FFB547'],['--c-electrical','#38D5FF'],['--c-software','#8B8CFF'],['--c-management','#3DDC97']]
+  ['--c-brand','#6C8CFF'],['--c-service','#FFB547'],['--c-electrical','#38D5FF'],['--c-software','#9B7CFF'],['--c-management','#3DDC97']]
   .map(([n,v]) => `<div class="sw"><i style="--c:${v}"></i><span>${n}<br>${v}</span></div>`).join('');
 document.getElementById('sp').innerHTML = [4,8,12,16,24,32,48,72].map((v,i) => `<div><i style="--w:${v}px"></i>--s${i+1}<br>${v}</div>`).join('');
 document.getElementById('lay').innerHTML = '<i></i>'.repeat(12);

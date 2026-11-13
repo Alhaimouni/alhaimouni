@@ -16,11 +16,12 @@
   --muted:     #98A2B6;
 
   /* Color — discipline accents (one per career chapter) */
+  --c-brand:      #6C8CFF;   /* royal blue · default / brand accent */
   --c-service:    #FFB547;   /* warm  · people            */
   --c-electrical: #38D5FF;   /* cyan  · current           */
-  --c-software:   #8B8CFF;   /* indigo· code              */
+  --c-software:   #9B7CFF;   /* violet· code              */
   --c-management: #3DDC97;   /* green · growth            */
-  --accent: var(--c-service);
+  --accent: var(--c-brand);
   --on-accent: #0B0D12;          /* text colour used on top of --accent fills */
 
   /* Typography */
@@ -62,7 +63,7 @@
   --line: rgba(15,20,35,.11); --text: #12151C; --muted: #4F596D;
   --shadow-1: 0 1px 0 rgba(255,255,255,.6) inset, 0 8px 24px rgba(30,40,70,.10);
   /* deeper accents so text & fills keep contrast on a light background */
-  --c-service: #B45F06; --c-electrical: #007EA1; --c-software: #5155E0; --c-management: #0E8A5A;
+  --c-brand: #3257D6; --c-service: #B45F06; --c-electrical: #007EA1; --c-software: #7048E0; --c-management: #0E8A5A;
   --on-accent: #FFFFFF;
 }
 :root[data-mode="light"] .hero-grid, :root[data-mode="light"] .stage::before { opacity: .5; }
