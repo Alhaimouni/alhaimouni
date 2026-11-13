@@ -54,6 +54,15 @@
 }
 /* Breakpoints used below: 640px (sm) · 960px (md) */
 
+
+/* Light mode — set data-mode="light" on <html> (the portfolio's settings panel does this) */
+:root[data-mode="light"] {
+  --bg: #F5F6FA; --surface: #FFFFFF; --surface-2: #ECEFF6;
+  --line: rgba(15,20,35,.11); --text: #12151C; --muted: #4F596D;
+  --shadow-1: 0 1px 0 rgba(255,255,255,.6) inset, 0 8px 24px rgba(30,40,70,.10);
+}
+:root[data-mode="light"] .hero-grid, :root[data-mode="light"] .stage::before { opacity: .5; }
+
 *,*::before,*::after { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body {

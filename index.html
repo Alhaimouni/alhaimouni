@@ -138,13 +138,13 @@
 @media (max-width: 960px) { .hero-wrap { grid-template-columns: 1fr; } .portrait { order: -1; justify-items: start; } .portrait-frame { width: 140px; } .portrait figcaption { display: none; } }
 
 /* ---- Project cards: gallery badge + dialog gallery ---- */
-.badge { position: absolute; right: 12px; bottom: 12px; font: 500 var(--fs-xs) var(--font-mono); padding: 5px 10px; border-radius: var(--r-pill); background: rgba(11,13,18,.75); backdrop-filter: blur(6px); border: 1px solid var(--line); }
+.badge { position: absolute; right: 12px; bottom: 12px; font: 500 var(--fs-xs) var(--font-mono); padding: 5px 10px; border-radius: var(--r-pill); background: rgba(11,13,18,.75); color: #E8ECF4; backdrop-filter: blur(6px); border: 1px solid var(--line); }
 .links { display: flex; flex-wrap: wrap; gap: var(--s4); margin-top: var(--s2); }
 .links a { font-size: var(--fs-sm); color: var(--accent); border-bottom: 1px solid transparent; }
 .links a:hover { border-color: var(--accent); }
 .gal { position: relative; background: var(--bg); aspect-ratio: 16/9; overflow: hidden; }
 .gal img, .gal svg { width: 100%; height: 100%; object-fit: cover; }
-.gal .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: rgba(11,13,18,.7); color: var(--text); cursor: pointer; font-size: 1.1rem; backdrop-filter: blur(6px); transition: border-color var(--t-fast); }
+.gal .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 42px; height: 42px; border-radius: 50%; border: 1px solid var(--line); background: rgba(11,13,18,.7); color: #E8ECF4; cursor: pointer; font-size: 1.1rem; backdrop-filter: blur(6px); transition: border-color var(--t-fast); }
 .gal .nav-btn:hover { border-color: var(--accent); }
 .gal .prev { left: 12px; } .gal .next { right: 12px; }
 .cap { display: flex; justify-content: space-between; gap: var(--s3); font: 500 var(--fs-xs) var(--font-mono); color: var(--muted); padding: var(--s3) var(--s5) 0; }
@@ -153,6 +153,56 @@
 .thumbs button[aria-current="true"] { opacity: 1; border-color: var(--accent); }
 .thumbs img, .thumbs svg { width: 100%; height: 100%; object-fit: cover; }
 dialog .body { padding: var(--s5); }
+
+
+/* ==========================================================================
+   7. SETTINGS SIDEBAR + FLOATING RÉSUMÉ BUTTON
+   ========================================================================== */
+.gear, .float-cv { position: fixed; z-index: 70; bottom: 20px; display: inline-flex; align-items: center; gap: var(--s2); border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(12px); color: var(--text); cursor: pointer; box-shadow: var(--shadow-1); transition: transform var(--t-fast) var(--ease), border-color var(--t-fast), background var(--t-fast); }
+.gear { left: 20px; width: 48px; height: 48px; border-radius: 50%; justify-content: center; font-size: 1.2rem; }
+.gear:hover, .float-cv:hover { transform: translateY(-3px); border-color: var(--accent); }
+.gear svg { width: 22px; height: 22px; transition: transform var(--t-slow) var(--ease); } .gear:hover svg { transform: rotate(90deg); }
+.float-cv { right: 20px; padding: 13px 20px; border-radius: var(--r-pill); font: 500 var(--fs-sm)/1 var(--font-body); background: var(--accent); color: #0B0D12; border-color: transparent; font-weight: 600; }
+.float-cv:hover { box-shadow: var(--shadow-glow); }
+@media (max-width: 640px) { .float-cv span { display: none; } .float-cv { padding: 14px; } }
+
+.scrim { position: fixed; inset: 0; z-index: 79; background: rgba(5,6,9,.55); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity var(--t-base); }
+#settings { position: fixed; z-index: 80; top: 0; bottom: 0; left: 0; width: min(340px, 90vw); background: var(--surface); border-right: 1px solid var(--line); box-shadow: none; transform: translateX(-102%); visibility: hidden; transition: transform var(--t-base) var(--ease), visibility var(--t-base); overflow-y: auto; display: flex; flex-direction: column; }
+body.settings-open #settings { transform: none; visibility: visible; box-shadow: 30px 0 80px rgba(0,0,0,.35); } body.settings-open .scrim { opacity: 1; pointer-events: auto; }
+#settings header { display: flex; justify-content: space-between; align-items: center; padding: var(--s5); border-bottom: 1px solid var(--line); position: sticky; top: 0; background: var(--surface); z-index: 1; }
+#settings header h3 { font-size: var(--fs-lg); }
+#settings .x { width: 36px; height: 36px; border-radius: 50%; border: 1px solid var(--line); background: transparent; color: var(--text); cursor: pointer; }
+.set-group { padding: var(--s5); border-bottom: 1px solid var(--line); display: grid; gap: var(--s3); }
+.set-group > .eyebrow { margin-bottom: var(--s1); }
+.seg { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; background: var(--bg); border: 1px solid var(--line); border-radius: var(--r-pill); padding: 3px; }
+.seg button { border: 0; background: transparent; color: var(--muted); padding: 9px 6px; border-radius: var(--r-pill); font: 500 var(--fs-sm) var(--font-body); cursor: pointer; transition: all var(--t-fast); }
+.seg button[aria-pressed="true"] { background: var(--accent); color: #0B0D12; font-weight: 600; }
+.swatch-row { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center; }
+.swatch-row button, .swatch-row label { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); background: var(--c); cursor: pointer; padding: 0; position: relative; transition: transform var(--t-fast); }
+.swatch-row button:hover, .swatch-row label:hover { transform: scale(1.12); }
+.swatch-row [aria-pressed="true"] { border-color: var(--text); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 40%, transparent); }
+.swatch-row .auto { background: conic-gradient(var(--c-service), var(--c-electrical), var(--c-software), var(--c-management), var(--c-service)); }
+.swatch-row label input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
+.swatch-row label { background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red); }
+.field { display: grid; gap: 6px; font-size: var(--fs-sm); color: var(--muted); }
+.field > span { display: flex; justify-content: space-between; }
+.field output { font: 500 var(--fs-xs) var(--font-mono); color: var(--text); }
+.field select { background: var(--bg); color: var(--text); border: 1px solid var(--line); border-radius: var(--r-md); padding: 10px 12px; font: inherit; }
+input[type=range] { width: 100%; accent-color: var(--accent); }
+.switch { display: flex; justify-content: space-between; align-items: center; gap: var(--s3); font-size: var(--fs-sm); color: var(--text); cursor: pointer; }
+.switch input { appearance: none; width: 42px; height: 24px; border-radius: 999px; background: var(--line); position: relative; cursor: pointer; transition: background var(--t-fast); flex: none; }
+.switch input::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: var(--text); transition: transform var(--t-fast) var(--ease); }
+.switch input:checked { background: var(--accent); } .switch input:checked::after { transform: translateX(18px); background: #0B0D12; }
+.set-foot { padding: var(--s5); display: grid; gap: var(--s3); margin-top: auto; }
+.set-foot .btn { justify-content: center; }
+
+/* user toggles */
+html.no-glow body::before { display: none; }
+html.no-grid .hero-grid, html.no-grid .stage::before { display: none; }
+html.calm { scroll-behavior: auto; }
+html.calm .chapter { height: auto; --p: 1; } html.calm .pin { position: static; height: auto; padding-block: 96px 48px; }
+html.calm .reveal { opacity: 1; transform: none; } html.calm .hero h1 .l > span { transform: none; animation: none; }
+html.calm .wave, html.calm .scroll-cue::after { animation: none; }
 
 /* ==========================================================================
    5. PROJECTS
@@ -195,6 +245,7 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
   .wave, .scroll-cue::after { animation: none; }
 }
 </style>
+<script>try{var m=(JSON.parse(localStorage.getItem("pf-settings")||"{}")).mode||"dark";document.documentElement.dataset.mode=m==="auto"?(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):m}catch(e){}</script>
 </head>
 
 <body data-theme="service">
@@ -429,6 +480,61 @@ dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 3
 
 <footer class="footer"><div class="container"><span>© 2026 Mohammad Al-Haimouni</span><span><a href="design-system.html">Design system</a></span></div></footer>
 
+
+<!-- ============ Floating résumé button + settings sidebar ============ -->
+<a class="float-cv" href="Mohammad_Al-Haimouni.pdf" download="Mohammad_Al-Haimouni_Resume.pdf" aria-label="Download résumé">↓ <span>Résumé</span></a>
+<button class="gear" id="gear" aria-label="Open settings" aria-expanded="false" aria-controls="settings">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+</button>
+<div class="scrim" id="scrim"></div>
+<aside id="settings" aria-label="Customize" inert>
+  <header><h3>Customize</h3><button class="x" id="set-close" aria-label="Close settings">✕</button></header>
+
+  <div class="set-group"><span class="eyebrow">Appearance</span>
+    <div class="seg" id="s-mode" role="group" aria-label="Colour mode">
+      <button data-v="dark" aria-pressed="true">Dark</button><button data-v="light" aria-pressed="false">Light</button><button data-v="auto" aria-pressed="false">Auto</button>
+    </div>
+  </div>
+
+  <div class="set-group"><span class="eyebrow">Accent colour</span>
+    <div class="swatch-row" id="s-accent" role="group" aria-label="Accent colour">
+      <button class="auto" data-v="auto" style="--c:#888" aria-pressed="true" title="Auto — follows each career chapter" aria-label="Auto"></button>
+      <button data-v="#FFB547" style="--c:#FFB547" aria-pressed="false" aria-label="Amber"></button>
+      <button data-v="#38D5FF" style="--c:#38D5FF" aria-pressed="false" aria-label="Cyan"></button>
+      <button data-v="#8B8CFF" style="--c:#8B8CFF" aria-pressed="false" aria-label="Indigo"></button>
+      <button data-v="#3DDC97" style="--c:#3DDC97" aria-pressed="false" aria-label="Green"></button>
+      <button data-v="#FF6B8B" style="--c:#FF6B8B" aria-pressed="false" aria-label="Rose"></button>
+      <label title="Custom colour"><input type="color" id="s-custom" value="#ff8a3d" aria-label="Custom colour"></label>
+    </div>
+    <p style="font-size:var(--fs-xs)">Auto changes colour with each career chapter.</p>
+  </div>
+
+  <div class="set-group"><span class="eyebrow">Typography</span>
+    <label class="field"><span>Heading font</span>
+      <select id="s-font">
+        <option value="grotesk">Space Grotesk (default)</option><option value="inter">Inter</option>
+        <option value="serif">Serif — Georgia</option><option value="mono">Mono — JetBrains</option>
+      </select></label>
+    <label class="field"><span>Text size <output id="o-size">100%</output></span><input type="range" id="s-size" min="85" max="125" step="5" value="100"></label>
+  </div>
+
+  <div class="set-group"><span class="eyebrow">Shape</span>
+    <label class="field"><span>Corner roundness <output id="o-radius">100%</output></span><input type="range" id="s-radius" min="0" max="200" step="10" value="100"></label>
+  </div>
+
+  <div class="set-group"><span class="eyebrow">Effects</span>
+    <label class="switch">Ambient glow <input type="checkbox" id="s-glow" checked></label>
+    <label class="switch">Background grids <input type="checkbox" id="s-grid" checked></label>
+    <label class="switch">Calm mode (no scroll animation) <input type="checkbox" id="s-calm"></label>
+  </div>
+
+  <div class="set-foot">
+    <a class="btn btn-primary" href="Mohammad_Al-Haimouni.pdf" download="Mohammad_Al-Haimouni_Resume.pdf">↓ Download résumé</a>
+    <button class="btn" id="s-reset">Reset to defaults</button>
+    <a class="btn" href="design-system.html">View design system</a>
+  </div>
+</aside>
+
 <dialog id="dlg"><button class="close" aria-label="Close">✕</button><div id="dlg-body"></div></dialog>
 
 <script>
@@ -604,7 +710,8 @@ dlg.addEventListener('keydown', e => { if (e.key === 'ArrowRight') show(gi+1); i
 /* ==========================================================================
    SCROLL ENGINE — one rAF loop; each chapter gets progress p ∈ [0,1]
    ========================================================================== */
-const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const reduceMQ = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let calm = false;
 const clamp = (v,a=0,b=1) => Math.min(b, Math.max(a, v));
 const seg = (p,a,b) => clamp((p-a)/(b-a));            // sub-progress inside a window
 const chapters = [...document.querySelectorAll('.chapter')];
@@ -692,7 +799,7 @@ function update() {
   let active = null;
   runners.forEach(({ ch, run, counters }) => {
     const r = ch.getBoundingClientRect();
-    const p = reduce ? 1 : clamp(-r.top / (r.height - vh));
+    const p = (reduceMQ || calm) ? 1 : clamp(-r.top / Math.max(1, r.height - vh));
     ch.style.setProperty('--p', p);
     run(p);
     counters.forEach(c => { const t = +c.dataset.count; c.textContent = Math.round(t * seg(p,.05,.8)).toLocaleString() + (c.dataset.suffix || ''); });
@@ -705,6 +812,62 @@ let ticking = false;
 addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { update(); ticking = false; }); } }, { passive: true });
 addEventListener('resize', update);
 update();
+
+/* ==========================================================================
+   SETTINGS — saved in localStorage (if available), applied through CSS variables
+   ========================================================================== */
+const DEFAULTS = { mode:'dark', accent:'auto', font:'grotesk', size:100, radius:100, glow:true, grid:true, calm:false };
+const FONTS = { grotesk:"'Space Grotesk','Inter',system-ui,sans-serif", inter:"'Inter',system-ui,sans-serif", serif:"Georgia,'Times New Roman',serif", mono:"'JetBrains Mono',ui-monospace,monospace" };
+let cfg = { ...DEFAULTS };
+try { Object.assign(cfg, JSON.parse(localStorage.getItem('pf-settings') || '{}')); } catch (e) {}
+const root = document.documentElement, $ = id => document.getElementById(id);
+const lightQuery = matchMedia('(prefers-color-scheme: light)');
+
+function applySettings(save = true) {
+  root.dataset.mode = cfg.mode === 'auto' ? (lightQuery.matches ? 'light' : 'dark') : cfg.mode;
+  if (cfg.accent === 'auto') document.body.style.removeProperty('--accent'); else document.body.style.setProperty('--accent', cfg.accent);
+  root.style.setProperty('--font-display', FONTS[cfg.font] || FONTS.grotesk);
+  root.style.fontSize = cfg.size + '%';
+  const k = cfg.radius / 100;
+  root.style.setProperty('--r-sm', 8*k + 'px'); root.style.setProperty('--r-md', 14*k + 'px'); root.style.setProperty('--r-lg', 22*k + 'px');
+  root.classList.toggle('no-glow', !cfg.glow); root.classList.toggle('no-grid', !cfg.grid); root.classList.toggle('calm', cfg.calm);
+  calm = cfg.calm;
+  // sync controls
+  $('s-mode').querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', b.dataset.v === cfg.mode));
+  const sw = $('s-accent'); let hit = false;
+  sw.querySelectorAll('button').forEach(b => { const on = b.dataset.v.toLowerCase() === String(cfg.accent).toLowerCase(); b.setAttribute('aria-pressed', on); hit = hit || on; });
+  if (!hit) $('s-custom').value = cfg.accent;
+  $('s-font').value = cfg.font; $('s-size').value = cfg.size; $('o-size').textContent = cfg.size + '%';
+  $('s-radius').value = cfg.radius; $('o-radius').textContent = cfg.radius + '%';
+  $('s-glow').checked = cfg.glow; $('s-grid').checked = cfg.grid; $('s-calm').checked = cfg.calm;
+  if (save) { try { localStorage.setItem('pf-settings', JSON.stringify(cfg)); } catch (e) {} }
+  if (typeof update === 'function') requestAnimationFrame(update);
+}
+const set = (k, v) => { cfg[k] = v; applySettings(); };
+$('s-mode').addEventListener('click', e => { const b = e.target.closest('button'); if (b) set('mode', b.dataset.v); });
+$('s-accent').addEventListener('click', e => { const b = e.target.closest('button'); if (b) set('accent', b.dataset.v); });
+$('s-custom').addEventListener('input', e => set('accent', e.target.value));
+$('s-font').addEventListener('change', e => set('font', e.target.value));
+$('s-size').addEventListener('input', e => set('size', +e.target.value));
+$('s-radius').addEventListener('input', e => set('radius', +e.target.value));
+$('s-glow').addEventListener('change', e => set('glow', e.target.checked));
+$('s-grid').addEventListener('change', e => set('grid', e.target.checked));
+$('s-calm').addEventListener('change', e => set('calm', e.target.checked));
+$('s-reset').addEventListener('click', () => { cfg = { ...DEFAULTS }; applySettings(); });
+lightQuery.addEventListener('change', () => cfg.mode === 'auto' && applySettings(false));
+
+/* open / close */
+const panel = $('settings'), gear = $('gear');
+function togglePanel(open) {
+  document.body.classList.toggle('settings-open', open);
+  panel.inert = !open; gear.setAttribute('aria-expanded', open);
+  if (open) $('set-close').focus(); else gear.focus({ preventScroll: true });
+}
+gear.addEventListener('click', () => togglePanel(!document.body.classList.contains('settings-open')));
+$('set-close').addEventListener('click', () => togglePanel(false));
+$('scrim').addEventListener('click', () => togglePanel(false));
+addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('settings-open')) togglePanel(false); });
+applySettings(false);
 
 /* ---- Reveal on scroll ---- */
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
