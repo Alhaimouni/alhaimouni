@@ -82,7 +82,7 @@
 }
 
 /* --- Effect: ELECTRICAL — traces draw, pulse travels, nodes energise --- */
-.pcb { position: absolute !important; inset: 0; width: 100%; height: 100%; }
+.pcb { position: absolute !important; top: 26px; left: 0; width: 100%; height: calc(100% - 26px); }
 .pcb .trace { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: drop-shadow(0 0 5px var(--accent)); }
 .pcb .ghost { fill: none; stroke: var(--line); stroke-width: 2.5; }
 .pcb .node { fill: var(--bg); stroke: var(--line); stroke-width: 2.5; transition: all .4s var(--ease); }
@@ -105,7 +105,8 @@
 .pass.ok { color: var(--on-accent); background: var(--accent); border-color: transparent; box-shadow: var(--shadow-glow); }
 
 /* --- Effect: MANAGEMENT — org tree grows, roadmap bars fill, KPIs rise --- */
-.org { position: absolute !important; inset: 0; width: 100%; height: 100%; }
+.stage { --road-h: 92px; }
+.org { position: absolute !important; top: 26px; left: 0; width: 100%; height: calc(100% - 26px - var(--road-h)); }
 .org .edge { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .8; }
 .org .n { fill: var(--surface-2); stroke: var(--accent); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.2); transition: opacity .4s, transform .6s var(--ease); }
 .org .n.on { opacity: 1; transform: none; }
@@ -360,6 +361,21 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
 }
 @media (max-width: 640px) and (max-height: 700px) { .stage { max-height: 24svh; } .copy h2 { font-size: 1.8rem; } .chapter-bar { display: none; } .copy .lead { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; } }
 
+
+/* ---- Phones: keep every chapter visual whole, readable and un-cropped ---- */
+@media (max-width: 640px) {
+  .stage { --road-h: 60px; aspect-ratio: 1.55; max-height: 31svh; }
+  .chapter[data-fx="software"] .stage { aspect-ratio: 1.32; max-height: 35svh; }
+  .stage-label { top: 9px; left: 12px; font-size: 9px; }
+  .pcb { top: 22px; height: calc(100% - 22px); } .org { top: 22px; height: calc(100% - 22px - var(--road-h)); }
+  .road { left: 14px; right: 14px; bottom: 14px; gap: 6px; } .road div, .road div i { height: 6px; }
+  .editor { inset: 28px 12px 12px; gap: 8px; }
+  .code { padding: 9px 11px; font-size: 9px; line-height: 1.55; border-radius: var(--r-sm); }
+  .build { gap: 8px; } .commits { height: 20px; } .pass { padding: 6px 9px; font-size: 9px; }
+  .ring { width: 56px; }
+}
+@media (max-width: 640px) and (max-height: 700px) { .stage { max-height: 27svh; } .chapter[data-fx="software"] .stage { max-height: 31svh; } }
+
 /* landscape phones / very short screens: drop the pinned effect, show chapters as normal blocks */
 @media (max-height: 520px) and (orientation: landscape) {
   .chapter { height: auto; --p: 1; } .pin { position: static; height: auto; padding-block: 36px; min-height: 0; }
@@ -457,7 +473,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
       </div>
       <div class="stage" aria-hidden="true">
         <span class="stage-label">PCB_REV_B · ENERGISING</span>
-        <svg class="pcb" viewBox="0 0 480 420" preserveAspectRatio="xMidYMid slice">
+        <svg class="pcb" viewBox="10 55 460 370" preserveAspectRatio="xMidYMid meet">
           <g id="pcb-paths">
             <path class="ghost" d="M40 90 H150 V160 H190"/><path class="trace" pathLength="1" d="M40 90 H150 V160 H190"/>
             <path class="ghost" d="M40 210 H190"/><path class="trace" pathLength="1" d="M40 210 H190"/>
@@ -522,7 +538,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
       </div>
       <div class="stage" aria-hidden="true">
         <span class="stage-label">ORG · ROADMAP · Q4</span>
-        <svg class="org" viewBox="0 0 480 420" preserveAspectRatio="xMidYMid slice">
+        <svg class="org" viewBox="20 20 440 232" preserveAspectRatio="xMidYMid meet">
           <path class="edge" pathLength="1" d="M240 70 V100 H100 V130"/><path class="edge" pathLength="1" d="M240 70 V100 H240 V130"/><path class="edge" pathLength="1" d="M240 70 V100 H380 V130"/>
           <path class="edge" pathLength="1" d="M100 160 V185 H60 V205"/><path class="edge" pathLength="1" d="M100 160 V185 H140 V205"/>
           <path class="edge" pathLength="1" d="M240 160 V185 H200 V205"/><path class="edge" pathLength="1" d="M240 160 V185 H280 V205"/>
@@ -876,7 +892,7 @@ fx.software = ch => {
     (m,c,str,k,ok) => c ? `<span class="c">${m}</span>` : str ? `<span class="s">${m}</span>` : k ? `<span class="k">${m}</span>` : `<span class="s">${m}</span>`);
   return p => {
     const n = Math.floor(src.length * seg(p,0,.85));
-    el.innerHTML = hl(src.slice(0,n)) + '<span class="cur"></span>';
+    el.innerHTML = hl(src.slice(0,n)) + '<span class="cur"></span>'; el.scrollTop = el.scrollHeight;
     dots.forEach((d,i) => { const on = p > .1 + i*.13; d.style.fill = on ? 'var(--accent)' : 'var(--bg)'; d.style.transform = on ? 'scale(1.25)' : 'scale(1)'; });
     const ok = p > .9; pass.classList.toggle('ok', ok); pass.textContent = ok ? '✓ CI passed · deployed' : '● CI running…';
   };
