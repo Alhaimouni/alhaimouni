@@ -137,6 +137,9 @@ html.calm .portrait-frame { animation: none; }
 
 /* ---- Project cards: gallery badge + dialog gallery ---- */
 .badge { position: absolute; right: 12px; bottom: 12px; font: 500 var(--fs-xs) var(--font-mono); padding: 5px 10px; border-radius: var(--r-pill); background: rgba(11,13,18,.75); color: #E8ECF4; backdrop-filter: blur(6px); border: 1px solid var(--line); }
+.live-pill { position: absolute; left: 12px; top: 12px; z-index: 2; font: 600 var(--fs-xs) var(--font-mono); padding: 5px 10px; border-radius: var(--r-pill); background: #0E8A5A; color: #fff; letter-spacing: .04em; }
+.ph-wrap { width: 100%; height: 100%; } .ph-wrap svg { width: 100%; height: 100%; }
+.links a.live { color: var(--on-accent); background: var(--accent); padding: 6px 12px; border-radius: var(--r-pill); font-weight: 600; }
 .links { display: flex; flex-wrap: wrap; gap: var(--s4); margin-top: var(--s2); }
 .links a { font-size: var(--fs-sm); color: var(--accent); border-bottom: 1px solid transparent; }
 .links a:hover { border-color: var(--accent); }
@@ -662,7 +665,72 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
    links:  [{ t:'GitHub', u:'https://…' }]
    ========================================================================== */
 const PROJECTS = [
-  /* ---------------- SOFTWARE (from GitHub) ---------------- */
+  /* ================= MANAGEMENT ================= */
+  { id:13, cat:'management', title:'Data Analytics Tool', year:'',
+    desc:'A tool that takes a CSV file and transforms it into an interactive dashboard with filters and charts, so teams can explore their data without manual reporting.',
+    tags:['CSV','Dashboards','Charts','Filters'], links:[],
+    gallery:[
+      { slide:{ title:'CSV to dashboard', pts:['Upload a CSV file','Data is transformed automatically','Filters narrow down the results','Charts show the filtered data'] }, cap:'Overview' },
+      { ph:true, cap:'Add: dashboard screenshot' }, { ph:true, cap:'Add: filters and charts' } ] },
+  { id:14, cat:'management', title:'Employee Meeting Tracker', year:'',
+    desc:'A tool to track and log meetings with employees, integrated with Outlook services so meetings are captured and followed up in one place.',
+    tags:['Meeting logs','Outlook integration','Employee management'], links:[],
+    gallery:[
+      { slide:{ title:'Employee meeting tracker', pts:['Log meetings with employees','Integrated with Outlook services','History and follow up per employee','One place for every conversation'] }, cap:'Overview' },
+      { ph:true, cap:'Add: meeting log screenshot' }, { ph:true, cap:'Add: Outlook integration' } ] },
+  { id:6, cat:'management', title:'Official Campus Website, 42 Amman', year:'2025',
+    desc:'Designed and implemented the official website for the 42 Amman campus of the Crown Prince Foundation, improving communication with learners and strengthening the campus brand.',
+    tags:['Web','Brand','Communication'], links:[],
+    gallery:[ { ph:true, cap:'Add: homepage screenshot' }, { ph:true, cap:'Add: programs page' }, { ph:true, cap:'Add: mobile view' } ] },
+  { id:7, cat:'management', title:'Learning Frameworks & KPIs', year:'2024 to Now',
+    desc:'Developed structured learning frameworks aligned with program standards and measurable KPIs, together with engagement strategies that foster an active, performance driven learning environment.',
+    tags:['Program design','KPIs','Engagement'], links:[],
+    gallery:[ { ph:true, cap:'Add: framework diagram' }, { ph:true, cap:'Add: KPI dashboard' } ] },
+  { id:8, cat:'management', title:'LMS Performance Analytics', year:'2024 to 2025',
+    desc:'Developed LMS tooling that analyses learner performance to identify at risk learners early and trigger targeted support.',
+    tags:['LMS','Analytics','Power BI','Intervention'], links:[],
+    gallery:[ { ph:true, cap:'Add: dashboard screenshot' }, { ph:true, cap:'Add: at risk report' } ] },
+  { id:9, cat:'management', title:'Workshops & Hackathons', year:'2025 to Now',
+    desc:'Lead interactive workshops, hackathons and learning sessions that raise learner engagement and academic performance, evaluate strategic partnerships by educational impact, and drive community initiatives that improve learner retention.',
+    tags:['Events','Community','Partnerships'],
+    links:[{t:'CAVT Hackathon @ 42 Amman (GitHub)',u:'https://github.com/ahmad-nashwan/CAVT-Hackathon-42-Amman'}],
+    gallery:[ { ph:true, cap:'Add: event photo' }, { ph:true, cap:'Add: hackathon photo' }, { ph:true, cap:'Add: workshop photo' } ] },
+
+  /* ================= ENGINEERING =================
+     Drop your files into images/projects/<folder>/ using the names below. Missing files show a placeholder. */
+  { id:10, cat:'engineering', title:'42 Amman Campus', year:'', badge:'Site · 3D · Plans',
+    desc:'Tender, electrical design and site supervision for the 42 Amman campus. The gallery covers the site, 3D views and the design plans.',
+    tags:['Tender','Electrical design','Supervision','3D views','Plans'], links:[],
+    gallery:[
+      { src:'images/projects/42-amman/01-site.jpg', cap:'The site' }, { src:'images/projects/42-amman/02-site.jpg', cap:'The site' },
+      { src:'images/projects/42-amman/03-3d.jpg', cap:'3D view' }, { src:'images/projects/42-amman/04-3d.jpg', cap:'3D view' },
+      { src:'images/projects/42-amman/05-plan.jpg', cap:'Plan' }, { src:'images/projects/42-amman/06-plan.jpg', cap:'Plan' } ] },
+  { id:11, cat:'engineering', title:'42 Irbid Campus', year:'', badge:'Site · 3D · Plans',
+    desc:'Tender, electrical design and site supervision for the 42 Irbid campus.',
+    tags:['Tender','Electrical design','Supervision'], links:[],
+    gallery:[
+      { src:'images/projects/42-irbid/01-site.jpg', cap:'The site' }, { src:'images/projects/42-irbid/02-3d.jpg', cap:'3D view' },
+      { src:'images/projects/42-irbid/03-plan.jpg', cap:'Plan' }, { src:'images/projects/42-irbid/04-plan.jpg', cap:'Plan' } ] },
+  { id:12, cat:'engineering', title:'42 Aqaba Campus', year:'', badge:'Site · 3D · Plans',
+    desc:'Tender, electrical design and site supervision for the 42 Aqaba campus.',
+    tags:['Tender','Electrical design','Supervision'], links:[],
+    gallery:[
+      { src:'images/projects/42-aqaba/01-site.jpg', cap:'The site' }, { src:'images/projects/42-aqaba/02-3d.jpg', cap:'3D view' },
+      { src:'images/projects/42-aqaba/03-plan.jpg', cap:'Plan' }, { src:'images/projects/42-aqaba/04-plan.jpg', cap:'Plan' } ] },
+  { id:15, cat:'engineering', title:'The Ritz-Carlton, Amman', year:'', badge:'Site · Plans',
+    desc:'Site supervision of the electrical works at The Ritz-Carlton, Amman.',
+    tags:['Supervision','Hotels','Site coordination'], links:[],
+    gallery:[
+      { src:'images/projects/ritz-carlton-amman/01-site.jpg', cap:'The site' }, { src:'images/projects/ritz-carlton-amman/02-site.jpg', cap:'The site' },
+      { src:'images/projects/ritz-carlton-amman/03-plan.jpg', cap:'Plan' } ] },
+  { id:16, cat:'engineering', title:'Hikma, Nahda Circuit, Amman', year:'', badge:'Site · 3D · Plans',
+    desc:'Electrical design and site supervision for the Hikma project at Nahda Circuit, Amman.',
+    tags:['Electrical design','Supervision','Commercial'], links:[],
+    gallery:[
+      { src:'images/projects/hikma-nahda/01-site.jpg', cap:'The site' }, { src:'images/projects/hikma-nahda/02-3d.jpg', cap:'3D view' },
+      { src:'images/projects/hikma-nahda/03-plan.jpg', cap:'Plan' }, { src:'images/projects/hikma-nahda/04-plan.jpg', cap:'Plan' } ] },
+
+  /* ================= SOFTWARE ================= */
   { id:1, cat:'software', title:'Finance Tracker', year:'2026',
     desc:'Full stack personal finance application for tracking income and expenses, organising spending by category, setting budgets with live status and reviewing summaries, all behind a JWT secured API.',
     tags:['NestJS','TypeORM','React','MUI','TypeScript','Docker'],
@@ -710,39 +778,54 @@ const PROJECTS = [
       { src:'images/projects/foodies/01.jpg', cap:'Burger' }, { src:'images/projects/foodies/02.jpg', cap:'Pizza' },
       { src:'images/projects/foodies/03.jpg', cap:'Curry' }, { src:'images/projects/foodies/04.jpg', cap:'Schnitzel' },
       { src:'images/projects/foodies/05.jpg', cap:'Dumplings' }, { src:'images/projects/foodies/06.jpg', cap:'Mac & cheese' } ] },
-
-  /* ---------------- MANAGEMENT (from résumé) ---------------- */
-  { id:6, cat:'management', title:'Official Campus Website, 42 Amman', year:'2025',
-    desc:'Designed and implemented the official website for the 42 Amman campus of the Crown Prince Foundation, improving communication with learners and strengthening the campus brand.',
-    tags:['Web','Brand','Communication'], links:[],
-    gallery:[ { ph:true, cap:'Add: homepage screenshot' }, { ph:true, cap:'Add: programs page' }, { ph:true, cap:'Add: mobile view' } ] },
-  { id:7, cat:'management', title:'Learning Frameworks & KPIs', year:'2024 to Now',
-    desc:'Developed structured learning frameworks aligned with program standards and measurable KPIs, together with engagement strategies that foster an active, performance driven learning environment.',
-    tags:['Program design','KPIs','Engagement'], links:[],
-    gallery:[ { ph:true, cap:'Add: framework diagram' }, { ph:true, cap:'Add: KPI dashboard' } ] },
-  { id:8, cat:'management', title:'LMS Performance Analytics', year:'2024 to 2025',
-    desc:'Developed LMS tooling that analyses learner performance to identify at risk learners early and trigger targeted support.',
-    tags:['LMS','Analytics','Power BI','Intervention'], links:[],
-    gallery:[ { ph:true, cap:'Add: dashboard screenshot' }, { ph:true, cap:'Add: at-risk report' } ] },
-  { id:9, cat:'management', title:'Workshops & Hackathons', year:'2025 to Now',
-    desc:'Lead interactive workshops, hackathons and learning sessions that raise learner engagement and academic performance, evaluate strategic partnerships by educational impact, and drive community initiatives that improve learner retention.',
-    tags:['Events','Community','Partnerships'],
-    links:[{t:'CAVT Hackathon @ 42 Amman (GitHub)',u:'https://github.com/ahmad-nashwan/CAVT-Hackathon-42-Amman'}],
-    gallery:[ { ph:true, cap:'Add: event photo' }, { ph:true, cap:'Add: hackathon photo' }, { ph:true, cap:'Add: workshop photo' } ] },
-
-  /* ---------------- ENGINEERING (from résumé) ---------------- */
-  { id:10, cat:'engineering', title:'High-Rise & Commercial Electrical Design', year:'2020 to 2022',
-    desc:'Designed the electrical systems for high rise and commercial buildings as Electrical Design Engineer at Active Engineering Consultant (AEC).',
-    tags:['Electrical design','High-rise','Commercial'], links:[],
-    gallery:[ { ph:true, cap:'Add: drawing or site photo' }, { ph:true, cap:'Add: single-line diagram' } ] },
-  { id:11, cat:'engineering', title:'Hotels & Villas Electrical Systems', year:'2020 to 2022',
-    desc:'Designed electrical systems for hotels and villas, coordinating with the wider project team from design through implementation.',
-    tags:['Hotels','Villas','Coordination'], links:[],
-    gallery:[ { ph:true, cap:'Add: layout drawing' }, { ph:true, cap:'Add: site photo' } ] },
-  { id:12, cat:'engineering', title:'Tender Planning & Implementation Coordination', year:'2020 to 2022',
-    desc:'Planned tender timelines and coordinated project implementation, my first practical experience of scheduling and delivery management.',
-    tags:['Tendering','Scheduling','Delivery'], links:[],
-    gallery:[ { ph:true, cap:'Add: timeline / schedule' } ] },
+  { id:17, cat:'software', title:'Template Four: Settings Dashboard', year:'2023', live:'https://alhaimouni.github.io/css-template-04/',
+    desc:'A settings and profile dashboard template with toggles, security and social forms, widget controls and a backup manager.',
+    tags:['HTML','CSS','Template','Dashboard'], links:[{t:'GitHub',u:'https://github.com/Alhaimouni/css-template-04'}],
+    gallery:[ { src:'images/projects/tpl-settings/01.jpg', cap:'Settings page' }, { src:'images/projects/tpl-settings/02.jpg', cap:'Widgets and backup manager' }, { src:'images/projects/tpl-settings/03.jpg', cap:'Mobile view' } ] },
+  { id:18, cat:'software', title:'Template One: Portfolio Board', year:'2023', live:'https://alhaimouni.github.io/css-template-01/',
+    desc:'A portfolio board template built with HTML and CSS, with a full screen hero, project cards and a responsive navigation.',
+    tags:['HTML','CSS','Template','Responsive'], links:[{t:'GitHub',u:'https://github.com/Alhaimouni/css-template-01'}],
+    gallery:[ { src:'images/projects/tpl-board/01.jpg', cap:'Hero' }, { src:'images/projects/tpl-board/02.jpg', cap:'Portfolio cards' }, { src:'images/projects/tpl-board/03.jpg', cap:'Mobile view' } ] },
+  { id:19, cat:'software', title:'Template Two: Slider Landing Page', year:'2023', live:'https://alhaimouni.github.io/css-template-02/',
+    desc:'A responsive landing page template with a full screen hero slider, a portfolio grid and a video section.',
+    tags:['HTML','CSS','Template','Slider'], links:[{t:'GitHub',u:'https://github.com/Alhaimouni/css-template-02'}],
+    gallery:[ { src:'images/projects/tpl-slider/01.jpg', cap:'Hero slider' }, { src:'images/projects/tpl-slider/02.jpg', cap:'Video section' }, { src:'images/projects/tpl-slider/03.jpg', cap:'Mobile view' } ] },
+  { id:20, cat:'software', title:'Furry Friends Finder', year:'2023', live:'https://alhaimouni.github.io/furryfrindsfinder/',
+    desc:'Pet adoption website where visitors can browse animals, create an account and submit an adoption form.',
+    tags:['HTML','CSS','JavaScript','Multi page'], links:[{t:'GitHub',u:'https://github.com/Alhaimouni/furryfrindsfinder'}],
+    gallery:[ { src:'images/projects/furry-friends/01.jpg', cap:'Home' }, { src:'images/projects/furry-friends/02.jpg', cap:'Adoption gallery' }, { src:'images/projects/furry-friends/03.jpg', cap:'Mobile view' } ] },
+  { id:21, cat:'software', title:'Eatly App Landing Page', year:'2023', live:'https://alhaimouni.github.io/mae-eatly/',
+    desc:'Landing page design for a healthy eating app, built with HTML, CSS and JavaScript.',
+    tags:['HTML','CSS','JavaScript','Template'], links:[{t:'GitHub',u:'https://github.com/Alhaimouni/mae-eatly'}],
+    gallery:[ { src:'images/projects/eatly/01.jpg', cap:'Features and call to action' }, { src:'images/projects/eatly/02.jpg', cap:'Hero' }, { src:'images/projects/eatly/03.jpg', cap:'Mobile view' } ] },
+  { id:22, cat:'software', title:'Chocolate Pizza Recipe Page', year:'2022', live:'https://alhaimouni.github.io/Chocolate-Pizza/',
+    desc:'A recipe blog page for a chocolate pizza, built with HTML and CSS with a structured layout of ingredients and steps.',
+    tags:['HTML','CSS','Template'], links:[{t:'GitHub',u:'https://github.com/Alhaimouni/Chocolate-Pizza'}],
+    gallery:[ { src:'images/projects/chocolate-pizza/01.jpg', cap:'Recipe page' }, { src:'images/projects/chocolate-pizza/02.jpg', cap:'Mobile view' } ] },
+  { id:23, cat:'software', title:'Portfolio Version One', year:'2023', live:'https://alhaimouni.github.io/my-portfolio/',
+    desc:'My first personal portfolio, with an animated hero, skill bars and a project gallery with detail modals.',
+    tags:['HTML','CSS','JavaScript','Portfolio'], links:[{t:'GitHub',u:'https://github.com/Alhaimouni/my-portfolio'}],
+    gallery:[ { src:'images/projects/portfolio-v1/01.jpg', cap:'Landing' }, { src:'images/projects/portfolio-v1/02.jpg', cap:'Mobile view' } ] },
+  { id:24, cat:'software', title:'Covid 19 Statistics Tracker', year:'2022',
+    desc:'A web app that gives users the latest Covid 19 statistics from around the world, with a React front end and a separate back end service.',
+    tags:['React','React Router','Axios','Node.js'],
+    links:[{t:'Front end',u:'https://github.com/Alhaimouni/covid-19-frontend'},{t:'Back end',u:'https://github.com/Alhaimouni/covid-19-backend'}],
+    gallery:[ { slide:{ title:'Covid 19 tracker', pts:['Worldwide Covid 19 statistics','React front end with React Router','Axios for data requests','Separate Node.js back end'] }, cap:'Overview' } ] },
+  { id:25, cat:'software', title:'ToDo\'s with GraphQL', year:'2023',
+    desc:'A clean task manager where users create, edit and complete tasks. Built with React, a Material UI interface and a GraphQL API consumed through Apollo Client.',
+    tags:['React','Apollo Client','GraphQL','Material UI'],
+    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/todo-apollo'},{t:'GraphQL server',u:'https://github.com/Alhaimouni/graphql-server'}],
+    gallery:[ { slide:{ title:'ToDo\'s with GraphQL', pts:['Create, edit and complete tasks','GraphQL API with Apollo Client','Material UI interface','Separate GraphQL server repository'] }, cap:'Overview' } ] },
+  { id:26, cat:'software', title:'Next News', year:'2025',
+    desc:'News application built with Next.js 14 and the App Router, with a shared header, a news list component and separate route groups for content and marketing pages.',
+    tags:['Next.js 14','React','App Router'],
+    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/next-news'},{t:'Backup copy',u:'https://github.com/Alhaimouni/next-news-bk'}],
+    gallery:[ { slide:{ title:'Next News', pts:['Next.js 14 App Router','Reusable header and news list components','Content and marketing route groups','Local news data layer'] }, cap:'Overview' } ] },
+  { id:27, cat:'software', title:'Game Lab: Bouncing Ball', year:'2025',
+    desc:'A game built on Code.org Game Lab where the player hits the ball and tries to score more points.',
+    tags:['JavaScript','Game Lab','Game design'],
+    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/game_lab'}],
+    gallery:[ { slide:{ title:'Bouncing Ball', pts:['Built on Code.org Game Lab','Hit the ball to score','Simple scoring loop','Source and assets in the repo'] }, cap:'Overview' } ] },
 ];
 const COLORS = { management:'#3DDC97', engineering:'#38D5FF', software:'#9B7CFF' };
 const NAMES  = { management:'Management', engineering:'Engineering', software:'Software' };
@@ -771,8 +854,9 @@ function slideArt(p, it, idx){
     <text x="40" y="110" font-family="Space Grotesk, Inter, sans-serif" font-size="38" font-weight="700" fill="#E8ECF4">${esc(title)}</text>
     ${pts.map((t,i)=>`<circle cx="46" cy="${167+i*44}" r="5" fill="${c}"/><text x="64" y="${172+i*44}" font-family="Inter, sans-serif" font-size="20" fill="#C8D0E0">${esc(t)}</text>`).join('')}</svg>`;
 }
+window.phFallback = (img, pid, idx) => { const p = PROJECTS.find(x => x.id === pid); const d = document.createElement('div'); d.className = 'ph-wrap'; d.innerHTML = placeholderArt(p, idx); img.replaceWith(d); };
 function visual(p, it, idx){
-  if (it.src) return `<img src="${it.src}" alt="${esc(p.title)}, ${esc(it.cap||'')}" loading="lazy">`;
+  if (it.src) return `<img src="${it.src}" alt="${esc(p.title)}, ${esc(it.cap||'')}" loading="lazy" onerror="phFallback(this,${p.id},${idx})">`;
   return it.slide ? slideArt(p, it, idx) : placeholderArt(p, idx);
 }
 
@@ -780,8 +864,8 @@ function visual(p, it, idx){
 const grid = document.getElementById('projects');
 grid.innerHTML = PROJECTS.map((p,i) => `
   <button class="card project reveal" style="--pc:${COLORS[p.cat]};--d:${(i%3)*.08}s" data-cat="${p.cat}" data-id="${p.id}" aria-label="Open ${esc(p.title)} gallery">
-    <div class="thumb">${visual(p, p.gallery[0], 0)}<span class="badge">${p.gallery.length} image${p.gallery.length>1?'s':''}</span></div>
-    <div class="body"><span class="kind">${NAMES[p.cat]} · ${p.year}</span><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p>
+    <div class="thumb">${visual(p, p.gallery[0], 0)}${p.live?'<span class="live-pill">● Live</span>':''}<span class="badge">${p.badge || (p.gallery.length + ' image' + (p.gallery.length>1?'s':''))}</span></div>
+    <div class="body"><span class="kind">${NAMES[p.cat]}${p.year ? ' · ' + p.year : ''}</span><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p>
       <div class="tags">${p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div></div>
   </button>`).join('');
 
@@ -808,9 +892,9 @@ function openProject(p){
     <div class="gal"><div class="gal-view" style="height:100%"></div>${many?'<button class="nav-btn prev" aria-label="Previous image">←</button><button class="nav-btn next" aria-label="Next image">→</button>':''}</div>
     <div class="cap"><span></span><span></span></div>
     ${many?`<div class="thumbs">${p.gallery.map((it,k)=>`<button aria-label="Image ${k+1}">${visual(p,it,k)}</button>`).join('')}</div>`:''}
-    <div class="body"><span class="kind">${NAMES[p.cat]} · ${p.year}</span><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p>
+    <div class="body"><span class="kind">${NAMES[p.cat]}${p.year ? ' · ' + p.year : ''}</span><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p>
       <div class="tags">${p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
-      ${p.links.length?`<div class="links">${p.links.map(l=>`<a href="${l.u}" target="_blank" rel="noopener">${esc(l.t)} ↗</a>`).join('')}</div>`:''}</div>`;
+      ${(p.live || p.links.length)?`<div class="links">${p.live?`<a class="live" href="${p.live}" target="_blank" rel="noopener">● Live site ↗</a>`:''}${p.links.map(l=>`<a href="${l.u}" target="_blank" rel="noopener">${esc(l.t)} ↗</a>`).join('')}</div>`:''}</div>`;
   dbody.querySelector('.prev')?.addEventListener('click', () => show(gi-1));
   dbody.querySelector('.next')?.addEventListener('click', () => show(gi+1));
   dbody.querySelectorAll('.thumbs button').forEach((b,k) => b.addEventListener('click', () => show(k)));
