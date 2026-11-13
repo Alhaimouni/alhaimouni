@@ -21,6 +21,7 @@
   --c-software:   #8B8CFF;   /* indigo· code              */
   --c-management: #3DDC97;   /* green · growth            */
   --accent: var(--c-service);
+  --on-accent: #0B0D12;          /* text colour used on top of --accent fills */
 
   /* Typography */
   --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
@@ -60,6 +61,9 @@
   --bg: #F5F6FA; --surface: #FFFFFF; --surface-2: #ECEFF6;
   --line: rgba(15,20,35,.11); --text: #12151C; --muted: #4F596D;
   --shadow-1: 0 1px 0 rgba(255,255,255,.6) inset, 0 8px 24px rgba(30,40,70,.10);
+  /* deeper accents so text & fills keep contrast on a light background */
+  --c-service: #B45F06; --c-electrical: #007EA1; --c-software: #5155E0; --c-management: #0E8A5A;
+  --on-accent: #FFFFFF;
 }
 :root[data-mode="light"] .hero-grid, :root[data-mode="light"] .stage::before { opacity: .5; }
 
@@ -111,7 +115,7 @@ p  { margin: 0; color: var(--muted); }
   transition: transform var(--t-fast) var(--ease), background var(--t-fast), border-color var(--t-fast), box-shadow var(--t-base);
 }
 .btn:hover { transform: translateY(-2px); border-color: var(--accent); }
-.btn-primary { background: var(--accent); color: #0B0D12; border-color: transparent; font-weight: 600; }
+.btn-primary { background: var(--accent); color: var(--on-accent); border-color: transparent; font-weight: 600; }
 .btn-primary:hover { box-shadow: var(--shadow-glow); }
 .chip {
   padding: 8px 16px; border-radius: var(--r-pill); border: 1px solid var(--line);
@@ -119,7 +123,7 @@ p  { margin: 0; color: var(--muted); }
   transition: all var(--t-fast);
 }
 .chip:hover { color: var(--text); border-color: var(--muted); }
-.chip[aria-pressed="true"] { background: var(--accent); color: #0B0D12; border-color: transparent; font-weight: 600; }
+.chip[aria-pressed="true"] { background: var(--accent); color: var(--on-accent); border-color: transparent; font-weight: 600; }
 .tag { font: 500 var(--fs-xs)/1 var(--font-mono); padding: 5px 9px; border-radius: var(--r-sm); background: var(--surface-2); color: var(--muted); }
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-1); overflow: hidden; transition: transform var(--t-base) var(--ease), border-color var(--t-base), box-shadow var(--t-base); }
 .card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--accent) 50%, transparent); box-shadow: var(--shadow-glow); }
