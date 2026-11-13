@@ -118,9 +118,18 @@
 .hero-wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--s7); align-items: center; }
 .hero .roles { margin-top: var(--s7); }
 .portrait { margin: 0; display: grid; gap: var(--s3); justify-items: center; }
-.portrait-frame { position: relative; width: min(100%, 340px); aspect-ratio: 4/5; border-radius: var(--r-lg); overflow: hidden; border: 1px solid var(--line); box-shadow: var(--shadow-glow); }
+.portrait-frame { position: relative; width: min(100%, 360px); aspect-ratio: 1 / 1.08; overflow: hidden; border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+  border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;           /* irregular, smooth blob (independent of the corner-radius setting) */
+  box-shadow: var(--shadow-glow); animation: blob 14s ease-in-out infinite; }
+@keyframes blob {
+  0%, 100% { border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%; }
+  33%      { border-radius: 62% 38% 40% 60% / 56% 36% 64% 44%; }
+  66%      { border-radius: 46% 54% 36% 64% / 38% 60% 40% 62%; }
+}
+html.calm .portrait-frame { animation: none; }
+@media (prefers-reduced-motion: reduce) { .portrait-frame { animation: none; } }
 .portrait-frame svg, .portrait-frame img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-.portrait-frame img { object-position: 50% 22%; }
+.portrait-frame img { object-position: 50% 20%; }
 @media (max-width: 960px) { .hero-wrap { grid-template-columns: 1fr; } .portrait { order: -1; justify-items: start; } .portrait-frame { width: 140px; } .portrait figcaption { display: none; } }
 
 /* ---- Project cards: gallery badge + dialog gallery ---- */
@@ -397,7 +406,6 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
         <svg viewBox="0 0 200 250" aria-hidden="true"><rect width="200" height="250" fill="var(--surface-2)"/><circle cx="100" cy="95" r="42" fill="var(--line)"/><path d="M20 250c0-56 36-92 80-92s80 36 80 92z" fill="var(--line)"/><text x="100" y="236" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="9" fill="var(--muted)" letter-spacing="2">YOUR PHOTO HERE</text></svg>
         <img src="images/profile.jpg" alt="Mohammad Al-Haimouni" onerror="this.remove()">
       </div>
-      <figcaption class="eyebrow">Mohammad Al-Haimouni</figcaption>
     </figure>
   </div>
   <div class="scroll-cue" aria-hidden="true">SCROLL</div>
