@@ -1,383 +1,777 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alhaimouni — Portfolio</title>
+<meta name="description" content="Portfolio of M. Alhaimouni — customer service, electrical engineering, software engineering and management.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 
-     <title>Ben's Resume - Profile HTML Page</title>
+<style>
+/* ==========================================================================
+   1. DESIGN SYSTEM — tokens first, everything below consumes them
+   ========================================================================== */
+@property --accent { syntax: '<color>'; inherits: true; initial-value: #7C8CFF; }
 
-     <meta charset="UTF-8">
-     <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-     <meta name="description" content="">
-     <meta name="keywords" content="">
-     <meta name="author" content="Tooplate">
-     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+:root {
+  /* Color — neutrals */
+  --bg:        #0B0D12;
+  --surface:   #121620;
+  --surface-2: #1A1F2C;
+  --line:      rgba(255,255,255,.09);
+  --text:      #E8ECF4;
+  --muted:     #98A2B6;
 
-     <link rel="stylesheet" href="css/bootstrap.min.css">
-     <link rel="stylesheet" href="css/all.min.css">
-     <link rel="stylesheet" href="css/owl.carousel.min.css">
-     <link rel="stylesheet" href="css/owl.theme.default.min.css">
+  /* Color — discipline accents (one per career chapter) */
+  --c-service:    #FFB547;   /* warm  · people            */
+  --c-electrical: #38D5FF;   /* cyan  · current           */
+  --c-software:   #8B8CFF;   /* indigo· code              */
+  --c-management: #3DDC97;   /* green · growth            */
+  --accent: var(--c-service);
 
-     <!-- MAIN CSS -->
-     <link rel="stylesheet" href="css/tooplate-ben-resume-style.css">
-<!--
-Tooplate 2120 Ben Resume
-https://www.tooplate.com/view/2120-ben-resume
--->
+  /* Typography */
+  --font-display: 'Space Grotesk', 'Inter', system-ui, sans-serif;
+  --font-body:    'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+  --fs-xs:   .8rem;
+  --fs-sm:   .92rem;
+  --fs-base: 1.05rem;
+  --fs-lg:   clamp(1.15rem, 1rem + .6vw, 1.4rem);
+  --fs-h3:   clamp(1.3rem, 1.1rem + 1vw, 1.8rem);
+  --fs-h2:   clamp(2rem, 1.3rem + 3vw, 3.6rem);
+  --fs-h1:   clamp(2.6rem, 1rem + 5.6vw, 5.6rem);
+
+  /* Spacing — 4px base scale */
+  --s1: 4px;  --s2: 8px;  --s3: 12px; --s4: 16px; --s5: 24px;
+  --s6: 32px; --s7: 48px; --s8: 72px; --s9: 112px;
+
+  /* Shape & depth */
+  --r-sm: 8px; --r-md: 14px; --r-lg: 22px; --r-pill: 999px;
+  --shadow-1: 0 1px 0 rgba(255,255,255,.04) inset, 0 8px 24px rgba(0,0,0,.35);
+  --shadow-glow: 0 0 0 1px color-mix(in srgb, var(--accent) 40%, transparent), 0 10px 40px color-mix(in srgb, var(--accent) 22%, transparent);
+
+  /* Motion */
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --t-fast: .18s; --t-base: .45s; --t-slow: .9s;
+
+  /* Layout */
+  --container: 1200px;
+  --gutter: clamp(20px, 5vw, 48px);
+  --nav-h: 64px;
+}
+/* Breakpoints used below: 640px (sm) · 960px (md) */
+
+*,*::before,*::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; background: var(--bg); color: var(--text);
+  font: 400 var(--fs-base)/1.65 var(--font-body);
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+  transition: --accent var(--t-slow) var(--ease);
+}
+body[data-theme="service"]    { --accent: var(--c-service); }
+body[data-theme="electrical"] { --accent: var(--c-electrical); }
+body[data-theme="software"]   { --accent: var(--c-software); }
+body[data-theme="management"] { --accent: var(--c-management); }
+
+/* ambient accent glow that follows the active chapter */
+body::before {
+  content: ""; position: fixed; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(60vw 50vh at 85% 10%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 70%),
+    radial-gradient(50vw 50vh at 0% 100%, color-mix(in srgb, var(--accent) 9%, transparent), transparent 70%);
+}
+img, svg { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+::selection { background: var(--accent); color: #000; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+/* ---- Type ---- */
+h1,h2,h3 { font-family: var(--font-display); line-height: 1.05; letter-spacing: -.02em; margin: 0; }
+h1 { font-size: var(--fs-h1); font-weight: 700; }
+h2 { font-size: var(--fs-h2); font-weight: 700; }
+h3 { font-size: var(--fs-h3); font-weight: 600; letter-spacing: -.01em; }
+p  { margin: 0; color: var(--muted); }
+.eyebrow { font: 500 var(--fs-xs)/1 var(--font-mono); letter-spacing: .14em; text-transform: uppercase; color: var(--accent); }
+.lead { font-size: var(--fs-lg); color: var(--text); opacity: .86; max-width: 46ch; }
+
+/* ---- Layout primitives ---- */
+.container { width: min(var(--container), 100% - 2*var(--gutter)); margin-inline: auto; }
+.section { padding-block: var(--s9); position: relative; }
+.grid { display: grid; gap: var(--s5); grid-template-columns: repeat(12, 1fr); }
+.section-head { display: grid; gap: var(--s4); margin-bottom: var(--s7); max-width: 720px; }
+
+/* ---- Components ---- */
+.btn {
+  display: inline-flex; align-items: center; gap: var(--s2);
+  padding: 14px 24px; border-radius: var(--r-pill); border: 1px solid var(--line);
+  font: 500 var(--fs-sm)/1 var(--font-body); cursor: pointer; background: transparent; color: var(--text);
+  transition: transform var(--t-fast) var(--ease), background var(--t-fast), border-color var(--t-fast), box-shadow var(--t-base);
+}
+.btn:hover { transform: translateY(-2px); border-color: var(--accent); }
+.btn-primary { background: var(--accent); color: #0B0D12; border-color: transparent; font-weight: 600; }
+.btn-primary:hover { box-shadow: var(--shadow-glow); }
+.chip {
+  padding: 8px 16px; border-radius: var(--r-pill); border: 1px solid var(--line);
+  font: 500 var(--fs-sm)/1 var(--font-body); color: var(--muted); background: transparent; cursor: pointer;
+  transition: all var(--t-fast);
+}
+.chip:hover { color: var(--text); border-color: var(--muted); }
+.chip[aria-pressed="true"] { background: var(--accent); color: #0B0D12; border-color: transparent; font-weight: 600; }
+.tag { font: 500 var(--fs-xs)/1 var(--font-mono); padding: 5px 9px; border-radius: var(--r-sm); background: var(--surface-2); color: var(--muted); }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--shadow-1); overflow: hidden; transition: transform var(--t-base) var(--ease), border-color var(--t-base), box-shadow var(--t-base); }
+.card:hover { transform: translateY(-6px); border-color: color-mix(in srgb, var(--accent) 50%, transparent); box-shadow: var(--shadow-glow); }
+
+/* reveal-on-scroll utility */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity var(--t-slow) var(--ease), transform var(--t-slow) var(--ease); transition-delay: var(--d, 0s); }
+.reveal.in { opacity: 1; transform: none; }
+
+/* ==========================================================================
+   2. SHELL — nav, progress, chapter rail
+   ========================================================================== */
+.progress { position: fixed; top: 0; left: 0; height: 3px; width: 100%; background: var(--accent); transform: scaleX(var(--page-p, 0)); transform-origin: 0 50%; z-index: 60; }
+.nav { position: fixed; top: 0; inset-inline: 0; height: var(--nav-h); z-index: 50; display: flex; align-items: center; backdrop-filter: blur(14px); background: color-mix(in srgb, var(--bg) 70%, transparent); border-bottom: 1px solid var(--line); }
+.nav .container { display: flex; align-items: center; justify-content: space-between; }
+.logo { font: 700 1.15rem var(--font-display); letter-spacing: -.02em; }
+.logo i { color: var(--accent); font-style: normal; }
+.nav ul { display: flex; gap: var(--s5); list-style: none; margin: 0; padding: 0; }
+.nav ul a { font-size: var(--fs-sm); color: var(--muted); transition: color var(--t-fast); }
+.nav ul a:hover { color: var(--text); }
+@media (max-width: 640px) { .nav ul li:not(:last-child) { display: none; } }
+
+.rail { position: fixed; right: 22px; top: 50%; transform: translateY(-50%); z-index: 40; display: grid; gap: 14px; }
+.rail a { width: 10px; height: 10px; border-radius: 50%; background: var(--line); position: relative; transition: all var(--t-base) var(--ease); }
+.rail a.on { background: var(--dot, var(--accent)); transform: scale(1.7); box-shadow: 0 0 14px var(--dot, var(--accent)); }
+.rail a span { position: absolute; right: 22px; top: 50%; transform: translateY(-50%); white-space: nowrap; font: 500 var(--fs-xs) var(--font-mono); color: var(--muted); opacity: 0; transition: opacity var(--t-fast); pointer-events: none; }
+.rail a:hover span { opacity: 1; }
+@media (max-width: 960px) { .rail { display: none; } }
+
+/* ==========================================================================
+   3. HERO
+   ========================================================================== */
+.hero { min-height: 100svh; display: grid; align-items: center; padding-block: calc(var(--nav-h) + var(--s7)) var(--s9); position: relative; overflow: clip; }
+.hero-grid { position: absolute; inset: -20%; z-index: -1;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 64px 64px; transform: translateY(calc(var(--scroll, 0) * .25px)) perspective(700px) rotateX(58deg) translateY(-20%);
+  mask-image: radial-gradient(closest-side, #000 20%, transparent 90%); opacity: .6; }
+.hero h1 .l { display: block; overflow: hidden; }
+.hero h1 .l > span { display: inline-block; transform: translateY(110%); animation: up 1.1s var(--ease) forwards; animation-delay: var(--d); }
+.hero h1 em { font-style: normal; color: var(--accent); }
+@keyframes up { to { transform: none; } }
+.hero .lead { margin-top: var(--s6); }
+.hero-actions { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s6); }
+.roles { display: flex; flex-wrap: wrap; gap: var(--s3); margin-top: var(--s8); }
+.role { display: flex; align-items: center; gap: var(--s3); padding: 12px 18px; border: 1px solid var(--line); border-radius: var(--r-pill); font-size: var(--fs-sm); background: var(--surface); transition: all var(--t-base) var(--ease); }
+.role b { width: 9px; height: 9px; border-radius: 50%; background: var(--c); box-shadow: 0 0 12px var(--c); }
+.role:hover { border-color: var(--c); transform: translateY(-3px); }
+.scroll-cue { position: absolute; bottom: 28px; left: 50%; font: 500 var(--fs-xs) var(--font-mono); letter-spacing: .2em; color: var(--muted); display: grid; justify-items: center; gap: 10px; transform: translateX(-50%); }
+.scroll-cue::after { content: ""; width: 1px; height: 40px; background: linear-gradient(var(--accent), transparent); animation: drip 1.8s ease-in-out infinite; transform-origin: top; }
+@keyframes drip { 0% { transform: scaleY(0); } 50% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
+
+/* ==========================================================================
+   4. CAREER TIMELINE — pinned chapters, scroll progress drives --p (0 → 1)
+   ========================================================================== */
+.timeline-intro { padding-block: var(--s9) var(--s7); }
+.chapter { height: 280vh; position: relative; --p: 0; }
+.pin { position: sticky; top: 0; height: 100svh; padding-top: var(--nav-h); display: grid; grid-template-columns: 1fr 1.1fr; gap: var(--s7); align-items: center; width: min(var(--container), 100% - 2*var(--gutter)); margin-inline: auto; }
+.copy { display: grid; gap: var(--s4); align-content: center; }
+.copy .years { font: 500 var(--fs-sm) var(--font-mono); color: var(--muted); }
+.copy h2 { font-size: clamp(2.2rem, 1.2rem + 4vw, 4.4rem); }
+.copy h2 span { color: var(--accent); }
+.copy ul { list-style: none; margin: var(--s2) 0 0; padding: 0; display: grid; gap: var(--s3); }
+.copy li { display: flex; gap: var(--s3); color: var(--text); opacity: .82; font-size: var(--fs-sm); }
+.copy li::before { content: ""; flex: none; width: 18px; height: 1px; background: var(--accent); margin-top: .8em; }
+.metrics { display: flex; gap: var(--s6); margin-top: var(--s3); }
+.metrics div b { display: block; font: 700 clamp(1.6rem, 1.2rem + 1.5vw, 2.4rem) var(--font-display); color: var(--accent); font-variant-numeric: tabular-nums; }
+.metrics div span { font-size: var(--fs-xs); color: var(--muted); }
+.chapter-bar { height: 2px; background: var(--line); margin-top: var(--s4); border-radius: 2px; overflow: hidden; }
+.chapter-bar i { display: block; height: 100%; background: var(--accent); transform: scaleX(var(--p)); transform-origin: 0 50%; }
+
+.stage { position: relative; aspect-ratio: 1.15; max-height: 70svh; width: 100%; border-radius: var(--r-lg); background: linear-gradient(160deg, var(--surface), var(--bg)); border: 1px solid var(--line); box-shadow: var(--shadow-1), 0 0 80px color-mix(in srgb, var(--accent) 12%, transparent); overflow: hidden; }
+.stage::before { content: ""; position: absolute; inset: 0; background-image: radial-gradient(var(--line) 1px, transparent 1px); background-size: 22px 22px; opacity: .8; }
+.stage > * { position: relative; }
+.stage-label { position: absolute !important; top: 14px; left: 18px; font: 500 var(--fs-xs) var(--font-mono); color: var(--muted); letter-spacing: .1em; z-index: 3; }
+
+@media (max-width: 960px) {
+  .pin { grid-template-columns: 1fr; grid-template-rows: auto 1fr; gap: var(--s4); align-content: start; padding-top: calc(var(--nav-h) + var(--s4)); }
+  .stage { order: -1; aspect-ratio: 1.6; max-height: 34svh; }
+  .copy ul { display: none; }
+  .copy h2 { font-size: 2.2rem; }
+}
+
+/* --- Effect: SERVICE — conversation, satisfaction ring --- */
+.chat { position: absolute !important; inset: 44px 24px 24px; display: flex; flex-direction: column; justify-content: flex-end; gap: 10px; }
+.bub { max-width: 72%; padding: 10px 14px; border-radius: 16px; font-size: var(--fs-sm); line-height: 1.4; opacity: 0; transform: translateY(18px) scale(.9); transition: opacity .4s var(--ease), transform .5s var(--ease); }
+.bub.in { opacity: 1; transform: none; }
+.bub.them { background: var(--surface-2); color: var(--text); align-self: flex-start; border-bottom-left-radius: 4px; }
+.bub.me { background: var(--accent); color: #0B0D12; font-weight: 500; align-self: flex-end; border-bottom-right-radius: 4px; }
+.ring { position: absolute !important; top: 14px; right: 16px; width: 84px; }
+.ring circle { fill: none; stroke-width: 7; }
+.ring .t { stroke: var(--line); }
+.ring .v { stroke: var(--accent); stroke-linecap: round; stroke-dasharray: 1; stroke-dashoffset: calc(1 - var(--p)); transform: rotate(-90deg); transform-origin: 50% 50%; }
+.ring text { fill: var(--text); font: 700 18px var(--font-display); text-anchor: middle; dominant-baseline: central; }
+.wave { position: absolute !important; left: 50%; top: 40%; width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--accent); opacity: 0; animation: ping 3s ease-out infinite; }
+.wave:nth-child(2) { animation-delay: 1s; } .wave:nth-child(3) { animation-delay: 2s; }
+@keyframes ping { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(30); opacity: 0; } }
+
+/* --- Effect: ELECTRICAL — traces draw, pulse travels, nodes energise --- */
+.pcb { position: absolute !important; inset: 0; width: 100%; height: 100%; }
+.pcb .trace { fill: none; stroke: var(--accent); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; filter: drop-shadow(0 0 5px var(--accent)); }
+.pcb .ghost { fill: none; stroke: var(--line); stroke-width: 2.5; }
+.pcb .node { fill: var(--bg); stroke: var(--line); stroke-width: 2.5; transition: all .4s var(--ease); }
+.pcb .node.on { fill: var(--accent); stroke: var(--accent); filter: drop-shadow(0 0 8px var(--accent)); }
+.pcb .chip-body { fill: var(--surface-2); stroke: var(--line); stroke-width: 1.5; transition: stroke .5s, filter .5s; }
+.pcb .chip-body.on { stroke: var(--accent); filter: drop-shadow(0 0 12px var(--accent)); }
+.pcb text { font: 500 10px var(--font-mono); fill: var(--muted); }
+.pcb .pulse { fill: #fff; filter: drop-shadow(0 0 8px var(--accent)); }
+.pcb .sine { fill: none; stroke: var(--accent); stroke-width: 2; opacity: .85; }
+
+/* --- Effect: SOFTWARE — code types itself, commits graph, tests pass --- */
+.editor { position: absolute !important; inset: 44px 20px 20px; display: grid; grid-template-rows: 1fr auto; gap: 12px; }
+.code { background: #0A0C11; border: 1px solid var(--line); border-radius: var(--r-md); padding: 16px 18px; font: 400 clamp(.72rem, .6rem + .35vw, .9rem)/1.7 var(--font-mono); color: #C8D0E0; white-space: pre; overflow: hidden; }
+.code .k { color: var(--accent); } .code .s { color: #7EE0A8; } .code .c { color: #6B7590; } .code .cur { display: inline-block; width: 7px; height: 1em; background: var(--accent); vertical-align: text-bottom; animation: blink 1s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+.build { display: flex; align-items: center; gap: 14px; }
+.commits { flex: 1; height: 28px; min-width: 0; }
+.commits line { stroke: var(--line); stroke-width: 2; } .commits circle { fill: var(--bg); stroke: var(--accent); stroke-width: 2; transition: all .4s var(--ease); transform-box: fill-box; transform-origin: center; }
+.pass { font: 500 var(--fs-xs) var(--font-mono); padding: 8px 12px; border-radius: var(--r-pill); border: 1px solid var(--line); color: var(--muted); transition: all .5s var(--ease); white-space: nowrap; }
+.pass.ok { color: #0B0D12; background: var(--accent); border-color: transparent; box-shadow: var(--shadow-glow); }
+
+/* --- Effect: MANAGEMENT — org tree grows, roadmap bars fill, KPIs rise --- */
+.org { position: absolute !important; inset: 0; width: 100%; height: 100%; }
+.org .edge { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .8; }
+.org .n { fill: var(--surface-2); stroke: var(--accent); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.2); transition: opacity .4s, transform .6s var(--ease); }
+.org .n.on { opacity: 1; transform: none; }
+.org .root { fill: var(--accent); }
+.road { position: absolute !important; left: 22px; right: 22px; bottom: 22px; display: grid; gap: 8px; }
+.road div { height: 10px; border-radius: 6px; background: var(--line); overflow: hidden; }
+.road div i { display: block; height: 100%; width: 100%; background: var(--accent); border-radius: 6px; transform-origin: 0 50%; transform: scaleX(var(--w, 0)); }
+
+/* ==========================================================================
+   5. PROJECTS
+   ========================================================================== */
+.filters { display: flex; flex-wrap: wrap; gap: var(--s2); margin-bottom: var(--s6); }
+.projects { display: grid; gap: var(--s5); grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 960px) { .projects { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .projects { grid-template-columns: 1fr; } }
+.project { cursor: pointer; text-align: left; padding: 0; font: inherit; color: inherit; --accent: var(--pc); }
+.project { display: flex; flex-direction: column; align-items: stretch; }
+.project .thumb { flex: none; }
+.project.hide { display: none; }
+.thumb { aspect-ratio: 16/10; background: var(--bg); overflow: hidden; position: relative; }
+.thumb svg, .thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform 1s var(--ease); }
+.project:hover .thumb svg, .project:hover .thumb img { transform: scale(1.07); }
+.project .body { padding: var(--s5); display: grid; gap: var(--s3); }
+.project .body p { font-size: var(--fs-sm); }
+.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.kind { font: 500 var(--fs-xs) var(--font-mono); color: var(--accent); letter-spacing: .1em; text-transform: uppercase; }
+
+dialog { border: 1px solid var(--line); border-radius: var(--r-lg); background: var(--surface); color: var(--text); padding: 0; width: min(880px, 92vw); box-shadow: 0 40px 120px rgba(0,0,0,.7); --accent: var(--pc); }
+dialog::backdrop { background: rgba(5,6,9,.78); backdrop-filter: blur(6px); }
+dialog .thumb { aspect-ratio: 16/9; }
+dialog .body { padding: var(--s6); display: grid; gap: var(--s3); }
+dialog .close { position: absolute; top: 14px; right: 14px; z-index: 2; width: 38px; height: 38px; border-radius: 50%; border: 1px solid var(--line); background: var(--bg); color: var(--text); cursor: pointer; font-size: 1.1rem; }
+
+/* ==========================================================================
+   6. CONTACT + DESIGN-SYSTEM SPEC
+   ========================================================================== */
+.contact { text-align: center; }
+.contact h2 { max-width: 14ch; margin: 0 auto var(--s5); }
+.contact .hero-actions { justify-content: center; }
+.footer { border-top: 1px solid var(--line); padding-block: var(--s6); color: var(--muted); font-size: var(--fs-sm); }
+.footer .container { display: flex; justify-content: space-between; flex-wrap: wrap; gap: var(--s3); }
+
+.spec { display: grid; gap: var(--s7); }
+.spec h3 { font-size: var(--fs-lg); margin-bottom: var(--s4); }
+.swatches { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--s3); }
+.sw { border: 1px solid var(--line); border-radius: var(--r-md); overflow: hidden; font: 400 var(--fs-xs) var(--font-mono); color: var(--muted); }
+.sw i { display: block; height: 56px; background: var(--c); } .sw span { display: block; padding: 8px 10px; background: var(--surface); }
+.type-row { display: flex; align-items: baseline; gap: var(--s5); padding-block: var(--s3); border-bottom: 1px solid var(--line); }
+.type-row code, .spec code { font: 400 var(--fs-xs) var(--font-mono); color: var(--muted); min-width: 110px; }
+.space-row { display: flex; flex-wrap: wrap; gap: var(--s4); align-items: flex-end; }
+.space-row div { display: grid; gap: 6px; justify-items: center; font: 400 var(--fs-xs) var(--font-mono); color: var(--muted); }
+.space-row i { display: block; width: var(--w); height: var(--w); background: var(--accent); border-radius: 3px; }
+.layout-demo { display: grid; grid-template-columns: repeat(12, 1fr); gap: 6px; height: 64px; }
+.layout-demo i { background: color-mix(in srgb, var(--accent) 25%, transparent); border: 1px dashed var(--accent); border-radius: 4px; }
+.row { display: flex; flex-wrap: wrap; gap: var(--s3); align-items: center; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .chapter { height: auto; --p: 1; } .pin { position: static; height: auto; padding-block: 96px 48px; }
+  .reveal, .hero h1 .l > span { opacity: 1; transform: none; animation: none; }
+  .wave, .scroll-cue::after { animation: none; }
+}
+</style>
 </head>
 
-<body data-spy="scroll" data-target="#navbarNav" data-offset="50">
+<body data-theme="service">
+<div class="progress" aria-hidden="true"></div>
 
-    <!-- MENU BAR -->
-    <nav class="navbar navbar-expand-lg">
-        <div class="container">
-
-            <a class="navbar-brand" href="#">
-                Ben Resume
-            </a>
-
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item">
-                        <a href="#intro" class="nav-link smoothScroll">Introduction</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#about" class="nav-link smoothScroll">About Me</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#testimonials" class="nav-link smoothScroll">Reviews</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a href="#contact" class="nav-link smoothScroll">Contact</a>
-                    </li>
-                </ul>
-
-                <div class="mt-lg-0 mt-3 mb-4 mb-lg-0">
-                    <a href="#" class="custom-btn btn" download>Download CV</a>
-                </div>
-            </div>
-
-        </div>
+<header class="nav">
+  <div class="container">
+    <a href="#top" class="logo">alhaimouni<i>.</i></a>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#career">Career</a></li>
+        <li><a href="#work">Work</a></li>
+        <li><a href="#system">Design system</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
     </nav>
+  </div>
+</header>
 
+<nav class="rail" aria-label="Career chapters">
+  <a href="#ch-service"    style="--dot:var(--c-service)"><span>Customer service</span></a>
+  <a href="#ch-electrical" style="--dot:var(--c-electrical)"><span>Electrical engineering</span></a>
+  <a href="#ch-software"   style="--dot:var(--c-software)"><span>Software engineering</span></a>
+  <a href="#ch-management" style="--dot:var(--c-management)"><span>Management</span></a>
+</nav>
 
-    <!-- HERO -->
-    <section class="hero d-flex flex-column justify-content-center align-items-center" id="intro">
+<main id="top">
 
-         <div class="container">
-            <div class="row">
+<!-- ============================ HERO ============================ -->
+<section class="hero">
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="container">
+    <p class="eyebrow">Portfolio — 2026</p>
+    <h1 style="margin-top:var(--s4)">
+      <span class="l"><span style="--d:.1s">From the front</span></span>
+      <span class="l"><span style="--d:.22s">line to the <em>circuit</em></span></span>
+      <span class="l"><span style="--d:.34s">to the code to the <em>team</em>.</span></span>
+    </h1>
+    <p class="lead">I'm M. Alhaimouni. I've worked where people, hardware, software and organisations meet — and I carry something from each into everything I build and lead.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#career">Scroll my career ↓</a>
+      <a class="btn" href="#work">See projects</a>
+    </div>
+    <div class="roles">
+      <a class="role" href="#ch-service"    style="--c:var(--c-service)"><b></b>Customer service</a>
+      <a class="role" href="#ch-electrical" style="--c:var(--c-electrical)"><b></b>Electrical engineering</a>
+      <a class="role" href="#ch-software"   style="--c:var(--c-software)"><b></b>Software engineering</a>
+      <a class="role" href="#ch-management" style="--c:var(--c-management)"><b></b>Management</a>
+    </div>
+  </div>
+  <div class="scroll-cue" aria-hidden="true">SCROLL</div>
+</section>
 
-                  <div class="mx-auto col-lg-5 col-md-5 col-10">
-                      <img src="images/ben.jpg" class="img-fluid" alt="Ben Resume HTML Template">
-                  </div>
+<!-- ============================ CAREER ============================ -->
+<section id="career">
+  <div class="container timeline-intro">
+    <div class="section-head reveal">
+      <p class="eyebrow">Career timeline</p>
+      <h2>Four disciplines, one through-line.</h2>
+      <p class="lead">Scroll to move through each chapter — the visual on the right is driven by your scroll position.</p>
+    </div>
+  </div>
 
-                   <div class="d-flex flex-column justify-content-center align-items-center col-lg-7 col-md-7 col-12">
-                        <div class="hero-text">
-
-                            <h1 class="hero-title">👋 Ben, a digital nomad</h1>
-
-                            <a href="#" class="email-link">
-                                hello@company.co
-                            </a>
-                          
-                        </div>
-                    </div>
-
-            </div>
+  <!-- 01 SERVICE -->
+  <div class="chapter" id="ch-service" data-theme="service" data-fx="service">
+    <div class="pin">
+      <div class="copy">
+        <span class="eyebrow">Chapter 01</span>
+        <span class="years">2012 — 2015</span>
+        <h2>Customer <span>service</span></h2>
+        <p class="lead">Where I learned to listen first, solve fast and stay human under pressure.</p>
+        <ul>
+          <li>Resolved customer issues across phone, chat and email</li>
+          <li>Turned recurring complaints into process fixes</li>
+          <li>Trained new teammates on tone and escalation</li>
+        </ul>
+        <div class="metrics">
+          <div><b data-count="12000" data-suffix="+">0</b><span>conversations</span></div>
+          <div><b data-count="96" data-suffix="%">0</b><span>satisfaction</span></div>
         </div>
-    </section>
-
-
-    <section class="about section-padding" id="about">
-        <div class="container">
-            <div class="row">
-
-                <div class="col-lg-6 col-md-6 col-12">
-                    <h3 class="mb-4">This is Ben's Resume</h3>
-
-                    <p>Ben Resume HTML Template is brought to you by <a rel="nofollow" href="https://www.tooplate.com" target="_parent">Tooplate website</a>. You can feel free to edit and use this page for your small site. You are allowed to use this HTML template for any kind of purpose.</p>
-
-                    <p>However, please do not re-distribute the downloadable template ZIP file on any template collection website. This is strongly prohibited. Please contact Tooplate for more information.</p>
-
-                    <ul class="mt-4 mb-5 mb-lg-0 profile-list list-unstyled">
-                        <li><strong>Full Name :</strong> Ben Wilson </li>
-
-                        <li><strong>Date of Birth:</strong> 26 September 1999</li>
-
-                        <li><strong>Website :</strong> company.co</li>
-
-                        <li><strong>Email :</strong> hello@company.co</li>
-                    </ul>
-                </div>
-
-                <div class="col-lg-5 mx-auto col-md-6 col-12">
-                    <img src="images/true-agency.jpg" class="about-image img-fluid" alt="Ben's Resume HTML Template">
-                </div>
-
-            </div>
-            <div class="row about-third">
-            	<div class="col-lg-4 col-md-4 col-12">
-                <h3>Integer volutpat</h3>
-                <p>Sed eu risus tincidunt, finibus dolor non, gravida ex. Donec lacinia mi nec erat tempus, vel consectetur ante scelerisque. Ut blandit, risus in venenatis ultricies, lacus tellus fermentum.</p>
-                </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                <h3>Mauris semper</h3>
-                <p>Cras et nisl vestibulum, accumsan elit sed, pretium enim. Vestibulum in condimentum magna. Maecenas quam magna, iaculis eu turpis et, commodo pulvinar leo.</p>
-                </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                <h3>Integer id neque</h3>
-                <p>Duis at mollis leo, venenatis congue ex. Cras urna dui, gravida euismod lectus et, cursus tempor nulla. Praesent at turpis quis ex tristique gravida quis eget eros.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-
-    <!-- TESTIMONIAL -->
-     <section class="testimonials section-padding" id="testimonials">
-          <div class="container">
-               <div class="row">
-
-                    <div class="col-12">
-                        <h3 class="mb-5 text-center">What People say</h3>
-
-                        <div class="owl-carousel owl-theme" id="testimonials-carousel">
-                            <div class="item">
-                                <div class="testimonials-thumb d-flex">
-                                    <div class="testimonials-image">
-                                        <img src="images/testimonials/testimonial-image01.jpg" class="img-fluid" alt="testimonials image">
-                                    </div>
-
-                                    <div class="testimonials-info">
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
-
-                                        <h6 class="mb-0">Ben</h6>
-                                        <span>Art Director</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="testimonials-thumb d-flex">
-                                    <div class="testimonials-image">
-                                        <img src="images/testimonials/testimonial-image02.jpg" class="img-fluid" alt="testimonials image">
-                                    </div>
-
-                                    <div class="testimonials-info">
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
-
-                                        <h6 class="mb-0">Marie</h6>
-                                        <span>Marketing Consultant</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="testimonials-thumb d-flex">
-                                    <div class="testimonials-image">
-                                        <img src="images/testimonials/testimonial-image03.jpg" class="img-fluid" alt="testimonials image">
-                                    </div>
-
-                                    <div class="testimonials-info">
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
-
-                                        <h6 class="mb-0">Jen</h6>
-                                        <span>Product Manager</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="item">
-                                <div class="testimonials-thumb d-flex">
-                                    <div class="testimonials-image">
-                                        <img src="images/testimonials/testimonial-image04.jpg" class="img-fluid" alt="testimonials image">
-                                    </div>
-
-                                    <div class="testimonials-info">
-                                        <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem.</p>
-
-                                        <h6 class="mb-0">Wilson</h6>
-                                        <span>Web Developer</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-
-               </div>
-          </div>
-     </section>
-
-
-     <!-- FAQ -->
-     <section class="faq section-padding">
-        
-        <div class="container">
-            
-            <div class="row">
-
-                <div class="col-lg-12 col-12">
-
-                    <h3 class="mb-5">Frequently Asked Questions</h3>
-
-                    <div class="accordion" id="accordionExample">
-                      <div class="card">
-                        <div class="card-header" id="headingOne">
-                          <h2 class="mb-0">
-                            <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                              Are those HTML templates absolutely free for any kind of usage?
-                            </button>
-                          </h2>
-                        </div>
-
-                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
-                          <div class="card-body">
-                            <p>Yes, they are 100% free and there is no hidden charge.</p>
-
-                            <p>They can be used for your commercial websites.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="card">
-                        <div class="card-header" id="headingTwo">
-                          <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                              Can I use them as a CMS theme or a part of website builder?
-                            </button>
-                          </h2>
-                        </div>
-                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
-                          <div class="card-body">
-                            <p>Yes, you can use them.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="card">
-                        <div class="card-header" id="headingThree">
-                          <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                              I cannot find a suitable HTML template. Can I request new template?
-                            </button>
-                          </h2>
-                        </div>
-                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
-                          <div class="card-body">
-                            <p>Yes, please tell us what you need. We will try our best to fulfill it.</p>
-                          </div>
-                        </div>
-                      </div>
-
-                    <div class="card">
-                        <div class="card-header" id="headingFour">
-                          <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                              Can I redistribute your templates?
-                            </button>
-                          </h2>
-                        </div>
-                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
-                          <div class="card-body">
-                            <p>No, this is totally NOT allowed. Please do not redistribute our HTML templates.</p>
-                          </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <div class="card-header" id="headingFive">
-                          <h2 class="mb-0">
-                            <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-                              How do I support Tooplate?
-                            </button>
-                          </h2>
-                        </div>
-                        <div id="collapseFive" class="collapse" aria-labelledby="headingFive" data-parent="#accordionExample">
-                          <div class="card-body">
-                            <p>Please spread a word about Tooplate website to your colleagues and friends.</p>
-                          </div>
-                        </div>
-                    </div>
-
-                    <span class="faq-info-text">Please send us a message if you have anything to say. Send an email message to <strong>contact (at) tooplate (dot) com</strong></span>
-
-                </div>
-
-           	 </div><!-- col -->
-        	</div><!-- row -->
-        </div><!-- container -->
-    </section>
-
-
-     <section class="contact section-padding pt-0" id="contact">
-      <div class="container">
-        <div class="row">
-
-          <div class="col-lg-6 col-md-6 col-12">
-            <form action="#" method="get" class="contact-form webform"  role="form">
-                
-                <div class="form-group d-flex flex-column-reverse">
-                    <input type="text" class="form-control" name="cf-name" id="cf-name" placeholder="Your Name">
-
-                    <label for="cf-name" class="webform-label">Full Name</label>
-                </div>
-
-                <div class="form-group d-flex flex-column-reverse">
-                    <input type="email" class="form-control" name="cf-email" id="cf-email" placeholder="Your Email">
-
-                    <label for="cf-email" class="webform-label">Your Email</label>
-                </div>
-
-                <div class="form-group d-flex flex-column-reverse">
-                    <textarea class="form-control" rows="5" name="cf-message" id="cf-message" placeholder="Your Message"></textarea>
-
-                    <label for="cf-message" class="webform-label">Message</label>
-                </div>
-
-                <button type="submit" class="form-control" id="submit-button" name="submit">Send</button>
-            </form>
-          </div>
-
-            <div class="mx-auto col-lg-4 col-md-6 col-12">
-                <h3 class="my-4 pt-4 pt-lg-0">Say hello</h3>
-
-                <p class="mb-1">010-020-0340</p>
-
-                <p>
-                    <a href="#">
-                        hello@company.co
-                    <i class="fas fa-arrow-right custom-icon"></i>
-                    </a>
-                </p>
-
-                <ul class="social-links mt-2">
-                    <li><a href="https://fb.com/tooplate" rel="noopener" class="fab fa-facebook"></a></li>
-                    <li><a href="#" rel="noopener" class="fab fa-twitter"></a></li>
-                    <li><a href="#" rel="noopener" class="fab fa-instagram"></a></li>
-                    <li><a href="#" rel="noopener" class="fab fa-linkedin"></a></li>
-                    <li><a href="#" rel="noopener" class="fab fa-youtube"></a></li>
-                </ul>
-                
-              <p class="copyright-text mt-5 pt-3">Copyright &copy; 2020 Ben Resume Page</p>
-                
-                <p>Design: <a href="https://www.tooplate.com" title="free HTML templates" target="_blank">Tooplate</a></p>
-            </div>
-
+        <div class="chapter-bar"><i></i></div>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <span class="stage-label">LIVE_CHAT · RESOLVING</span>
+        <i class="wave"></i><i class="wave"></i><i class="wave"></i>
+        <svg class="ring" viewBox="0 0 100 100"><circle class="t" cx="50" cy="50" r="40"/><circle class="v" cx="50" cy="50" r="40" pathLength="1"/><text x="50" y="50" data-ring>0%</text></svg>
+        <div class="chat">
+          <div class="bub them">Hi — my order never arrived and I'm worried.</div>
+          <div class="bub me">I'm sorry about that. Let me look into it right now.</div>
+          <div class="bub them">It was meant for Friday…</div>
+          <div class="bub me">Found it — re-shipping express, free of charge. 📦</div>
+          <div class="bub them">Wow, thank you. That was quick! 🙌</div>
         </div>
       </div>
-    </section>
-     <!-- SCRIPTS -->
-     <script src="js/jquery.min.js"></script>
-     <script src="js/bootstrap.min.js"></script>
-     <script src="js/smoothscroll.js"></script>
-     <script src="js/owl.carousel.min.js"></script>
-     <script src="js/custom.js"></script>
+    </div>
+  </div>
 
+  <!-- 02 ELECTRICAL -->
+  <div class="chapter" id="ch-electrical" data-theme="electrical" data-fx="electrical">
+    <div class="pin">
+      <div class="copy">
+        <span class="eyebrow">Chapter 02</span>
+        <span class="years">2015 — 2019</span>
+        <h2>Electrical <span>engineering</span></h2>
+        <p class="lead">Designing the things that carry current — and learning that precision is a form of care.</p>
+        <ul>
+          <li>Schematic and PCB design, from concept to prototype</li>
+          <li>Power systems, control panels and instrumentation</li>
+          <li>Testing, fault-finding and documentation to standard</li>
+        </ul>
+        <div class="metrics">
+          <div><b data-count="40" data-suffix="+">0</b><span>designs shipped</span></div>
+          <div><b data-count="480" data-suffix="V">0</b><span>systems handled</span></div>
+        </div>
+        <div class="chapter-bar"><i></i></div>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <span class="stage-label">PCB_REV_B · ENERGISING</span>
+        <svg class="pcb" viewBox="0 0 480 420" preserveAspectRatio="xMidYMid slice">
+          <g id="pcb-paths">
+            <path class="ghost" d="M40 90 H150 V160 H190"/><path class="trace" pathLength="1" d="M40 90 H150 V160 H190"/>
+            <path class="ghost" d="M40 210 H190"/><path class="trace" pathLength="1" d="M40 210 H190"/>
+            <path class="ghost" d="M40 330 H120 V260 H190"/><path class="trace" pathLength="1" d="M40 330 H120 V260 H190"/>
+            <path class="ghost" d="M290 160 H340 V90 H440"/><path class="trace" pathLength="1" d="M290 160 H340 V90 H440"/>
+            <path class="ghost" d="M290 210 H440"/><path class="trace" pathLength="1" d="M290 210 H440"/>
+            <path class="ghost" d="M290 260 H340 V330 H440"/><path class="trace" pathLength="1" d="M290 260 H340 V330 H440"/>
+          </g>
+          <circle class="node" cx="40" cy="90" r="7"/><circle class="node" cx="40" cy="210" r="7"/><circle class="node" cx="40" cy="330" r="7"/>
+          <circle class="node" cx="440" cy="90" r="7"/><circle class="node" cx="440" cy="210" r="7"/><circle class="node" cx="440" cy="330" r="7"/>
+          <rect class="chip-body" x="190" y="130" width="100" height="160" rx="8"/>
+          <text x="240" y="215" text-anchor="middle">MCU</text>
+          <g fill="var(--line)"><rect x="196" y="156" width="8" height="8"/><rect x="196" y="206" width="8" height="8"/><rect x="196" y="256" width="8" height="8"/></g>
+          <path class="sine" id="sine" d="" transform="translate(40 385)"/>
+          <circle class="pulse" r="5" cx="-20" cy="-20"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <!-- 03 SOFTWARE -->
+  <div class="chapter" id="ch-software" data-theme="software" data-fx="software">
+    <div class="pin">
+      <div class="copy">
+        <span class="eyebrow">Chapter 03</span>
+        <span class="years">2019 — 2022</span>
+        <h2>Software <span>engineering</span></h2>
+        <p class="lead">Taking the engineer's rigour and the service mindset into code people actually enjoy using.</p>
+        <ul>
+          <li>Web apps, APIs and internal tooling from idea to release</li>
+          <li>Automation that removes repetitive work for whole teams</li>
+          <li>Clean, tested, documented code with CI from day one</li>
+        </ul>
+        <div class="metrics">
+          <div><b data-count="25" data-suffix="+">0</b><span>apps &amp; tools</span></div>
+          <div><b data-count="128" data-suffix="">0</b><span>tests passing</span></div>
+        </div>
+        <div class="chapter-bar"><i></i></div>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <span class="stage-label">main · BUILDING</span>
+        <div class="editor">
+          <div class="code" id="code"></div>
+          <div class="build">
+            <svg class="commits" viewBox="0 0 200 40" preserveAspectRatio="xMidYMid meet">
+              <line x1="10" y1="20" x2="190" y2="20"/>
+              <circle cx="10" cy="20" r="5"/><circle cx="46" cy="20" r="5"/><circle cx="82" cy="20" r="5"/><circle cx="118" cy="20" r="5"/><circle cx="154" cy="20" r="5"/><circle cx="190" cy="20" r="5"/>
+            </svg>
+            <span class="pass">● CI running…</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 04 MANAGEMENT -->
+  <div class="chapter" id="ch-management" data-theme="management" data-fx="management">
+    <div class="pin">
+      <div class="copy">
+        <span class="eyebrow">Chapter 04</span>
+        <span class="years">2022 — Today</span>
+        <h2><span>Management</span></h2>
+        <p class="lead">Bringing it all together: leading people, planning delivery and making the whole system work.</p>
+        <ul>
+          <li>Leading cross-functional teams across engineering and service</li>
+          <li>Roadmaps, budgets, hiring and stakeholder alignment</li>
+          <li>Building process and culture that scale</li>
+        </ul>
+        <div class="metrics">
+          <div><b data-count="15" data-suffix="">0</b><span>people led</span></div>
+          <div><b data-count="30" data-suffix="%">0</b><span>faster delivery</span></div>
+        </div>
+        <div class="chapter-bar"><i></i></div>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <span class="stage-label">ORG · ROADMAP · Q4</span>
+        <svg class="org" viewBox="0 0 480 420" preserveAspectRatio="xMidYMid slice">
+          <path class="edge" pathLength="1" d="M240 70 V100 H100 V130"/><path class="edge" pathLength="1" d="M240 70 V100 H240 V130"/><path class="edge" pathLength="1" d="M240 70 V100 H380 V130"/>
+          <path class="edge" pathLength="1" d="M100 160 V185 H60 V205"/><path class="edge" pathLength="1" d="M100 160 V185 H140 V205"/>
+          <path class="edge" pathLength="1" d="M240 160 V185 H200 V205"/><path class="edge" pathLength="1" d="M240 160 V185 H280 V205"/>
+          <path class="edge" pathLength="1" d="M380 160 V185 H340 V205"/><path class="edge" pathLength="1" d="M380 160 V185 H420 V205"/>
+          <circle class="n root" cx="240" cy="50" r="22"/>
+          <circle class="n" cx="100" cy="145" r="16"/><circle class="n" cx="240" cy="145" r="16"/><circle class="n" cx="380" cy="145" r="16"/>
+          <circle class="n" cx="60" cy="220" r="11"/><circle class="n" cx="140" cy="220" r="11"/><circle class="n" cx="200" cy="220" r="11"/>
+          <circle class="n" cx="280" cy="220" r="11"/><circle class="n" cx="340" cy="220" r="11"/><circle class="n" cx="420" cy="220" r="11"/>
+        </svg>
+        <div class="road">
+          <div style="width:100%"><i data-bar="0"></i></div>
+          <div style="width:82%;margin-left:12%"><i data-bar="1"></i></div>
+          <div style="width:62%;margin-left:30%"><i data-bar="2"></i></div>
+          <div style="width:40%;margin-left:55%"><i data-bar="3"></i></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ WORK ============================ -->
+<section class="section" id="work">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Selected work</p>
+      <h2>Projects across the four disciplines.</h2>
+      <p class="lead">Click any project for the details. Thumbnails are placeholders until your real photos are added (see the note in the code).</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter projects">
+      <button class="chip" aria-pressed="true" data-f="all">All</button>
+      <button class="chip" aria-pressed="false" data-f="service">Customer service</button>
+      <button class="chip" aria-pressed="false" data-f="electrical">Electrical</button>
+      <button class="chip" aria-pressed="false" data-f="software">Software</button>
+      <button class="chip" aria-pressed="false" data-f="management">Management</button>
+    </div>
+    <div class="projects" id="projects"></div>
+  </div>
+</section>
+
+<!-- ============================ DESIGN SYSTEM ============================ -->
+<section class="section" id="system">
+  <div class="container">
+    <div class="section-head reveal">
+      <p class="eyebrow">Design system</p>
+      <h2>The rules behind this page.</h2>
+      <p class="lead">Every colour, size and motion on this page comes from the tokens defined at the top of the stylesheet.</p>
+    </div>
+    <div class="spec reveal">
+      <div><h3>Colour</h3><div class="swatches" id="sw"></div></div>
+      <div><h3>Type — Space Grotesk · Inter · JetBrains Mono</h3>
+        <div class="type-row"><code>--fs-h1</code><span style="font:700 clamp(2rem,6vw,4rem)/1 var(--font-display)">Display</span></div>
+        <div class="type-row"><code>--fs-h2</code><span style="font:700 var(--fs-h2)/1 var(--font-display)">Heading two</span></div>
+        <div class="type-row"><code>--fs-h3</code><span style="font:600 var(--fs-h3)/1.1 var(--font-display)">Heading three</span></div>
+        <div class="type-row"><code>--fs-base</code><span>Body copy reads at a comfortable 1.65 line-height.</span></div>
+        <div class="type-row"><code>--fs-xs mono</code><span class="eyebrow">Eyebrow · label</span></div>
+      </div>
+      <div><h3>Spacing — 4px base</h3><div class="space-row" id="sp"></div></div>
+      <div><h3>Layout — 12-column grid · 1200px container · breakpoints 640 / 960</h3><div class="layout-demo" id="lay"></div></div>
+      <div><h3>Components</h3>
+        <div class="row">
+          <a class="btn btn-primary" href="#system">Primary</a><a class="btn" href="#system">Secondary</a>
+          <button class="chip" aria-pressed="true">Chip on</button><button class="chip" aria-pressed="false">Chip off</button>
+          <span class="tag">tag</span><span class="kind">kind label</span>
+        </div>
+      </div>
+      <div><h3>Motion</h3><p>Easing <code>cubic-bezier(.2,.7,.2,1)</code> · fast .18s · base .45s · slow .9s · scroll-linked progress <code>--p</code> (0→1) per chapter · all effects disabled under <code>prefers-reduced-motion</code>.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONTACT ============================ -->
+<section class="section contact" id="contact">
+  <div class="container reveal">
+    <p class="eyebrow">Contact</p>
+    <h2 style="margin-top:var(--s4)">Let's build something.</h2>
+    <p class="lead" style="margin:0 auto var(--s6)">Open to roles, collaborations and good conversations.</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="mailto:m.alhaimouni@gmail.com">Email me</a>
+      <a class="btn" href="https://github.com/Alhaimouni">GitHub</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer class="footer"><div class="container"><span>© 2026 M. Alhaimouni</span><span>Built as a single HTML file.</span></div></footer>
+
+<dialog id="dlg"><button class="close" aria-label="Close">✕</button><div id="dlg-body"></div></dialog>
+
+<script>
+/* ==========================================================================
+   PROJECT DATA  — edit here.
+   To use a real photo instead of the generated art, add  img: "images/my-photo.jpg"
+   ========================================================================== */
+const PROJECTS = [
+  { id:1, cat:'service',    title:'Support Playbook Redesign',  desc:'Rebuilt the knowledge base and escalation paths so agents resolve first-contact issues faster.', tags:['Process','Training','KPIs'] },
+  { id:2, cat:'electrical', title:'Smart Power Monitor',        desc:'Custom PCB energy meter with live load measurement, designed from schematic to working prototype.', tags:['PCB','Altium','Power'] },
+  { id:3, cat:'software',   title:'Operations Dashboard',       desc:'Real-time web dashboard that unified tickets, schedules and metrics for the whole team.', tags:['JavaScript','API','UX'] },
+  { id:4, cat:'management', title:'Delivery Roadmap Program',   desc:'Aligned engineering and service on one quarterly roadmap, cutting delivery time by a third.', tags:['Strategy','Planning','Leadership'] },
+  { id:5, cat:'electrical', title:'Motor Control Panel',        desc:'Designed and documented a 480V control panel with protection, metering and clear fault indication.', tags:['Control','Safety','Standards'] },
+  { id:6, cat:'software',   title:'Workflow Automation Toolkit',desc:'Scripts and services that removed hours of manual reporting each week, tested and deployed through CI.', tags:['Python','CI/CD','Automation'] },
+  { id:7, cat:'service',    title:'Customer Feedback Loop',     desc:'Turned survey and chat data into a monthly improvement cycle shared with product teams.', tags:['Insights','CSAT','Voice of customer'] },
+  { id:8, cat:'management', title:'Team Scaling & Hiring',      desc:'Grew the team from a handful to fifteen with structured onboarding and clear career paths.', tags:['Hiring','Culture','Mentoring'] },
+];
+const COLORS = { service:'#FFB547', electrical:'#38D5FF', software:'#8B8CFF', management:'#3DDC97' };
+const NAMES  = { service:'Customer service', electrical:'Electrical engineering', software:'Software engineering', management:'Management' };
+
+/* ---- Generated placeholder art (seeded so each card differs) ---- */
+function rng(seed){ let s = seed*9301+49297; return () => (s = (s*9301+49297) % 233280) / 233280; }
+function art(p){
+  const c = COLORS[p.cat], r = rng(p.id), W = 320, H = 200;
+  let g = '';
+  if (p.cat === 'service') {
+    for (let i = 0; i < 5; i++) { const me = i % 2, w = 90 + r()*80, x = me ? W-w-24 : 24, y = 18 + i*34;
+      g += `<rect x="${x}" y="${y}" width="${w}" height="24" rx="12" fill="${me?c:'#222838'}"/><rect x="${x+12}" y="${y+10}" width="${w-34}" height="4" rx="2" fill="${me?'#0B0D12':'#556'}" opacity=".6"/>`; }
+    g += `<circle cx="${W-40}" cy="40" r="0" />`;
+  } else if (p.cat === 'electrical') {
+    for (let i = 0; i < 6; i++) { const y = 24 + i*30, x2 = 90 + r()*60, x3 = x2 + 30 + r()*40;
+      g += `<path d="M10 ${y} H${x2} V${y+(r()>.5?14:-14)} H${x3} H${W-10}" fill="none" stroke="${c}" stroke-width="2" opacity=".8"/><circle cx="10" cy="${y}" r="4" fill="${c}"/><circle cx="${W-10}" cy="${y}" r="4" fill="${c}" opacity=".5"/>`; }
+    g += `<rect x="125" y="62" width="70" height="76" rx="6" fill="#161B27" stroke="${c}" stroke-width="2"/>`;
+  } else if (p.cat === 'software') {
+    for (let i = 0; i < 9; i++) { const ind = Math.floor(r()*3)*14, w = 40 + r()*140, y = 16 + i*20;
+      g += `<rect x="${34+ind}" y="${y}" width="${w}" height="7" rx="3.5" fill="${i%3===0?c:'#3A4156'}" opacity="${i%3===0?.9:.7}"/><text x="12" y="${y+7}" font-size="7" fill="#556" font-family="monospace">${i+1}</text>`; }
+  } else {
+    const bars = 6; for (let i = 0; i < bars; i++) { const h = 30 + r()*110, x = 26 + i*48;
+      g += `<rect x="${x}" y="${H-24-h}" width="30" height="${h}" rx="5" fill="${c}" opacity="${.35+i*.12}"/>`; }
+    g += `<path d="M26 ${H-60} L90 ${H-80} L150 ${H-70} L220 ${H-120} L296 ${H-150}" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".85"/>`;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <defs><linearGradient id="bg${p.id}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".22"/><stop offset="1" stop-color="#0B0D12"/></linearGradient></defs>
+    <rect width="${W}" height="${H}" fill="url(#bg${p.id})"/>${g}</svg>`;
+}
+const media = p => p.img ? `<img src="${p.img}" alt="${p.title}" loading="lazy">` : art(p);
+
+/* ---- Render projects ---- */
+const grid = document.getElementById('projects');
+grid.innerHTML = PROJECTS.map((p,i) => `
+  <button class="card project reveal" style="--pc:${COLORS[p.cat]};--d:${(i%3)*.08}s" data-cat="${p.cat}" data-id="${p.id}">
+    <div class="thumb">${media(p)}</div>
+    <div class="body"><span class="kind">${NAMES[p.cat]}</span><h3>${p.title}</h3><p>${p.desc}</p>
+      <div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>
+  </button>`).join('');
+
+document.querySelectorAll('.filters .chip').forEach(b => b.addEventListener('click', () => {
+  document.querySelectorAll('.filters .chip').forEach(x => x.setAttribute('aria-pressed', x === b));
+  grid.querySelectorAll('.project').forEach(c => c.classList.toggle('hide', b.dataset.f !== 'all' && c.dataset.cat !== b.dataset.f));
+}));
+
+const dlg = document.getElementById('dlg');
+grid.addEventListener('click', e => {
+  const card = e.target.closest('.project'); if (!card) return;
+  const p = PROJECTS.find(x => x.id == card.dataset.id);
+  dlg.style.setProperty('--pc', COLORS[p.cat]);
+  document.getElementById('dlg-body').innerHTML = `<div class="thumb">${media(p)}</div><div class="body"><span class="kind">${NAMES[p.cat]}</span><h3>${p.title}</h3><p>${p.desc}</p><div class="tags">${p.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div></div>`;
+  dlg.showModal();
+});
+dlg.querySelector('.close').onclick = () => dlg.close();
+dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
+
+/* ---- Design-system spec rendering ---- */
+document.getElementById('sw').innerHTML = [['--bg','#0B0D12'],['--surface','#121620'],['--surface-2','#1A1F2C'],['--text','#E8ECF4'],['--muted','#98A2B6'],
+  ['--c-service','#FFB547'],['--c-electrical','#38D5FF'],['--c-software','#8B8CFF'],['--c-management','#3DDC97']]
+  .map(([n,v]) => `<div class="sw"><i style="--c:${v}"></i><span>${n}<br>${v}</span></div>`).join('');
+document.getElementById('sp').innerHTML = [4,8,12,16,24,32,48,72].map((v,i) => `<div><i style="--w:${v}px"></i>--s${i+1}<br>${v}</div>`).join('');
+document.getElementById('lay').innerHTML = '<i></i>'.repeat(12);
+
+/* ==========================================================================
+   SCROLL ENGINE — one rAF loop; each chapter gets progress p ∈ [0,1]
+   ========================================================================== */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const clamp = (v,a=0,b=1) => Math.min(b, Math.max(a, v));
+const seg = (p,a,b) => clamp((p-a)/(b-a));            // sub-progress inside a window
+const chapters = [...document.querySelectorAll('.chapter')];
+const railLinks = [...document.querySelectorAll('.rail a')];
+const bar = document.querySelector('.progress');
+
+/* --- SERVICE --- */
+const fx = {};
+fx.service = ch => {
+  const bubs = ch.querySelectorAll('.bub'), ring = ch.querySelector('[data-ring]');
+  return p => { bubs.forEach((b,i) => b.classList.toggle('in', p > .08 + i*.15));
+    ring.textContent = Math.round(p*96) + '%'; };
+};
+
+/* --- ELECTRICAL --- */
+fx.electrical = ch => {
+  const traces = [...ch.querySelectorAll('.trace')], nodes = [...ch.querySelectorAll('.node')],
+        chip = ch.querySelector('.chip-body'), pulse = ch.querySelector('.pulse'), sine = ch.querySelector('#sine');
+  const lens = traces.map(t => t.getTotalLength());
+  const nodeOf = [0,1,2,3,4,5]; // trace i energises node i when it completes
+  return p => {
+    traces.forEach((t,i) => {
+      const s = i < 3 ? seg(p, i*.07, .42 + i*.07) : seg(p, .45 + (i-3)*.07, .85 + (i-3)*.04);
+      t.style.strokeDashoffset = 1 - s;
+      nodes[nodeOf[i]].classList.toggle('on', s >= .999);
+    });
+    chip.classList.toggle('on', p > .45);
+    // travelling pulse along the active trace
+    const i = p < .45 ? Math.min(2, Math.floor(p/.15)) : 3 + Math.min(2, Math.floor((p-.45)/.13));
+    const s = i < 3 ? seg(p, i*.07, .42+i*.07) : seg(p, .45+(i-3)*.07, .85+(i-3)*.04);
+    const pt = traces[i].getPointAtLength(s*lens[i]);
+    pulse.setAttribute('cx', pt.x); pulse.setAttribute('cy', pt.y);
+    pulse.style.opacity = p > .02 && p < .98 ? 1 : 0;
+    // sine wave grows in frequency/amplitude with progress
+    let d = ''; const amp = 6 + 16*p, freq = 0.04 + .1*p, w = 400*seg(p,.1,1);
+    for (let x = 0; x <= w; x += 4) d += (x ? 'L' : 'M') + x + ' ' + (Math.sin(x*freq + p*20)*amp).toFixed(1);
+    sine.setAttribute('d', d || 'M0 0');
+  };
+};
+
+/* --- SOFTWARE --- */
+fx.software = ch => {
+  const el = ch.querySelector('#code'), dots = [...ch.querySelectorAll('.commits circle')], pass = ch.querySelector('.pass');
+  const src = [
+    '// ops-dashboard / api.js',
+    'class Dashboard {',
+    '  async load() {',
+    '    const data = await api.get("/ops");',
+    '    this.render(data.map(toCard));',
+    '  }',
+    '}',
+    '',
+    '$ npm test',
+    'PASS  128 tests  ·  0 failed',
+  ].join('\n');
+  const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+  const hl = s => esc(s).replace(/(\/\/.*$)|(&quot;.*?&quot;|".*?")|\b(class|async|const|await)\b|\b(PASS)\b/gm,
+    (m,c,str,k,ok) => c ? `<span class="c">${m}</span>` : str ? `<span class="s">${m}</span>` : k ? `<span class="k">${m}</span>` : `<span class="s">${m}</span>`);
+  return p => {
+    const n = Math.floor(src.length * seg(p,0,.85));
+    el.innerHTML = hl(src.slice(0,n)) + '<span class="cur"></span>';
+    dots.forEach((d,i) => { const on = p > .1 + i*.13; d.style.fill = on ? 'var(--accent)' : 'var(--bg)'; d.style.transform = on ? 'scale(1.25)' : 'scale(1)'; });
+    const ok = p > .9; pass.classList.toggle('ok', ok); pass.textContent = ok ? '✓ CI passed · deployed' : '● CI running…';
+  };
+};
+
+/* --- MANAGEMENT --- */
+fx.management = ch => {
+  const edges = [...ch.querySelectorAll('.edge')], nodes = [...ch.querySelectorAll('.n')], bars = [...ch.querySelectorAll('[data-bar]')];
+  return p => {
+    nodes[0].classList.toggle('on', p > .02);
+    nodes.slice(1,4).forEach(n => n.classList.toggle('on', p > .18));
+    nodes.slice(4).forEach((n,i) => n.classList.toggle('on', p > .36 + i*.03));
+    edges.forEach((e,i) => e.style.strokeDashoffset = 1 - (i < 3 ? seg(p,.05,.25) : seg(p,.25 + (i-3)*.025,.5 + (i-3)*.025)));
+    bars.forEach((b,i) => b.style.setProperty('--w', seg(p, .45 + i*.1, .75 + i*.08)));
+  };
+};
+
+const runners = chapters.map(ch => ({ ch, run: fx[ch.dataset.fx](ch), counters: [...ch.querySelectorAll('[data-count]')] }));
+
+function update() {
+  const vh = innerHeight, y = scrollY;
+  document.documentElement.style.setProperty('--scroll', y);
+  bar.style.setProperty('--page-p', clamp(y / (document.documentElement.scrollHeight - vh)));
+  let active = null;
+  runners.forEach(({ ch, run, counters }) => {
+    const r = ch.getBoundingClientRect();
+    const p = reduce ? 1 : clamp(-r.top / (r.height - vh));
+    ch.style.setProperty('--p', p);
+    run(p);
+    counters.forEach(c => { const t = +c.dataset.count; c.textContent = Math.round(t * seg(p,.05,.8)).toLocaleString() + (c.dataset.suffix || ''); });
+    if (r.top < vh*.5 && r.bottom > vh*.5) active = ch;
+  });
+  if (active) document.body.dataset.theme = active.dataset.theme;
+  railLinks.forEach((a,i) => a.classList.toggle('on', chapters[i] === active));
+}
+let ticking = false;
+addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(() => { update(); ticking = false; }); } }, { passive: true });
+addEventListener('resize', update);
+update();
+
+/* ---- Reveal on scroll ---- */
+const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
