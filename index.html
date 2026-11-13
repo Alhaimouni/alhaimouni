@@ -104,16 +104,12 @@
 .pass { font: 500 var(--fs-xs) var(--font-mono); padding: 8px 12px; border-radius: var(--r-pill); border: 1px solid var(--line); color: var(--muted); transition: all .5s var(--ease); white-space: nowrap; }
 .pass.ok { color: var(--on-accent); background: var(--accent); border-color: transparent; box-shadow: var(--shadow-glow); }
 
-/* --- Effect: MANAGEMENT — org tree grows, roadmap bars fill, KPIs rise --- */
-.stage { --road-h: 92px; }
-.org { position: absolute !important; top: 26px; left: 0; width: 100%; height: calc(100% - 26px - var(--road-h)); }
+/* --- Effect: MANAGEMENT — org tree grows --- */
+.org { position: absolute !important; top: 26px; left: 0; width: 100%; height: calc(100% - 26px); }
 .org .edge { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .8; }
 .org .n { fill: var(--surface-2); stroke: var(--accent); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.2); transition: opacity .4s, transform .6s var(--ease); }
 .org .n.on { opacity: 1; transform: none; }
 .org .root { fill: var(--accent); }
-.road { position: absolute !important; left: 22px; right: 22px; bottom: 22px; display: grid; gap: 8px; }
-.road div { height: 10px; border-radius: 6px; background: var(--line); overflow: hidden; }
-.road div i { display: block; height: 100%; width: 100%; background: var(--accent); border-radius: 6px; transform-origin: 0 50%; transform: scaleX(var(--w, 0)); }
 
 /* ---- Hero layout + portrait ---- */
 .hero-wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--s7); align-items: center; }
@@ -359,11 +355,10 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
 
 /* ---- Phones: keep every chapter visual whole, readable and un-cropped ---- */
 @media (max-width: 640px) {
-  .stage { --road-h: 60px; aspect-ratio: 1.55; max-height: 31svh; }
+  .stage { aspect-ratio: 1.55; max-height: 31svh; }
   .chapter[data-fx="software"] .stage { aspect-ratio: 1.32; max-height: 35svh; }
   .stage-label { top: 9px; left: 12px; font-size: 9px; }
-  .pcb { top: 22px; height: calc(100% - 22px); } .org { top: 22px; height: calc(100% - 22px - var(--road-h)); }
-  .road { left: 14px; right: 14px; bottom: 14px; gap: 6px; } .road div, .road div i { height: 6px; }
+  .pcb { top: 22px; height: calc(100% - 22px); } .org { top: 22px; height: calc(100% - 22px); }
   .editor { inset: 28px 12px 12px; gap: 8px; }
   .code { padding: 9px 11px; font-size: 9px; line-height: 1.55; border-radius: var(--r-sm); }
   .build { gap: 8px; } .commits { height: 20px; } .pass { padding: 6px 9px; font-size: 9px; }
@@ -532,7 +527,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
         <div class="chapter-bar"><i></i></div>
       </div>
       <div class="stage" aria-hidden="true">
-        <span class="stage-label">ORG · ROADMAP · Q4</span>
+        <span class="stage-label">ORG · TEAM</span>
         <svg class="org" viewBox="20 20 440 232" preserveAspectRatio="xMidYMid meet">
           <path class="edge" pathLength="1" d="M240 70 V100 H100 V130"/><path class="edge" pathLength="1" d="M240 70 V100 H240 V130"/><path class="edge" pathLength="1" d="M240 70 V100 H380 V130"/>
           <path class="edge" pathLength="1" d="M100 160 V185 H60 V205"/><path class="edge" pathLength="1" d="M100 160 V185 H140 V205"/>
@@ -543,12 +538,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
           <circle class="n" cx="60" cy="220" r="11"/><circle class="n" cx="140" cy="220" r="11"/><circle class="n" cx="200" cy="220" r="11"/>
           <circle class="n" cx="280" cy="220" r="11"/><circle class="n" cx="340" cy="220" r="11"/><circle class="n" cx="420" cy="220" r="11"/>
         </svg>
-        <div class="road">
-          <div style="width:100%"><i data-bar="0"></i></div>
-          <div style="width:82%;margin-left:12%"><i data-bar="1"></i></div>
-          <div style="width:62%;margin-left:30%"><i data-bar="2"></i></div>
-          <div style="width:40%;margin-left:55%"><i data-bar="3"></i></div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -678,24 +668,6 @@ const PROJECTS = [
     gallery:[
       { slide:{ title:'Employee meeting tracker', pts:['Log meetings with employees','Integrated with Outlook services','History and follow up per employee','One place for every conversation'] }, cap:'Overview' },
       { ph:true, cap:'Add: meeting log screenshot' }, { ph:true, cap:'Add: Outlook integration' } ] },
-  { id:6, cat:'management', title:'Official Campus Website, 42 Amman', year:'2025',
-    desc:'Designed and implemented the official website for the 42 Amman campus of the Crown Prince Foundation, improving communication with learners and strengthening the campus brand.',
-    tags:['Web','Brand','Communication'], links:[],
-    gallery:[ { ph:true, cap:'Add: homepage screenshot' }, { ph:true, cap:'Add: programs page' }, { ph:true, cap:'Add: mobile view' } ] },
-  { id:7, cat:'management', title:'Learning Frameworks & KPIs', year:'2024 to Now',
-    desc:'Developed structured learning frameworks aligned with program standards and measurable KPIs, together with engagement strategies that foster an active, performance driven learning environment.',
-    tags:['Program design','KPIs','Engagement'], links:[],
-    gallery:[ { ph:true, cap:'Add: framework diagram' }, { ph:true, cap:'Add: KPI dashboard' } ] },
-  { id:8, cat:'management', title:'LMS Performance Analytics', year:'2024 to 2025',
-    desc:'Developed LMS tooling that analyses learner performance to identify at risk learners early and trigger targeted support.',
-    tags:['LMS','Analytics','Power BI','Intervention'], links:[],
-    gallery:[ { ph:true, cap:'Add: dashboard screenshot' }, { ph:true, cap:'Add: at risk report' } ] },
-  { id:9, cat:'management', title:'Workshops & Hackathons', year:'2025 to Now',
-    desc:'Lead interactive workshops, hackathons and learning sessions that raise learner engagement and academic performance, evaluate strategic partnerships by educational impact, and drive community initiatives that improve learner retention.',
-    tags:['Events','Community','Partnerships'],
-    links:[{t:'CAVT Hackathon @ 42 Amman (GitHub)',u:'https://github.com/ahmad-nashwan/CAVT-Hackathon-42-Amman'}],
-    gallery:[ { ph:true, cap:'Add: event photo' }, { ph:true, cap:'Add: hackathon photo' }, { ph:true, cap:'Add: workshop photo' } ] },
-
   /* ================= ENGINEERING =================
      Drop your files into images/projects/<folder>/ using the names below. Missing files show a placeholder. */
   { id:10, cat:'engineering', title:'42 Amman Campus', year:'', badge:'Site · 3D · Plans',
@@ -731,22 +703,6 @@ const PROJECTS = [
       { src:'images/projects/hikma-nahda/03-plan.jpg', cap:'Plan' }, { src:'images/projects/hikma-nahda/04-plan.jpg', cap:'Plan' } ] },
 
   /* ================= SOFTWARE ================= */
-  { id:1, cat:'software', title:'Finance Tracker', year:'2026',
-    desc:'Full stack personal finance application for tracking income and expenses, organising spending by category, setting budgets with live status and reviewing summaries, all behind a JWT secured API.',
-    tags:['NestJS','TypeORM','React','MUI','TypeScript','Docker'],
-    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/Finance-Tracker'}],
-    gallery:[
-      { slide:{ title:'Finance Tracker', pts:['Track income & expenses','Custom categories per user','Budgets with spent / remaining / % used','Spending summary by date range'] }, cap:'Overview' },
-      { slide:{ title:'Secure by design', pts:['bcrypt-hashed passwords','JWT in an httpOnly cookie','Protected routes + profile endpoint','Zod + React Hook Form validation'] }, cap:'Authentication' },
-      { slide:{ title:'Stack', pts:['NestJS + TypeORM backend','React + MUI v7 DataGrid','Full TypeScript coverage','Docker Compose for local setup'] }, cap:'Architecture' } ] },
-  { id:2, cat:'software', title:'AYC Access Management System', year:'2025',
-    desc:'Membership, visitor, event and room booking platform for the Arab Youth Center, with QR code entry and exit logging, role based access control and a bilingual Arabic and English interface.',
-    tags:['Node.js','Express','PostgreSQL','Sequelize','React','Vite','i18n'],
-    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/ayc-access-management-system'}],
-    gallery:[
-      { slide:{ title:'AYC Access Management', pts:['Membership + QR code generation','Visitors with 24 hour temporary QR','Events: registration & attendance','Room booking with approval workflow'] }, cap:'Overview' },
-      { slide:{ title:'Entry / exit control', pts:['QR scan logs entry and exit','Duration tracked per visit','6 user roles, role-based access','Admin dashboard & reports'] }, cap:'Access control' },
-      { slide:{ title:'Platform', pts:['Express API · JWT · rate limiting · helmet','PostgreSQL via Sequelize ORM','React 18 + Vite front end','Arabic & English (react-i18next)'] }, cap:'Architecture' } ] },
   { id:3, cat:'software', title:'CAVT Programs Kiosk', year:'2026',
     desc:'Touch first Arabic (RTL) kiosk web app presenting the 20 vocational programs of CAVT, built by a team during a 24 to 48 hour hackathon.',
     tags:['React','Vite','Tailwind v4','Framer Motion','Zustand','PWA'],
@@ -806,26 +762,6 @@ const PROJECTS = [
     desc:'My first personal portfolio, with an animated hero, skill bars and a project gallery with detail modals.',
     tags:['HTML','CSS','JavaScript','Portfolio'], links:[{t:'GitHub',u:'https://github.com/Alhaimouni/my-portfolio'}],
     gallery:[ { src:'images/projects/portfolio-v1/01.jpg', cap:'Landing' }, { src:'images/projects/portfolio-v1/02.jpg', cap:'Mobile view' } ] },
-  { id:24, cat:'software', title:'Covid 19 Statistics Tracker', year:'2022',
-    desc:'A web app that gives users the latest Covid 19 statistics from around the world, with a React front end and a separate back end service.',
-    tags:['React','React Router','Axios','Node.js'],
-    links:[{t:'Front end',u:'https://github.com/Alhaimouni/covid-19-frontend'},{t:'Back end',u:'https://github.com/Alhaimouni/covid-19-backend'}],
-    gallery:[ { slide:{ title:'Covid 19 tracker', pts:['Worldwide Covid 19 statistics','React front end with React Router','Axios for data requests','Separate Node.js back end'] }, cap:'Overview' } ] },
-  { id:25, cat:'software', title:'ToDo\'s with GraphQL', year:'2023',
-    desc:'A clean task manager where users create, edit and complete tasks. Built with React, a Material UI interface and a GraphQL API consumed through Apollo Client.',
-    tags:['React','Apollo Client','GraphQL','Material UI'],
-    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/todo-apollo'},{t:'GraphQL server',u:'https://github.com/Alhaimouni/graphql-server'}],
-    gallery:[ { slide:{ title:'ToDo\'s with GraphQL', pts:['Create, edit and complete tasks','GraphQL API with Apollo Client','Material UI interface','Separate GraphQL server repository'] }, cap:'Overview' } ] },
-  { id:26, cat:'software', title:'Next News', year:'2025',
-    desc:'News application built with Next.js 14 and the App Router, with a shared header, a news list component and separate route groups for content and marketing pages.',
-    tags:['Next.js 14','React','App Router'],
-    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/next-news'},{t:'Backup copy',u:'https://github.com/Alhaimouni/next-news-bk'}],
-    gallery:[ { slide:{ title:'Next News', pts:['Next.js 14 App Router','Reusable header and news list components','Content and marketing route groups','Local news data layer'] }, cap:'Overview' } ] },
-  { id:27, cat:'software', title:'Game Lab: Bouncing Ball', year:'2025',
-    desc:'A game built on Code.org Game Lab where the player hits the ball and tries to score more points.',
-    tags:['JavaScript','Game Lab','Game design'],
-    links:[{t:'GitHub',u:'https://github.com/Alhaimouni/game_lab'}],
-    gallery:[ { slide:{ title:'Bouncing Ball', pts:['Built on Code.org Game Lab','Hit the ball to score','Simple scoring loop','Source and assets in the repo'] }, cap:'Overview' } ] },
 ];
 const COLORS = { management:'#3DDC97', engineering:'#38D5FF', software:'#9B7CFF' };
 const NAMES  = { management:'Management', engineering:'Engineering', software:'Software' };
@@ -973,13 +909,12 @@ fx.software = ch => {
 
 /* --- MANAGEMENT --- */
 fx.management = ch => {
-  const edges = [...ch.querySelectorAll('.edge')], nodes = [...ch.querySelectorAll('.n')], bars = [...ch.querySelectorAll('[data-bar]')];
+  const edges = [...ch.querySelectorAll('.edge')], nodes = [...ch.querySelectorAll('.n')];
   return p => {
     nodes[0].classList.toggle('on', p > .02);
     nodes.slice(1,4).forEach(n => n.classList.toggle('on', p > .18));
     nodes.slice(4).forEach((n,i) => n.classList.toggle('on', p > .36 + i*.03));
     edges.forEach((e,i) => e.style.strokeDashoffset = 1 - (i < 3 ? seg(p,.05,.25) : seg(p,.25 + (i-3)*.025,.5 + (i-3)*.025)));
-    bars.forEach((b,i) => b.style.setProperty('--w', seg(p, .45 + i*.1, .75 + i*.08)));
   };
 };
 
