@@ -197,7 +197,7 @@ body.settings-open #settings { transform: none; visibility: visible; box-shadow:
 .swatch-row button, .swatch-row label { width: 34px; height: 34px; border-radius: 50%; border: 2px solid var(--line); background: var(--c); cursor: pointer; padding: 0; position: relative; transition: transform var(--t-fast); }
 .swatch-row button:hover, .swatch-row label:hover { transform: scale(1.12); }
 .swatch-row [aria-pressed="true"] { border-color: var(--text); box-shadow: 0 0 0 3px color-mix(in srgb, var(--c) 40%, transparent); }
-.swatch-row .auto { background: conic-gradient(var(--c-service), var(--c-electrical), var(--c-software), var(--c-management), var(--c-service)); }
+.swatch-row .auto { background: conic-gradient(var(--c-brand), var(--c-service), var(--c-electrical), var(--c-software), var(--c-management), var(--c-service)); }
 .swatch-row label input { position: absolute; inset: 0; opacity: 0; width: 100%; height: 100%; cursor: pointer; }
 .swatch-row label { background: conic-gradient(red, yellow, lime, aqua, blue, magenta, red); }
 .field { display: grid; gap: 6px; font-size: var(--fs-sm); color: var(--muted); }
@@ -238,7 +238,7 @@ html.calm .scroll-hint { display: none; }
 /* ==========================================================================
    8. HISTORICAL TIMELINE BAR (pinned under the nav while the career section is in view)
    ========================================================================== */
-body[data-theme="intro"] { --accent: var(--c-service); }
+body[data-theme="intro"] { --accent: var(--c-brand); }
 .tl { position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 45; background: color-mix(in srgb, var(--bg) 82%, transparent); backdrop-filter: blur(14px); border-bottom: 1px solid var(--line); transform: translateY(-100%); opacity: 0; pointer-events: none; transition: transform var(--t-base) var(--ease), opacity var(--t-base); }
 .tl.show { transform: none; opacity: 1; pointer-events: auto; }
 .tl-inner { display: grid; grid-template-columns: minmax(150px, 230px) 1fr; gap: var(--s6); align-items: center; padding-block: 10px; }
@@ -616,9 +616,10 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
   <div class="set-group"><span class="eyebrow">Accent colour</span>
     <div class="swatch-row" id="s-accent" role="group" aria-label="Accent colour">
       <button class="auto" data-v="auto" style="--c:#888" aria-pressed="true" title="Auto — follows each career chapter" aria-label="Auto"></button>
+      <button data-v="#4169E1" style="--c:#4169E1" aria-pressed="false" aria-label="Royal blue"></button>
       <button data-v="#FFB547" style="--c:#FFB547" aria-pressed="false" aria-label="Amber"></button>
       <button data-v="#38D5FF" style="--c:#38D5FF" aria-pressed="false" aria-label="Cyan"></button>
-      <button data-v="#8B8CFF" style="--c:#8B8CFF" aria-pressed="false" aria-label="Indigo"></button>
+      <button data-v="#9B7CFF" style="--c:#9B7CFF" aria-pressed="false" aria-label="Violet"></button>
       <button data-v="#3DDC97" style="--c:#3DDC97" aria-pressed="false" aria-label="Green"></button>
       <button data-v="#FF6B8B" style="--c:#FF6B8B" aria-pressed="false" aria-label="Rose"></button>
       <label title="Custom colour"><input type="color" id="s-custom" value="#ff8a3d" aria-label="Custom colour"></label>
@@ -755,7 +756,7 @@ const PROJECTS = [
     tags:['Tendering','Scheduling','Delivery'], links:[],
     gallery:[ { ph:true, cap:'Add: timeline / schedule' } ] },
 ];
-const COLORS = { management:'#3DDC97', engineering:'#38D5FF', software:'#8B8CFF' };
+const COLORS = { management:'#3DDC97', engineering:'#38D5FF', software:'#9B7CFF' };
 const NAMES  = { management:'Management', engineering:'Engineering', software:'Software' };
 
 /* ---- Generated visuals (info slides + placeholders) ---- */
