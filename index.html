@@ -104,16 +104,12 @@
 .pass { font: 500 var(--fs-xs) var(--font-mono); padding: 8px 12px; border-radius: var(--r-pill); border: 1px solid var(--line); color: var(--muted); transition: all .5s var(--ease); white-space: nowrap; }
 .pass.ok { color: var(--on-accent); background: var(--accent); border-color: transparent; box-shadow: var(--shadow-glow); }
 
-/* --- Effect: MANAGEMENT — org tree grows, roadmap bars fill, KPIs rise --- */
-.stage { --road-h: 92px; }
-.org { position: absolute !important; top: 26px; left: 0; width: 100%; height: calc(100% - 26px - var(--road-h)); }
+/* --- Effect: MANAGEMENT — org tree grows --- */
+.org { position: absolute !important; top: 26px; left: 0; width: 100%; height: calc(100% - 26px); }
 .org .edge { fill: none; stroke: var(--accent); stroke-width: 2; stroke-dasharray: 1; stroke-dashoffset: 1; opacity: .8; }
 .org .n { fill: var(--surface-2); stroke: var(--accent); stroke-width: 2; opacity: 0; transform-box: fill-box; transform-origin: center; transform: scale(.2); transition: opacity .4s, transform .6s var(--ease); }
 .org .n.on { opacity: 1; transform: none; }
 .org .root { fill: var(--accent); }
-.road { position: absolute !important; left: 22px; right: 22px; bottom: 22px; display: grid; gap: 8px; }
-.road div { height: 10px; border-radius: 6px; background: var(--line); overflow: hidden; }
-.road div i { display: block; height: 100%; width: 100%; background: var(--accent); border-radius: 6px; transform-origin: 0 50%; transform: scaleX(var(--w, 0)); }
 
 /* ---- Hero layout + portrait ---- */
 .hero-wrap { display: grid; grid-template-columns: 1.5fr 1fr; gap: var(--s7); align-items: center; }
@@ -359,11 +355,10 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
 
 /* ---- Phones: keep every chapter visual whole, readable and un-cropped ---- */
 @media (max-width: 640px) {
-  .stage { --road-h: 60px; aspect-ratio: 1.55; max-height: 31svh; }
+  .stage { aspect-ratio: 1.55; max-height: 31svh; }
   .chapter[data-fx="software"] .stage { aspect-ratio: 1.32; max-height: 35svh; }
   .stage-label { top: 9px; left: 12px; font-size: 9px; }
-  .pcb { top: 22px; height: calc(100% - 22px); } .org { top: 22px; height: calc(100% - 22px - var(--road-h)); }
-  .road { left: 14px; right: 14px; bottom: 14px; gap: 6px; } .road div, .road div i { height: 6px; }
+  .pcb { top: 22px; height: calc(100% - 22px); } .org { top: 22px; height: calc(100% - 22px); }
   .editor { inset: 28px 12px 12px; gap: 8px; }
   .code { padding: 9px 11px; font-size: 9px; line-height: 1.55; border-radius: var(--r-sm); }
   .build { gap: 8px; } .commits { height: 20px; } .pass { padding: 6px 9px; font-size: 9px; }
@@ -532,7 +527,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
         <div class="chapter-bar"><i></i></div>
       </div>
       <div class="stage" aria-hidden="true">
-        <span class="stage-label">ORG · ROADMAP · Q4</span>
+        <span class="stage-label">ORG · TEAM</span>
         <svg class="org" viewBox="20 20 440 232" preserveAspectRatio="xMidYMid meet">
           <path class="edge" pathLength="1" d="M240 70 V100 H100 V130"/><path class="edge" pathLength="1" d="M240 70 V100 H240 V130"/><path class="edge" pathLength="1" d="M240 70 V100 H380 V130"/>
           <path class="edge" pathLength="1" d="M100 160 V185 H60 V205"/><path class="edge" pathLength="1" d="M100 160 V185 H140 V205"/>
@@ -543,12 +538,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
           <circle class="n" cx="60" cy="220" r="11"/><circle class="n" cx="140" cy="220" r="11"/><circle class="n" cx="200" cy="220" r="11"/>
           <circle class="n" cx="280" cy="220" r="11"/><circle class="n" cx="340" cy="220" r="11"/><circle class="n" cx="420" cy="220" r="11"/>
         </svg>
-        <div class="road">
-          <div style="width:100%"><i data-bar="0"></i></div>
-          <div style="width:82%;margin-left:12%"><i data-bar="1"></i></div>
-          <div style="width:62%;margin-left:30%"><i data-bar="2"></i></div>
-          <div style="width:40%;margin-left:55%"><i data-bar="3"></i></div>
-        </div>
+
       </div>
     </div>
   </div>
@@ -919,13 +909,12 @@ fx.software = ch => {
 
 /* --- MANAGEMENT --- */
 fx.management = ch => {
-  const edges = [...ch.querySelectorAll('.edge')], nodes = [...ch.querySelectorAll('.n')], bars = [...ch.querySelectorAll('[data-bar]')];
+  const edges = [...ch.querySelectorAll('.edge')], nodes = [...ch.querySelectorAll('.n')];
   return p => {
     nodes[0].classList.toggle('on', p > .02);
     nodes.slice(1,4).forEach(n => n.classList.toggle('on', p > .18));
     nodes.slice(4).forEach((n,i) => n.classList.toggle('on', p > .36 + i*.03));
     edges.forEach((e,i) => e.style.strokeDashoffset = 1 - (i < 3 ? seg(p,.05,.25) : seg(p,.25 + (i-3)*.025,.5 + (i-3)*.025)));
-    bars.forEach((b,i) => b.style.setProperty('--w', seg(p, .45 + i*.1, .75 + i*.08)));
   };
 };
 
