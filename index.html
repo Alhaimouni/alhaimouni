@@ -380,6 +380,7 @@ html[dir="rtl"] *, html[dir="rtl"] *::before, html[dir="rtl"] *::after { letter-
 html[dir="rtl"] .eyebrow, html[dir="rtl"] .kind, html[dir="rtl"] .years { text-transform: none; }
 html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3 { line-height: 1.25; }
 html[dir="rtl"] .hero h1 { line-height: 1.2; }
+html[dir="rtl"] .hero h1 .l { padding-bottom: .2em; margin-bottom: -.1em; }   /* keep the dots under Arabic letters visible inside the reveal mask */
 html[dir="rtl"] .lead, html[dir="rtl"] p { line-height: 1.85; }
 /* things that must keep a left-to-right reading order */
 html[dir="rtl"] .tl-inner, html[dir="rtl"] .tl-track, html[dir="rtl"] .stage { direction: ltr; }
@@ -452,7 +453,7 @@ html[dir="rtl"] .copy li::before { margin-top: .95em; }
       <p class="eyebrow">Program Manager · Amman, Jordan</p>
       <h1 style="margin-top:var(--s4)">
         <span class="l"><span style="--d:.1s" data-ar="محمد">Mohammad</span></span>
-        <span class="l"><span style="--d:.22s" data-ar-html='ال<em>حيموني</em>'>Al-<em>Haimouni</em></span></span>
+        <span class="l"><span style="--d:.22s" data-ar-html='ال<em>هيموني</em>'>Al-<em>Haimouni</em></span></span>
       </h1>
       <p class="lead">Program Manager with more than five years of hybrid experience across educational management and software engineering. Built on an electrical engineering foundation, I lead teams, manage scope, budget and risk, and translate complex technical concepts into clear decisions for executive stakeholders. Currently Campus Lead at 42 Amman, Crown Prince Foundation.</p>
       <div class="hero-actions">
@@ -725,7 +726,7 @@ const AR = {
   // contact + footer
   "Let's work together.":'لنعمل معاً.',
   'Open to program management and education leadership roles, and to teams that bridge engineering and software. +962 77 996 5862 · m.alhaimouni@gmail.com':'متاح لأدوار إدارة البرامج والقيادة التعليمية، وللفرق التي تجمع بين الهندسة والبرمجيات. ⁦+962 77 996 5862⁩ · ⁦m.alhaimouni@gmail.com⁩',
-  'Email me':'راسلني','↓ Résumé':'↓ السيرة الذاتية','© 2026 Mohammad Al-Haimouni':'© 2026 محمد الحيموني',
+  'Email me':'راسلني','↓ Résumé':'↓ السيرة الذاتية','© 2026 Mohammad Al-Haimouni':'© 2026 محمد الهيموني',
   // settings
   'Customize':'تخصيص','Appearance':'المظهر','Dark':'داكن','Light':'فاتح','Auto':'تلقائي','Accent colour':'لون التمييز',
   'Auto changes colour with each career chapter.':'يتغير اللون تلقائياً مع كل فصل من المسيرة.','Typography':'الخطوط','Heading font':'خط العناوين',
@@ -734,7 +735,7 @@ const AR = {
   'Background grids':'شبكات الخلفية','Calm mode (no scroll animation)':'الوضع الهادئ (بلا حركة عند التمرير)','Sound':'الصوت',
   'Soft interaction sounds':'أصوات تفاعل هادئة','Volume':'مستوى الصوت','Reset to defaults':'إعادة الضبط',
   // aria / titles / alt
-  'Primary':'التنقل الرئيسي','Career chapters':'فصول المسيرة','Portrait of Mohammad Al-Haimouni':'صورة محمد الحيموني','Mohammad Al-Haimouni':'محمد الحيموني',
+  'Primary':'التنقل الرئيسي','Career chapters':'فصول المسيرة','Portrait of Mohammad Al-Haimouni':'صورة محمد الهيموني','Mohammad Al-Haimouni':'محمد الهيموني',
   'Filter projects':'تصفية المشاريع','Download résumé':'تحميل السيرة الذاتية','Open settings':'فتح الإعدادات','Close settings':'إغلاق الإعدادات',
   'Colour mode':'وضع الألوان','Royal blue':'أزرق ملكي','Amber':'كهرماني','Cyan':'سماوي','Violet':'بنفسجي','Green':'أخضر','Rose':'وردي',
   'Custom colour':'لون مخصص','Close':'إغلاق','Auto: follows each career chapter':'تلقائي: يتبع كل فصل من المسيرة',
@@ -1290,8 +1291,8 @@ function refreshTimeline() {
 function applyLang(save) {
   const ar = lang === 'ar', r = document.documentElement;
   r.lang = ar ? 'ar' : 'en'; r.dir = ar ? 'rtl' : 'ltr';
-  document.title = ar ? 'محمد الحيموني | معرض الأعمال' : 'Mohammad Al-Haimouni | Portfolio';
-  const md = document.querySelector('meta[name="description"]'); if (md) md.content = ar ? 'محمد الحيموني، مدير برامج بخلفية في الهندسة الكهربائية وهندسة البرمجيات.' : 'Mohammad Al-Haimouni, Program Manager with a background in electrical engineering and software engineering.';
+  document.title = ar ? 'محمد الهيموني | معرض الأعمال' : 'Mohammad Al-Haimouni | Portfolio';
+  const md = document.querySelector('meta[name="description"]'); if (md) md.content = ar ? 'محمد الهيموني، مدير برامج بخلفية في الهندسة الكهربائية وهندسة البرمجيات.' : 'Mohammad Al-Haimouni, Program Manager with a background in electrical engineering and software engineering.';
   translateDom(); renderProjects(true); refreshTimeline();
   const b = document.getElementById('lang-btn'); b.textContent = ar ? 'English' : 'العربية'; b.lang = ar ? 'en' : 'ar';
   applySettings(false);
