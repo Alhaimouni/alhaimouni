@@ -268,7 +268,7 @@ html.calm .tl { display: none; }
 .projects { display: grid; gap: var(--s5); grid-template-columns: repeat(3, 1fr); }
 @media (max-width: 960px) { .projects { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { .projects { grid-template-columns: 1fr; } }
-.project { cursor: pointer; text-align: left; padding: 0; font: inherit; color: inherit; --accent: var(--pc); }
+.project { cursor: pointer; text-align: start; padding: 0; font: inherit; color: inherit; --accent: var(--pc); }
 .project { display: flex; flex-direction: column; align-items: stretch; }
 .project .thumb { flex: none; }
 .project.hide { display: none; }
@@ -367,6 +367,44 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
 }
 @media (max-width: 640px) and (max-height: 700px) { .stage { max-height: 27svh; } .chapter[data-fx="software"] .stage { max-height: 31svh; } }
 
+
+/* ==========================================================================
+   10. ARABIC (RTL) + LANGUAGE BUTTON
+   ========================================================================== */
+.lang-btn { margin-inline-start: var(--s4); padding: 8px 16px; border-radius: var(--r-pill); border: 1px solid var(--line); background: var(--surface); color: var(--text); font: 600 var(--fs-sm)/1 'IBM Plex Sans Arabic', var(--font-body); cursor: pointer; transition: all var(--t-fast); white-space: nowrap; }
+.lang-btn:hover { border-color: var(--accent); color: var(--accent); }
+.nav .container { gap: var(--s4); } .nav nav { margin-inline-start: auto; }
+html[dir="rtl"] { --fs-base: 1.1rem; }
+.footer { padding-bottom: 88px; }
+html[dir="rtl"] *, html[dir="rtl"] *::before, html[dir="rtl"] *::after { letter-spacing: 0 !important; }
+html[dir="rtl"] .eyebrow, html[dir="rtl"] .kind, html[dir="rtl"] .years { text-transform: none; }
+html[dir="rtl"] h1, html[dir="rtl"] h2, html[dir="rtl"] h3 { line-height: 1.25; }
+html[dir="rtl"] .hero h1 { line-height: 1.2; }
+html[dir="rtl"] .lead, html[dir="rtl"] p { line-height: 1.85; }
+/* things that must keep a left-to-right reading order */
+html[dir="rtl"] .tl-inner, html[dir="rtl"] .tl-track, html[dir="rtl"] .stage { direction: ltr; }
+html[dir="rtl"] .tl-event { direction: rtl; unicode-bidi: plaintext; }
+html[dir="rtl"] .metrics b { direction: ltr; text-align: right; }
+html[dir="rtl"] .stage-label { left: auto; right: 18px; }
+/* mirrored fixed UI */
+html[dir="rtl"] .gear { left: auto; right: 20px; } html[dir="rtl"] .float-cv { right: auto; left: 20px; }
+html[dir="rtl"] .rail { right: auto; left: 22px; } html[dir="rtl"] .rail a span { right: auto; left: 22px; }
+html[dir="rtl"] #settings { left: auto; right: 0; border-right: 0; border-left: 1px solid var(--line); transform: translateX(102%); }
+html[dir="rtl"] body.settings-open #settings { transform: none; box-shadow: -30px 0 80px rgba(0,0,0,.35); }
+html[dir="rtl"] .progress { transform-origin: 100% 50%; } html[dir="rtl"] .chapter-bar i { transform-origin: 100% 50%; }
+html[dir="rtl"] .badge { right: auto; left: 12px; } html[dir="rtl"] .live-pill { left: auto; right: 12px; }
+html[dir="rtl"] .project { text-align: right; }
+html[dir="rtl"] dialog .close { right: auto; left: 14px; }
+html[dir="rtl"] .gal .prev { left: auto; right: 12px; } html[dir="rtl"] .gal .next { right: auto; left: 12px; }
+html[dir="rtl"] .gal .nav-btn { transform: translateY(-50%) scaleX(-1); }
+html[dir="rtl"] .sh-skip { padding-left: 0; border-left: 0; padding-right: var(--s3); border-right: 1px solid var(--line); }
+html[dir="rtl"] .copy li::before { margin-top: .95em; }
+@media (max-width: 640px) {
+  html[dir="rtl"] .gear { left: auto; right: 14px; } html[dir="rtl"] .float-cv { right: auto; left: 14px; }
+  .lang-btn { padding: 7px 12px; }
+}
+@media (max-width: 380px) { .logo { font-size: 1rem; } .lang-btn { padding: 6px 10px; } }
+
 /* landscape phones / very short screens: drop the pinned effect, show chapters as normal blocks */
 @media (max-height: 520px) and (orientation: landscape) {
   .chapter { height: auto; --p: 1; } .pin { position: static; height: auto; padding-block: 36px; min-height: 0; }
@@ -377,7 +415,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
 }
 @media (max-width: 380px) { .hero h1 { font-size: 2.3rem; } }
 </style>
-<script>try{var m=(JSON.parse(localStorage.getItem("pf-settings-v2")||"{}")).mode||"light";document.documentElement.dataset.mode=m==="auto"?(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):m}catch(e){}</script>
+<script>try{var m=(JSON.parse(localStorage.getItem("pf-settings-v2")||"{}")).mode||"light";document.documentElement.dataset.mode=m==="auto"?(matchMedia("(prefers-color-scheme: light)").matches?"light":"dark"):m}catch(e){}try{if(localStorage.getItem("pf-lang")==="ar"){document.documentElement.lang="ar";document.documentElement.dir="rtl"}}catch(e){}</script>
 </head>
 
 <body data-theme="intro">
@@ -394,6 +432,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+    <button class="lang-btn" id="lang-btn" type="button" aria-label="Switch language" lang="ar">العربية</button>
   </div>
 </header>
 
@@ -412,8 +451,8 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
     <div>
       <p class="eyebrow">Program Manager · Amman, Jordan</p>
       <h1 style="margin-top:var(--s4)">
-        <span class="l"><span style="--d:.1s">Mohammad</span></span>
-        <span class="l"><span style="--d:.22s">Al-<em>Haimouni</em></span></span>
+        <span class="l"><span style="--d:.1s" data-ar="محمد">Mohammad</span></span>
+        <span class="l"><span style="--d:.22s" data-ar-html='ال<em>حيموني</em>'>Al-<em>Haimouni</em></span></span>
       </h1>
       <p class="lead">Program Manager with more than five years of hybrid experience across educational management and software engineering. Built on an electrical engineering foundation, I lead teams, manage scope, budget and risk, and translate complex technical concepts into clear decisions for executive stakeholders. Currently Campus Lead at 42 Amman, Crown Prince Foundation.</p>
       <div class="hero-actions">
@@ -440,7 +479,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
 <!-- ============================ CAREER ============================ -->
 <div class="sec-line reveal" aria-hidden="true"><i></i></div>
 <section id="career">
-  <div class="tl" id="tl" aria-label="Career timeline"><div class="container tl-inner"><div class="tl-now"><span class="tl-year" id="tl-year">2014</span><span class="tl-event" id="tl-event"></span></div><div class="tl-track" id="tl-track"></div></div></div>
+  <div class="tl" id="tl" aria-label="Career timeline"><div class="container tl-inner"><div class="tl-now"><span class="tl-year" id="tl-year" data-dyn>2014</span><span class="tl-event" id="tl-event" data-dyn></span></div><div class="tl-track" id="tl-track"></div></div></div>
   <div class="container timeline-intro">
     <div class="section-head reveal">
       <p class="eyebrow">Career timeline</p>
@@ -452,11 +491,11 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
   <!-- 02 ELECTRICAL -->
   <div class="chapter" id="ch-electrical" data-t0="2014.7" data-t1="2022.5" data-theme="electrical" data-fx="electrical">
     <div class="pin">
-      <div class="scroll-hint" data-next="Software engineering"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#ch-software">Skip ›</a></div>
+      <div class="scroll-hint" data-next="Software engineering"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label" data-dyn>Keep scrolling</span><span class="sh-pct" data-dyn>0%</span><a class="sh-skip" href="#ch-software">Skip ›</a></div>
       <div class="copy">
         <span class="eyebrow">Chapter 01</span>
         <span class="years">2014 to 2022</span>
-        <h2>Electrical <span>engineering</span></h2>
+        <h2 data-ar-html='الهندسة <span>الكهربائية</span>'>Electrical <span>engineering</span></h2>
         <p class="lead">Bachelor of Electrical Power Engineering from Al-Balqa Applied University (2014 to 2019), followed by two years as Electrical Design Engineer at Active Engineering Consultant (AEC).</p>
         <ul><li>Designed electrical systems for high-rise buildings, commercial developments, hotels and villas</li><li>Prepared tender timelines and coordinated project implementation with the wider project team</li><li>Built a disciplined habit of delivering to standard, on schedule and within budget</li></ul>
         <div class="metrics"><div><b data-count="5" data-suffix="">0</b><span>years of study</span></div><div><b data-count="2" data-suffix="">0</b><span>years in design practice</span></div></div>
@@ -488,11 +527,11 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
   <!-- 03 SOFTWARE -->
   <div class="chapter" id="ch-software" data-t0="2022.5" data-t1="2024.1" data-theme="software" data-fx="software">
     <div class="pin">
-      <div class="scroll-hint" data-next="Management"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#ch-management">Skip ›</a></div>
+      <div class="scroll-hint" data-next="Management"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label" data-dyn>Keep scrolling</span><span class="sh-pct" data-dyn>0%</span><a class="sh-skip" href="#ch-management">Skip ›</a></div>
       <div class="copy">
         <span class="eyebrow">Chapter 02</span>
         <span class="years">2022 to 2024</span>
-        <h2>Software <span>engineering</span></h2>
+        <h2 data-ar-html='هندسة <span>البرمجيات</span>'>Software <span>engineering</span></h2>
         <p class="lead">Completed the Full Stack Web Development Program at Luminus Technical University College (July to December 2022), then taught there as Coding Instructor until March 2024.</p>
         <ul><li>Built full stack web applications with React, Node.js, Next.js and NestJS</li><li>Turned complex technical concepts into structured, learner friendly content, exercises and assessments</li><li>Tracked student performance and supported at-risk learners with targeted intervention plans</li></ul>
         <div class="metrics"><div><b data-count="6" data-suffix="">0</b><span>month full-stack program</span></div><div><b data-count="1" data-suffix="">0</b><span>year as coding instructor</span></div></div>
@@ -517,7 +556,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
   <!-- 04 MANAGEMENT -->
   <div class="chapter" id="ch-management" data-t0="2024.1" data-t1="2026.9" data-theme="management" data-fx="management">
     <div class="pin">
-      <div class="scroll-hint" data-next="Selected work"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label">Keep scrolling</span><span class="sh-pct">0%</span><a class="sh-skip" href="#work">Skip ›</a></div>
+      <div class="scroll-hint" data-next="Selected work"><span class="sh-chev" aria-hidden="true"></span><span class="sh-label" data-dyn>Keep scrolling</span><span class="sh-pct" data-dyn>0%</span><a class="sh-skip" href="#work">Skip ›</a></div>
       <div class="copy">
         <span class="eyebrow">Chapter 03</span>
         <span class="years">2024 to Today</span>
@@ -646,6 +685,119 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
 <dialog id="dlg"><button class="close" aria-label="Close">✕</button><div id="dlg-body"></div></dialog>
 
 <script>
+/* ==========================================================================
+   LANGUAGE — English (default) and Arabic. AR maps the exact English text to its Arabic text.
+   Add a new line here whenever you add new visible text, and the Arabic version picks it up.
+   ========================================================================== */
+const AR = {
+  // header + hero
+  'Career':'المسيرة','Work':'الأعمال','Résumé':'السيرة الذاتية','Contact':'تواصل',
+  'Electrical engineering':'الهندسة الكهربائية','Software engineering':'هندسة البرمجيات','Management':'الإدارة',
+  'Program Manager · Amman, Jordan':'مدير برامج · عمّان، الأردن',
+  'Program Manager with more than five years of hybrid experience across educational management and software engineering. Built on an electrical engineering foundation, I lead teams, manage scope, budget and risk, and translate complex technical concepts into clear decisions for executive stakeholders. Currently Campus Lead at 42 Amman, Crown Prince Foundation.':'مدير برامج بخبرة تتجاوز خمس سنوات في أدوار هجينة تجمع بين الإدارة التعليمية وهندسة البرمجيات، على أساس متين من الهندسة الكهربائية. أقود الفرق، وأدير النطاق والميزانية والمخاطر، وأحوّل المفاهيم التقنية المعقدة إلى قرارات واضحة لأصحاب المصلحة التنفيذيين. أشغل حالياً منصب قائد الحرم الجامعي في 42 عمّان، مؤسسة ولي العهد.',
+  '↓ Download résumé':'↓ تحميل السيرة الذاتية','See projects':'استعرض المشاريع','SCROLL':'مرّر',
+  // career intro + hint
+  'Career timeline':'المسيرة المهنية','Three disciplines, one through-line.':'ثلاثة تخصصات، خيط واحد يجمعها.',
+  'Scroll through my career. The timeline at the top follows the years as you move, and every milestone is clickable.':'مرّر لتتصفح مسيرتي. يتابع الخط الزمني في الأعلى السنوات أثناء تحركك، ويمكنك الضغط على أي محطة للانتقال إليها.',
+  'Skip ›':'تخطَّ ‹','Scroll to play':'مرّر للتشغيل','Keep scrolling':'تابع التمرير','Next':'التالي','Today':'اليوم','NOW':'الآن','Selected work':'أعمال مختارة',
+  // chapters
+  'Chapter 01':'الفصل 01','Chapter 02':'الفصل 02','Chapter 03':'الفصل 03',
+  '2014 to 2022':'من 2014 إلى 2022','2022 to 2024':'من 2022 إلى 2024','2024 to Today':'من 2024 حتى اليوم',
+  'Bachelor of Electrical Power Engineering from Al-Balqa Applied University (2014 to 2019), followed by two years as Electrical Design Engineer at Active Engineering Consultant (AEC).':'بكالوريوس في هندسة القدرة الكهربائية من جامعة البلقاء التطبيقية (2014 إلى 2019)، تلاه عامان بصفة مهندس تصميم كهربائي في أكتيف للاستشارات الهندسية (AEC).',
+  'Designed electrical systems for high-rise buildings, commercial developments, hotels and villas':'صممتُ أنظمة كهربائية لأبراج سكنية ومشاريع تجارية وفنادق وفلل',
+  'Prepared tender timelines and coordinated project implementation with the wider project team':'أعددتُ الجداول الزمنية للمناقصات ونسّقتُ تنفيذ المشاريع مع فريق المشروع الأوسع',
+  'Built a disciplined habit of delivering to standard, on schedule and within budget':'اكتسبتُ عادة الالتزام بالمعايير والجدول الزمني والميزانية',
+  'years of study':'سنوات دراسة','years in design practice':'سنوات في ممارسة التصميم',
+  'Completed the Full Stack Web Development Program at Luminus Technical University College (July to December 2022), then taught there as Coding Instructor until March 2024.':'أتممتُ برنامج تطوير الويب المتكامل (Full Stack) في كلية لومينوس الجامعية التقنية (من تموز إلى كانون الأول 2022)، ثم درّستُ فيها بصفة مدرّب برمجة حتى آذار 2024.',
+  'Built full stack web applications with React, Node.js, Next.js and NestJS':'طوّرتُ تطبيقات ويب متكاملة باستخدام React وNode.js وNext.js وNestJS',
+  'Turned complex technical concepts into structured, learner friendly content, exercises and assessments':'حوّلتُ المفاهيم التقنية المعقدة إلى محتوى وتمارين وتقييمات منظمة وسهلة التعلم',
+  'Tracked student performance and supported at-risk learners with targeted intervention plans':'تتبّعتُ أداء الطلبة ودعمتُ المتعثرين منهم بخطط تدخل موجهة',
+  'month full-stack program':'أشهر في برنامج الويب المتكامل','year as coding instructor':'سنة مدرّب برمجة',
+  'Program Coordinator (February 2024 to August 2025), then Campus Lead (August 2025 to present) at 42 Amman, Crown Prince Foundation, leading learning programs, partnerships and community.':'منسّق برامج (من شباط 2024 إلى آب 2025)، ثم قائد الحرم الجامعي (من آب 2025 حتى الآن) في 42 عمّان، مؤسسة ولي العهد، أقود البرامج التعليمية والشراكات والمجتمع.',
+  'Lead workshops, hackathons and learning sessions that raise learner engagement and academic performance':'أقود ورش العمل والهاكاثونات والجلسات التعليمية التي ترفع تفاعل المتعلمين وأداءهم الأكاديمي',
+  'Develop structured learning frameworks aligned with program standards and measurable KPIs':'أطوّر أطراً تعليمية منظمة تتوافق مع معايير البرنامج ومؤشرات أداء رئيسية قابلة للقياس',
+  'Evaluate strategic partnerships by educational impact and learner value, and designed the official campus website':'أقيّم الشراكات الاستراتيجية بحسب الأثر التعليمي وقيمتها للمتعلم، وصممتُ الموقع الإلكتروني الرسمي للحرم الجامعي',
+  'years hybrid roles':'سنوات في أدوار هجينة','roles at 42 Amman':'دوران في 42 عمّان',
+  // projects section
+  'Projects by discipline.':'المشاريع حسب التخصص.',
+  'Selected projects across management, engineering and software. Software projects link to my GitHub, and every project opens an image gallery.':'مشاريع مختارة في الإدارة والهندسة والبرمجيات. ترتبط مشاريع البرمجيات بحسابي على GitHub، وكل مشروع يفتح معرض صور.',
+  'All':'الكل','Engineering':'الهندسة','Software':'البرمجيات',
+  // contact + footer
+  "Let's work together.":'لنعمل معاً.',
+  'Open to program management and education leadership roles, and to teams that bridge engineering and software. +962 77 996 5862 · m.alhaimouni@gmail.com':'متاح لأدوار إدارة البرامج والقيادة التعليمية، وللفرق التي تجمع بين الهندسة والبرمجيات. ⁦+962 77 996 5862⁩ · ⁦m.alhaimouni@gmail.com⁩',
+  'Email me':'راسلني','↓ Résumé':'↓ السيرة الذاتية','© 2026 Mohammad Al-Haimouni':'© 2026 محمد الحيموني',
+  // settings
+  'Customize':'تخصيص','Appearance':'المظهر','Dark':'داكن','Light':'فاتح','Auto':'تلقائي','Accent colour':'لون التمييز',
+  'Auto changes colour with each career chapter.':'يتغير اللون تلقائياً مع كل فصل من المسيرة.','Typography':'الخطوط','Heading font':'خط العناوين',
+  'Space Grotesk (default)':'Space Grotesk (الافتراضي)','Serif (Georgia)':'سيريف (Georgia)','Mono (JetBrains)':'أحادي (JetBrains)',
+  'Text size':'حجم النص','Corners':'الزوايا','Corner roundness':'استدارة الزوايا','Effects':'المؤثرات','Ambient glow':'التوهج المحيط',
+  'Background grids':'شبكات الخلفية','Calm mode (no scroll animation)':'الوضع الهادئ (بلا حركة عند التمرير)','Sound':'الصوت',
+  'Soft interaction sounds':'أصوات تفاعل هادئة','Volume':'مستوى الصوت','Reset to defaults':'إعادة الضبط',
+  // aria / titles / alt
+  'Primary':'التنقل الرئيسي','Career chapters':'فصول المسيرة','Portrait of Mohammad Al-Haimouni':'صورة محمد الحيموني','Mohammad Al-Haimouni':'محمد الحيموني',
+  'Filter projects':'تصفية المشاريع','Download résumé':'تحميل السيرة الذاتية','Open settings':'فتح الإعدادات','Close settings':'إغلاق الإعدادات',
+  'Colour mode':'وضع الألوان','Royal blue':'أزرق ملكي','Amber':'كهرماني','Cyan':'سماوي','Violet':'بنفسجي','Green':'أخضر','Rose':'وردي',
+  'Custom colour':'لون مخصص','Close':'إغلاق','Auto: follows each career chapter':'تلقائي: يتبع كل فصل من المسيرة',
+  'Previous image':'الصورة السابقة','Next image':'الصورة التالية','Image':'صورة','Switch language':'تغيير اللغة','Live site':'الموقع المباشر','Live':'مباشر','Open':'فتح','gallery':'المعرض',
+  // timeline milestones
+  'Sep 2014 · B.Sc. Electrical Power Eng. begins':'أيلول 2014 · بدء بكالوريوس هندسة القدرة الكهربائية',
+  'Sep 2019 · Graduated, Al-Balqa Applied University':'أيلول 2019 · التخرج من جامعة البلقاء التطبيقية',
+  'Jun 2020 · Electrical Design Engineer, AEC':'حزيران 2020 · مهندس تصميم كهربائي، AEC',
+  'Jul 2022 · Full Stack Web Development Program':'تموز 2022 · برنامج تطوير الويب المتكامل',
+  'Feb 2023 · Coding Instructor, Luminus':'شباط 2023 · مدرّب برمجة، لومينوس',
+  'Feb 2024 · Program Coordinator, 42 Amman':'شباط 2024 · منسّق برامج، 42 عمّان',
+  'Aug 2025 · Campus Lead, 42 Amman':'آب 2025 · قائد الحرم الجامعي، 42 عمّان',
+  // project titles
+  'Data Analytics Tool':'أداة تحليل البيانات','Employee Meeting Tracker':'متتبّع اجتماعات الموظفين','42 Amman Campus':'حرم 42 عمّان','42 Irbid Campus':'حرم 42 إربد','42 Aqaba Campus':'حرم 42 العقبة',
+  'The Ritz-Carlton, Amman':'ريتز كارلتون، عمّان','Hikma, Nahda Circuit, Amman':'حكمة، دوار النهضة، عمّان','CAVT Programs Kiosk':'كشك برامج CAVT','School Trip App':'تطبيق الرحلات المدرسية',
+  'Template Four: Settings Dashboard':'القالب الرابع: لوحة الإعدادات','Template One: Portfolio Board':'القالب الأول: لوحة الأعمال','Template Two: Slider Landing Page':'القالب الثاني: صفحة هبوط بعرض شرائح',
+  'Eatly App Landing Page':'صفحة هبوط تطبيق Eatly','Chocolate Pizza Recipe Page':'صفحة وصفة بيتزا الشوكولاتة','Portfolio Version One':'النسخة الأولى من معرض الأعمال',
+  '2022 to 2023':'2022 إلى 2023',
+  // project descriptions
+  'A tool that takes a CSV file and transforms it into an interactive dashboard with filters and charts, so teams can explore their data without manual reporting.':'أداة تأخذ ملف CSV وتحوّله إلى لوحة معلومات تفاعلية بعوامل تصفية ومخططات، ليتمكن الفريق من استكشاف بياناته دون إعداد تقارير يدوية.',
+  'A tool to track and log meetings with employees, integrated with Outlook services so meetings are captured and followed up in one place.':'أداة لتتبّع وتسجيل الاجتماعات مع الموظفين، ومتكاملة مع خدمات Outlook بحيث تُوثَّق الاجتماعات وتُتابَع في مكان واحد.',
+  'Tender, electrical design and site supervision for the 42 Amman campus. The gallery shows 3D views of the learning lab and corridors, and the furniture layout plan.':'مناقصات وتصميم كهربائي وإشراف على الموقع لحرم 42 عمّان. يعرض المعرض مناظر ثلاثية الأبعاد لمختبر التعلم والممرات، ومخطط توزيع الأثاث.',
+  'Tender, electrical design and site supervision for the 42 Irbid campus. The gallery shows a 3D view of the campus and the electrical layout plan.':'مناقصات وتصميم كهربائي وإشراف على الموقع لحرم 42 إربد. يعرض المعرض منظوراً ثلاثي الأبعاد للحرم ومخطط التمديدات الكهربائية.',
+  'Tender, electrical design and site supervision for the 42 Aqaba campus. The gallery shows two space plans with area schedules for the clusters, the repo, the social area, quiet rooms, prayer rooms and support spaces.':'مناقصات وتصميم كهربائي وإشراف على الموقع لحرم 42 العقبة. يعرض المعرض مخططي مساحات مع جداول المساحات للكلسترات والريبو والمنطقة الاجتماعية والغرف الهادئة وغرف الصلاة والمساحات المساندة.',
+  'Site supervision of the electrical works at The Ritz-Carlton, Amman. The gallery shows the towers, the architectural rendering, the construction stage and a residence floor plan.':'إشراف على الأعمال الكهربائية في ريتز كارلتون عمّان. يعرض المعرض البرجين والتصور المعماري ومرحلة الإنشاء ومخطط طابق سكني.',
+  'Electrical design and site supervision for the Hikma project at Nahda Circuit, Amman. The gallery shows the completed building, the construction stages and a floor plan.':'تصميم كهربائي وإشراف على الموقع لمشروع حكمة في دوار النهضة بعمّان. يعرض المعرض المبنى المكتمل ومراحل الإنشاء ومخطط طابق.',
+  'Touch first Arabic (RTL) kiosk web app presenting the 20 vocational programs of CAVT, built by a team during a 24 to 48 hour hackathon.':'تطبيق ويب لكشك يعمل باللمس بالعربية (RTL) يعرض البرامج المهنية العشرين في CAVT، بُني ضمن فريق خلال هاكاثون استمر من 24 إلى 48 ساعة.',
+  'React front end for a school trip booking experience built around destinations in Jordan, delivered as a three repository system with a back end and an admin dashboard.':'واجهة أمامية بـ React لتجربة حجز الرحلات المدرسية حول وجهات في الأردن، ضمن نظام من ثلاثة مستودعات يضم الواجهة الخلفية ولوحة تحكم إدارية.',
+  'Meal sharing community application where users browse meals, share their own recipes and join the community, built with a server rendered Next.js front end and a SQLite database.':'تطبيق مجتمعي لمشاركة الوجبات يتصفح فيه المستخدمون الوجبات ويشاركون وصفاتهم وينضمون إلى المجتمع، بُني بواجهة Next.js تُصيَّر على الخادم وقاعدة بيانات SQLite.',
+  'A settings and profile dashboard template with toggles, security and social forms, widget controls and a backup manager.':'قالب للوحة إعدادات وملف شخصي يضم مفاتيح تبديل ونماذج أمان وتواصل اجتماعي وعناصر تحكم ومدير نسخ احتياطي.',
+  'A portfolio board template built with HTML and CSS, with a full screen hero, project cards and a responsive navigation.':'قالب للوحة أعمال مبني بـ HTML وCSS، بواجهة بملء الشاشة وبطاقات مشاريع وتنقل متجاوب.',
+  'A responsive landing page template with a full screen hero slider, a portfolio grid and a video section.':'قالب لصفحة هبوط متجاوبة بواجهة شرائح بملء الشاشة وشبكة أعمال وقسم فيديو.',
+  'Pet adoption website where visitors can browse animals, create an account and submit an adoption form.':'موقع لتبنّي الحيوانات الأليفة يتصفح فيه الزوار الحيوانات وينشئون حساباً ويقدمون نموذج تبنٍّ.',
+  'Landing page design for a healthy eating app, built with HTML, CSS and JavaScript.':'تصميم صفحة هبوط لتطبيق للأكل الصحي، مبني بـ HTML وCSS وJavaScript.',
+  'A recipe blog page for a chocolate pizza, built with HTML and CSS with a structured layout of ingredients and steps.':'صفحة مدونة وصفات لبيتزا الشوكولاتة، مبنية بـ HTML وCSS مع تنظيم واضح للمكونات والخطوات.',
+  'My first personal portfolio, with an animated hero, skill bars and a project gallery with detail modals.':'أول معرض أعمال شخصي لي، بواجهة متحركة وأشرطة مهارات ومعرض مشاريع مع نوافذ تفاصيل.',
+  // tags + badges
+  'Dashboards':'لوحات المعلومات','Charts':'مخططات','Filters':'عوامل التصفية','Meeting logs':'سجلات الاجتماعات','Outlook integration':'التكامل مع Outlook','Employee management':'إدارة الموظفين',
+  'Tender':'المناقصات','Electrical design':'التصميم الكهربائي','Supervision':'الإشراف','3D views':'مناظر ثلاثية الأبعاد','Plans':'المخططات','Space planning':'تخطيط المساحات',
+  'Hotels':'الفنادق','Site coordination':'تنسيق الموقع','Commercial':'تجاري','Template':'قالب','Dashboard':'لوحة معلومات','Responsive':'متجاوب','Slider':'عرض شرائح','Multi page':'متعدد الصفحات','Portfolio':'معرض أعمال',
+  'Photo · 3D · Plan':'صورة · 3D · مخطط','3D · Plan':'3D · مخطط','Site · 3D · Plan':'الموقع · 3D · مخطط','Site · Plan':'الموقع · مخطط',
+  // gallery captions
+  '3D view: campus from above':'منظور ثلاثي الأبعاد: الحرم من الأعلى','3D view: corridor and lab':'منظور ثلاثي الأبعاد: الممر والمختبر','3D view: lab from above':'منظور ثلاثي الأبعاد: المختبر من الأعلى','3D view: learning lab':'منظور ثلاثي الأبعاد: مختبر التعلم',
+  '42 Amman campus':'حرم 42 عمّان','About section':'قسم من نحن','Add: Outlook integration':'أضف: التكامل مع Outlook','Add: dashboard screenshot':'أضف: لقطة من لوحة المعلومات','Add: filters and charts':'أضف: عوامل التصفية والمخططات','Add: meeting log screenshot':'أضف: لقطة من سجل الاجتماعات',
+  'Adoption gallery':'معرض التبنّي','Architectural rendering':'التصور المعماري','Architecture':'البنية','Burger':'برغر','Curry':'كاري','Dumplings':'دمبلنغ','Mac & cheese':'مكرونة بالجبن','Pizza':'بيتزا','Schnitzel':'شنيتزل',
+  'Destination: Ajloun Castle':'الوجهة: قلعة عجلون','Destination: Amman':'الوجهة: عمّان','Destination: Dead Sea':'الوجهة: البحر الميت','Destination: Umm Qais':'الوجهة: أم قيس',
+  'Electrical layout plan':'مخطط التمديدات الكهربائية','Facade installation':'تركيب الواجهة','Features and call to action':'المزايا ودعوة لاتخاذ إجراء','Floor plan':'مخطط الطابق','Furniture layout plan':'مخطط توزيع الأثاث',
+  'Hero':'الواجهة الرئيسية','Hero slider':'عرض الشرائح الرئيسي','Home':'الرئيسية','Landing':'الصفحة الرئيسية','Landing hero':'واجهة الهبوط','Mobile view':'عرض الجوال','Overview':'نظرة عامة','Portfolio cards':'بطاقات الأعمال',
+  'Program: App development':'برنامج: تطوير التطبيقات','Program: EV mechatronics':'برنامج: ميكاترونكس المركبات الكهربائية','Program: Electronics':'برنامج: الإلكترونيات','Program: Mechatronics':'برنامج: الميكاترونكس','Program: Networking':'برنامج: الشبكات','Program: Renewable energy':'برنامج: الطاقة المتجددة',
+  'Recipe page':'صفحة الوصفة','Residence floor plan':'مخطط طابق سكني','Settings page':'صفحة الإعدادات','Space plan: layout 1':'مخطط المساحات: التوزيع 1','Space plan: layout 2':'مخطط المساحات: التوزيع 2',
+  'The building':'المبنى','The towers':'البرجان','Under construction':'قيد الإنشاء','Video section':'قسم الفيديو','Widgets and backup manager':'عناصر الواجهة ومدير النسخ الاحتياطي',
+  // info slides
+  'CSV to dashboard':'من ملف CSV إلى لوحة معلومات','Upload a CSV file':'ارفع ملف CSV','Data is transformed automatically':'تُحوَّل البيانات تلقائياً','Filters narrow down the results':'تضيّق عوامل التصفية النتائج','Charts show the filtered data':'تعرض المخططات البيانات المصفّاة',
+  'Employee meeting tracker':'متتبّع اجتماعات الموظفين','Log meetings with employees':'سجّل الاجتماعات مع الموظفين','Integrated with Outlook services':'متكامل مع خدمات Outlook','History and follow up per employee':'سجل ومتابعة لكل موظف','One place for every conversation':'مكان واحد لكل محادثة',
+  'Kiosk flow':'مسار الكشك','Idle screen → Discovery → Program details':'شاشة الانتظار ← الاستكشاف ← تفاصيل البرنامج','15 interest categories, 20 programs':'15 فئة اهتمام، 20 برنامجاً','Arabic first (RTL), English skeleton':'العربية أولاً (RTL) مع هيكل إنجليزي','Installable, offline-friendly PWA':'تطبيق ويب قابل للتثبيت ويعمل دون اتصال',
+  'PLACEHOLDER · ADD IMAGE':'مكان الصورة',
+};
+const AR_DATA = { 'Software':1 };
+let lang = 'en'; try { if (localStorage.getItem('pf-lang') === 'ar') lang = 'ar'; } catch (e) {}
+const T = s => (lang === 'ar' && AR[s]) ? AR[s] : s;
+const countAr = n => n === 1 ? 'صورة واحدة' : n === 2 ? 'صورتان' : n + ' صور';
+const countLabel = n => lang === 'ar' ? countAr(n) : n + ' image' + (n > 1 ? 's' : '');
+
 /* ==========================================================================
    PROJECT DATA — edit here.
    cat:    'management' | 'engineering' | 'software'
@@ -787,30 +939,36 @@ function placeholderArt(p, idx){
   }
   return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Placeholder"><defs><linearGradient id="g${p.id}_${idx}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".22"/><stop offset="1" stop-color="#0B0D12"/></linearGradient></defs>
     <rect width="${W}" height="${H}" fill="url(#g${p.id}_${idx})"/>${g}
-    <rect x="${W/2-130}" y="${H/2-22}" width="260" height="44" rx="22" fill="#0B0D12" opacity=".78"/><text x="${W/2}" y="${H/2+5}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" letter-spacing="2" fill="#E8ECF4">PLACEHOLDER · ADD IMAGE</text></svg>`;
+    <rect x="${W/2-130}" y="${H/2-22}" width="260" height="44" rx="22" fill="#0B0D12" opacity=".78"/><text x="${W/2}" y="${H/2+5}" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="14" letter-spacing="${lang==='ar'?0:2}" fill="#E8ECF4">${T('PLACEHOLDER · ADD IMAGE')}</text></svg>`;
 }
 function slideArt(p, it, idx){
-  const c = COLORS[p.cat], W = 640, H = 360, { title, pts } = it.slide;
+  const c = COLORS[p.cat], W = 640, H = 360, title = T(it.slide.title), pts = it.slide.pts.map(T), rtl = lang === 'ar';
+  const ax = rtl ? W - 40 : 40, anc = 'start', bx = rtl ? W - 46 : 46, tx = rtl ? W - 64 : 64, ff = rtl ? "'IBM Plex Sans Arabic', sans-serif" : "Inter, sans-serif", fh = rtl ? "'IBM Plex Sans Arabic', sans-serif" : "Space Grotesk, Inter, sans-serif";
   return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${esc(title)}"><defs><linearGradient id="s${p.id}_${idx}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${c}" stop-opacity=".28"/><stop offset="1" stop-color="#0B0D12"/></linearGradient></defs>
     <rect width="${W}" height="${H}" fill="url(#s${p.id}_${idx})"/>
-    <text x="40" y="62" font-family="JetBrains Mono, monospace" font-size="13" letter-spacing="3" fill="${c}">${NAMES[p.cat].toUpperCase()}</text>
-    <text x="40" y="110" font-family="Space Grotesk, Inter, sans-serif" font-size="38" font-weight="700" fill="#E8ECF4">${esc(title)}</text>
-    ${pts.map((t,i)=>`<circle cx="46" cy="${167+i*44}" r="5" fill="${c}"/><text x="64" y="${172+i*44}" font-family="Inter, sans-serif" font-size="20" fill="#C8D0E0">${esc(t)}</text>`).join('')}</svg>`;
+    <text x="${ax}" y="62" text-anchor="${anc}" font-family="${rtl ? ff : 'JetBrains Mono, monospace'}" font-size="13" letter-spacing="${rtl ? 0 : 3}" fill="${c}">${rtl ? T(NAMES[p.cat]) : NAMES[p.cat].toUpperCase()}</text>
+    <text x="${ax}" y="110" text-anchor="${anc}" font-family="${fh}" font-size="38" font-weight="700" fill="#E8ECF4">${esc(title)}</text>
+    ${pts.map((t,i)=>`<circle cx="${bx}" cy="${167+i*44}" r="5" fill="${c}"/><text x="${tx}" y="${172+i*44}" text-anchor="${anc}" font-family="${ff}" font-size="20" fill="#C8D0E0">${esc(t)}</text>`).join('')}</svg>`;
 }
 window.phFallback = (img, pid, idx) => { const p = PROJECTS.find(x => x.id === pid); const d = document.createElement('div'); d.className = 'ph-wrap'; d.innerHTML = placeholderArt(p, idx); img.replaceWith(d); };
 function visual(p, it, idx){
-  if (it.src) return `<img class="${it.fit==='contain'?'fit':''}" src="${it.src}" alt="${esc(p.title)}, ${esc(it.cap||'')}" loading="lazy" onerror="phFallback(this,${p.id},${idx})">`;
+  if (it.src) return `<img class="${it.fit==='contain'?'fit':''}" src="${it.src}" alt="${esc(T(p.title))}, ${esc(T(it.cap||''))}" loading="lazy" onerror="phFallback(this,${p.id},${idx})">`;
   return it.slide ? slideArt(p, it, idx) : placeholderArt(p, idx);
 }
 
 /* ---- Render project cards ---- */
 const grid = document.getElementById('projects');
-grid.innerHTML = PROJECTS.map((p,i) => `
-  <button class="card project reveal" style="--pc:${COLORS[p.cat]};--d:${(i%3)*.08}s" data-cat="${p.cat}" data-id="${p.id}" aria-label="Open ${esc(p.title)} gallery">
-    <div class="thumb">${visual(p, p.gallery[0], 0)}${p.live?'<span class="live-pill">● Live</span>':''}<span class="badge">${p.badge || (p.gallery.length + ' image' + (p.gallery.length>1?'s':''))}</span></div>
-    <div class="body"><span class="kind">${NAMES[p.cat]}${p.year ? ' · ' + p.year : ''}</span><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p>
-      <div class="tags">${p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div></div>
+function renderProjects(instant) {
+  grid.innerHTML = PROJECTS.map((p,i) => `
+  <button class="card project reveal${instant ? ' in' : ''}" style="--pc:${COLORS[p.cat]};--d:${(i%3)*.08}s" data-cat="${p.cat}" data-id="${p.id}" aria-label="${esc(lang === 'ar' ? T('Open') + ' ' + T('gallery') + ' ' + T(p.title) : 'Open ' + p.title + ' gallery')}">
+    <div class="thumb">${visual(p, p.gallery[0], 0)}${p.live?`<span class="live-pill">● ${T('Live')}</span>`:''}<span class="badge">${p.badge ? T(p.badge) : countLabel(p.gallery.length)}</span></div>
+    <div class="body"><span class="kind">${T(NAMES[p.cat])}${p.year ? ' · ' + T(p.year) : ''}</span><h3>${esc(T(p.title))}</h3><p>${esc(T(p.desc))}</p>
+      <div class="tags">${p.tags.map(t=>`<span class="tag">${esc(T(t))}</span>`).join('')}</div></div>
   </button>`).join('');
+  const on = document.querySelector('.filters .chip[aria-pressed="true"]');
+  if (on && on.dataset.f !== 'all') grid.querySelectorAll('.project').forEach(c => c.classList.toggle('hide', c.dataset.cat !== on.dataset.f));
+}
+renderProjects();
 
 document.querySelectorAll('.filters .chip').forEach(b => b.addEventListener('click', () => {
   document.querySelectorAll('.filters .chip').forEach(x => x.setAttribute('aria-pressed', x === b));
@@ -824,20 +982,20 @@ function show(i){
   gi = (i + cur.gallery.length) % cur.gallery.length;
   const it = cur.gallery[gi];
   dbody.querySelector('.gal-view').innerHTML = visual(cur, it, gi);
-  dbody.querySelector('.cap span:first-child').textContent = it.cap || '';
-  dbody.querySelector('.cap span:last-child').textContent = `${gi+1} / ${cur.gallery.length}`;
+  dbody.querySelector('.cap span:first-child').textContent = T(it.cap || '');
+  dbody.querySelector('.cap span:last-child').textContent = `\u2066${gi+1} / ${cur.gallery.length}\u2069`;
   dbody.querySelectorAll('.thumbs button').forEach((b,k) => b.setAttribute('aria-current', k === gi));
 }
 function openProject(p){
   cur = p; dlg.style.setProperty('--pc', COLORS[p.cat]);
   const many = p.gallery.length > 1;
   dbody.innerHTML = `
-    <div class="gal"><div class="gal-view" style="height:100%"></div>${many?'<button class="nav-btn prev" aria-label="Previous image">←</button><button class="nav-btn next" aria-label="Next image">→</button>':''}</div>
+    <div class="gal"><div class="gal-view" style="height:100%"></div>${many?`<button class="nav-btn prev" aria-label="${T('Previous image')}">←</button><button class="nav-btn next" aria-label="${T('Next image')}">→</button>`:''}</div>
     <div class="cap"><span></span><span></span></div>
-    ${many?`<div class="thumbs">${p.gallery.map((it,k)=>`<button aria-label="Image ${k+1}">${visual(p,it,k)}</button>`).join('')}</div>`:''}
-    <div class="body"><span class="kind">${NAMES[p.cat]}${p.year ? ' · ' + p.year : ''}</span><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p>
-      <div class="tags">${p.tags.map(t=>`<span class="tag">${esc(t)}</span>`).join('')}</div>
-      ${(p.live || p.links.length)?`<div class="links">${p.live?`<a class="live" href="${p.live}" target="_blank" rel="noopener">● Live site ↗</a>`:''}${p.links.map(l=>`<a href="${l.u}" target="_blank" rel="noopener">${esc(l.t)} ↗</a>`).join('')}</div>`:''}</div>`;
+    ${many?`<div class="thumbs">${p.gallery.map((it,k)=>`<button aria-label="${T('Image')} ${k+1}">${visual(p,it,k)}</button>`).join('')}</div>`:''}
+    <div class="body"><span class="kind">${T(NAMES[p.cat])}${p.year ? ' · ' + T(p.year) : ''}</span><h3>${esc(T(p.title))}</h3><p>${esc(T(p.desc))}</p>
+      <div class="tags">${p.tags.map(t=>`<span class="tag">${esc(T(t))}</span>`).join('')}</div>
+      ${(p.live || p.links.length)?`<div class="links">${p.live?`<a class="live" href="${p.live}" target="_blank" rel="noopener">● ${T('Live site')} ↗</a>`:''}${p.links.map(l=>`<a href="${l.u}" target="_blank" rel="noopener">${esc(l.t)} ↗</a>`).join('')}</div>`:''}</div>`;
   dbody.querySelector('.prev')?.addEventListener('click', () => show(gi-1));
   dbody.querySelector('.next')?.addEventListener('click', () => show(gi+1));
   dbody.querySelectorAll('.thumbs button').forEach((b,k) => b.addEventListener('click', () => show(k)));
@@ -847,7 +1005,7 @@ grid.addEventListener('click', e => { const c = e.target.closest('.project'); if
 dlg.querySelector('.close').onclick = () => dlg.close();
 dlg.addEventListener('close', () => sfx.close());
 dlg.addEventListener('click', e => { if (e.target === dlg) dlg.close(); });
-dlg.addEventListener('keydown', e => { if (e.key === 'ArrowRight') show(gi+1); if (e.key === 'ArrowLeft') show(gi-1); });
+dlg.addEventListener('keydown', e => { const nx = lang === 'ar' ? 'ArrowLeft' : 'ArrowRight', pv = lang === 'ar' ? 'ArrowRight' : 'ArrowLeft'; if (e.key === nx) show(gi+1); if (e.key === pv) show(gi-1); });
 
 /* ==========================================================================
    SCROLL ENGINE — one rAF loop; each chapter gets progress p ∈ [0,1]
@@ -948,19 +1106,19 @@ const segColor = t => (SEGS.find(g => t >= g.a && t < g.b) || SEGS[SEGS.length-1
 track.innerHTML =
   SEGS.map(g => `<div class="tl-seg" style="--c:${g.c};left:${posOf(g.a)}%;width:${posOf(g.b)-posOf(g.a)}%"><i></i></div>`).join('') +
   Array.from({length: 12}, (_,k) => 2015 + k).map(y => `<span class="tl-tick ${y%4===0?'q':''}" style="left:${posOf(y)}%">${y}</span>`).join('') +
-  MILES.map((m,i) => `<button class="tl-dot" data-i="${i}" style="left:${posOf(m.t)}%;--c:${segColor(m.t)}" aria-label="${m.l}"><b>${m.l}</b></button>`).join('') +
-  `<span class="tl-end" style="left:100%">NOW</span><span class="tl-mark"></span>`;
+  MILES.map((m,i) => `<button class="tl-dot" data-i="${i}" style="left:${posOf(m.t)}%;--c:${segColor(m.t)}" aria-label="${T(m.l)}"><b>${T(m.l)}</b></button>`).join('') +
+  `<span class="tl-end" style="left:100%">${T('NOW')}</span><span class="tl-mark"></span>`;
 const tlSegs = [...track.querySelectorAll('.tl-seg')], tlDots = [...track.querySelectorAll('.tl-dot')], tlMark = track.querySelector('.tl-mark');
 const tlYear = document.getElementById('tl-year'), tlEvent = document.getElementById('tl-event');
 let lastEvi = null;
 function setTime(t, visible) {
   tlEl.classList.toggle('show', visible);
-  tlYear.textContent = t >= TL.t1 - .02 ? 'Today' : Math.floor(t);
+  tlYear.textContent = t >= TL.t1 - .02 ? T('Today') : Math.floor(t);
   tlMark.style.left = posOf(t) + '%';
   tlSegs.forEach((el, i) => el.style.setProperty('--f', clamp((t - SEGS[i].a) / (SEGS[i].b - SEGS[i].a))));
   let ev = null, evi = -1; tlDots.forEach((d, i) => { const on = t >= MILES[i].t - .001; d.classList.toggle('on', on); if (on) { ev = MILES[i]; evi = i; } });
   if (evi !== lastEvi) { if (lastEvi !== null && visible) sfx.bell(Math.max(evi, 0)); lastEvi = evi; }
-  tlEvent.textContent = ev ? ev.l.split(' · ')[1] : '';
+  tlEvent.textContent = ev ? T(ev.l).split(' · ')[1] : '';
 }
 /* click a milestone → scroll to that moment */
 track.addEventListener('click', e => {
@@ -985,7 +1143,7 @@ function update() {
     run(p);
     const h = ch.querySelector('.scroll-hint');
     if (h) { const inView = r.top <= 8 && r.bottom > vh*.6; h.classList.toggle('off', !inView); h.classList.toggle('done', p >= .98);
-      h.querySelector('.sh-label').textContent = p >= .98 ? 'Next: ' + h.dataset.next + ' ↓' : (p < .03 ? 'Scroll to play' : 'Keep scrolling'); h.querySelector('.sh-pct').textContent = Math.round(p*100) + '%'; }
+      h.querySelector('.sh-label').textContent = p >= .98 ? T('Next') + ': ' + T(h.dataset.next) + ' ↓' : (p < .03 ? T('Scroll to play') : T('Keep scrolling')); h.querySelector('.sh-pct').textContent = Math.round(p*100) + '%'; }
     counters.forEach(c => { const t = +c.dataset.count; c.textContent = Math.round(t * seg(p,.05,.8)).toLocaleString() + (c.dataset.suffix || ''); });
     if (r.top < vh*.5 && r.bottom > vh*.5) active = ch;
   });
@@ -1062,7 +1220,7 @@ const lightQuery = matchMedia('(prefers-color-scheme: light)');
 function applySettings(save = true) {
   root.dataset.mode = cfg.mode === 'auto' ? (lightQuery.matches ? 'light' : 'dark') : cfg.mode;
   if (cfg.accent === 'auto') document.body.style.removeProperty('--accent'); else document.body.style.setProperty('--accent', cfg.accent);
-  root.style.setProperty('--font-display', FONTS[cfg.font] || FONTS.grotesk);
+  if (lang === 'ar') root.style.removeProperty('--font-display'); else root.style.setProperty('--font-display', FONTS[cfg.font] || FONTS.grotesk);
   root.style.fontSize = cfg.size + '%';
   const k = cfg.radius / 100;
   root.style.setProperty('--r-sm', 8*k + 'px'); root.style.setProperty('--r-md', 14*k + 'px'); root.style.setProperty('--r-lg', 22*k + 'px');
@@ -1108,6 +1266,40 @@ $('set-close').addEventListener('click', () => togglePanel(false));
 $('scrim').addEventListener('click', () => togglePanel(false));
 addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('settings-open')) togglePanel(false); });
 applySettings(false);
+
+/* ==========================================================================
+   LANGUAGE SWITCH — swaps text in place, flips the page direction, re-renders dynamic parts
+   ========================================================================== */
+const origText = new WeakMap(), origAttr = new WeakMap();
+function translateDom() {
+  const ar = lang === 'ar';
+  const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, { acceptNode: n => n.parentElement.closest('script, style, [data-dyn], [data-ar], [data-ar-html], #projects, #tl-track, .stage, #lang-btn') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT });
+  const nodes = []; while (w.nextNode()) nodes.push(w.currentNode);
+  nodes.forEach(n => { let o = origText.get(n); if (o === undefined) { o = n.nodeValue; origText.set(n, o); } const k = o.trim(); n.nodeValue = ar && k && AR[k] ? o.replace(k, AR[k]) : o; });
+  document.querySelectorAll('[aria-label],[title],[alt]').forEach(e => {
+    if (e.closest('#projects, #tl-track, #dlg')) return; let o = origAttr.get(e); if (!o) { o = {}; origAttr.set(e, o); }
+    ['aria-label', 'title', 'alt'].forEach(a => { if (!e.hasAttribute(a)) return; if (!(a in o)) o[a] = e.getAttribute(a); e.setAttribute(a, ar && AR[o[a]] ? AR[o[a]] : o[a]); });
+  });
+  document.querySelectorAll('[data-ar]').forEach(e => { if (e.dataset.en === undefined) e.dataset.en = e.textContent; e.textContent = ar ? e.dataset.ar : e.dataset.en; });
+  document.querySelectorAll('[data-ar-html]').forEach(e => { if (e.dataset.enHtml === undefined) e.dataset.enHtml = e.innerHTML; e.innerHTML = ar ? e.dataset.arHtml : e.dataset.enHtml; });
+}
+function refreshTimeline() {
+  tlDots.forEach((d, i) => { const l = T(MILES[i].l); d.setAttribute('aria-label', l); d.querySelector('b').textContent = l; });
+  const end = track.querySelector('.tl-end'); if (end) end.textContent = T('NOW');
+}
+function applyLang(save) {
+  const ar = lang === 'ar', r = document.documentElement;
+  r.lang = ar ? 'ar' : 'en'; r.dir = ar ? 'rtl' : 'ltr';
+  document.title = ar ? 'محمد الحيموني | معرض الأعمال' : 'Mohammad Al-Haimouni | Portfolio';
+  const md = document.querySelector('meta[name="description"]'); if (md) md.content = ar ? 'محمد الحيموني، مدير برامج بخلفية في الهندسة الكهربائية وهندسة البرمجيات.' : 'Mohammad Al-Haimouni, Program Manager with a background in electrical engineering and software engineering.';
+  translateDom(); renderProjects(true); refreshTimeline();
+  const b = document.getElementById('lang-btn'); b.textContent = ar ? 'English' : 'العربية'; b.lang = ar ? 'en' : 'ar';
+  applySettings(false);
+  if (save) { try { localStorage.setItem('pf-lang', lang); } catch (e) {} }
+  requestAnimationFrame(update);
+}
+document.getElementById('lang-btn').addEventListener('click', () => { lang = lang === 'ar' ? 'en' : 'ar'; applyLang(true); });
+if (lang === 'ar') applyLang(false);
 
 /* ---- Reveal on scroll ---- */
 const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .12 });

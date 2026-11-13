@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&display=swap');
 /* ==========================================================================
    DESIGN SYSTEM — tokens, base, layout primitives, components.
    Link this file from any page:  <link rel="stylesheet" href="design-system.css">
@@ -138,3 +138,6 @@ p  { margin: 0; color: var(--muted); }
   html { scroll-behavior: auto; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* Arabic: swap every font role to an Arabic-capable face (Latin letters fall back to the originals) */
+html[lang="ar"] { --font-display: 'IBM Plex Sans Arabic', 'Space Grotesk', system-ui, sans-serif; --font-body: 'IBM Plex Sans Arabic', 'Inter', system-ui, sans-serif; --font-mono: 'IBM Plex Sans Arabic', 'JetBrains Mono', ui-monospace, monospace; }
