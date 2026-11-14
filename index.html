@@ -156,13 +156,10 @@ dialog .body { padding: var(--s5); }
 /* ==========================================================================
    7. SETTINGS SIDEBAR + FLOATING RÉSUMÉ BUTTON
    ========================================================================== */
-.gear, .float-cv { position: fixed; z-index: 70; bottom: 20px; display: inline-flex; align-items: center; gap: var(--s2); border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(12px); color: var(--text); cursor: pointer; box-shadow: var(--shadow-1); transition: transform var(--t-fast) var(--ease), border-color var(--t-fast), background var(--t-fast); }
+.gear { position: fixed; z-index: 70; bottom: 20px; display: inline-flex; align-items: center; gap: var(--s2); border: 1px solid var(--line); background: color-mix(in srgb, var(--surface) 88%, transparent); backdrop-filter: blur(12px); color: var(--text); cursor: pointer; box-shadow: var(--shadow-1); transition: transform var(--t-fast) var(--ease), border-color var(--t-fast), background var(--t-fast); }
 .gear { left: 20px; width: 48px; height: 48px; border-radius: 50%; justify-content: center; font-size: 1.2rem; }
-.gear:hover, .float-cv:hover { transform: translateY(-3px); border-color: var(--accent); }
+.gear:hover { transform: translateY(-3px); border-color: var(--accent); }
 .gear svg { width: 22px; height: 22px; transition: transform var(--t-slow) var(--ease); } .gear:hover svg { transform: rotate(90deg); }
-.float-cv { right: 20px; padding: 13px 20px; border-radius: var(--r-pill); font: 500 var(--fs-sm)/1 var(--font-body); background: var(--accent); color: var(--on-accent); border-color: transparent; font-weight: 600; }
-.float-cv:hover { box-shadow: var(--shadow-glow); }
-@media (max-width: 640px) { .float-cv span { display: none; } .float-cv { padding: 14px; } }
 
 .scrim { position: fixed; inset: 0; z-index: 79; background: rgba(5,6,9,.55); backdrop-filter: blur(3px); opacity: 0; pointer-events: none; transition: opacity var(--t-base); }
 #settings { position: fixed; z-index: 80; top: 0; bottom: 0; left: 0; width: min(340px, 90vw); background: var(--surface); border-right: 1px solid var(--line); box-shadow: none; transform: translateX(-102%); visibility: hidden; transition: transform var(--t-base) var(--ease), visibility var(--t-base); overflow-y: auto; display: flex; flex-direction: column; }
@@ -299,7 +296,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
 @media (hover: none) {                                                       /* no sticky hover states on touch */
   .card:hover { transform: none; box-shadow: var(--shadow-1); border-color: var(--line); }
   .project:hover .thumb svg, .project:hover .thumb img { transform: none; }
-  .btn:hover, .gear:hover, .float-cv:hover, .role:hover { transform: none; }
+  .btn:hover, .gear:hover, .role:hover { transform: none; }
 }
 @media (pointer: coarse) {                                                   /* 44px minimum targets */
   .chip { padding: 12px 18px; } .btn { padding: 15px 24px; min-height: 46px; }
@@ -320,7 +317,7 @@ a, button, label, select { -webkit-tap-highlight-color: transparent; touch-actio
   .scroll-cue { display: none; }
   .filters { overflow-x: auto; flex-wrap: nowrap; margin-inline: calc(var(--gutter) * -1); padding-inline: var(--gutter); scrollbar-width: none; } .filters::-webkit-scrollbar { display: none; } .chip { flex: none; }
   .project .body { padding: var(--s4); }
-  .gear { left: 14px; bottom: 14px; width: 46px; height: 46px; } .float-cv { right: 14px; bottom: 14px; width: 46px; height: 46px; padding: 0; justify-content: center; }
+  .gear { left: 14px; bottom: 14px; width: 46px; height: 46px; }
   .sec-line { height: 64px; }
   .contact .hero-actions .btn { flex: 1 1 100%; justify-content: center; }
   .footer .container { justify-content: center; text-align: center; }
@@ -369,7 +366,7 @@ html[dir="rtl"] .tl-event { direction: rtl; unicode-bidi: plaintext; }
 html[dir="rtl"] .metrics b { direction: ltr; text-align: right; }
 html[dir="rtl"] .stage-label { left: auto; right: 18px; }
 /* mirrored fixed UI */
-html[dir="rtl"] .gear { left: auto; right: 20px; } html[dir="rtl"] .float-cv { right: auto; left: 20px; }
+html[dir="rtl"] .gear { left: auto; right: 20px; }
 html[dir="rtl"] .rail { right: auto; left: 22px; } html[dir="rtl"] .rail a span { right: auto; left: 22px; }
 html[dir="rtl"] #settings { left: auto; right: 0; border-right: 0; border-left: 1px solid var(--line); transform: translateX(102%); }
 html[dir="rtl"] body.settings-open #settings { transform: none; box-shadow: -30px 0 80px rgba(0,0,0,.35); }
@@ -381,7 +378,7 @@ html[dir="rtl"] .gal .prev { left: auto; right: 12px; } html[dir="rtl"] .gal .ne
 html[dir="rtl"] .gal .nav-btn { transform: translateY(-50%) scaleX(-1); }
 html[dir="rtl"] .copy li::before { margin-top: .95em; }
 @media (max-width: 640px) {
-  html[dir="rtl"] .gear { left: auto; right: 14px; } html[dir="rtl"] .float-cv { right: auto; left: 14px; }
+  html[dir="rtl"] .gear { left: auto; right: 14px; }
   .lang-btn { padding: 7px 12px; }
 }
 @media (max-width: 380px) { .logo { font-size: 1rem; } .lang-btn { padding: 6px 10px; } }
@@ -597,7 +594,6 @@ html[dir="rtl"] .copy li::before { margin-top: .95em; }
 
 
 <!-- ============ Floating résumé button + settings sidebar ============ -->
-<a class="float-cv" href="Mohammad_Al-Haimouni.pdf" download="Mohammad_Al-Haimouni_Resume.pdf" aria-label="Download résumé">↓ <span>Résumé</span></a>
 <button class="gear" id="gear" aria-label="Open settings" aria-expanded="false" aria-controls="settings">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
 </button>
@@ -1182,7 +1178,7 @@ const sfx = (() => {
 // unlock audio on the first real gesture, then voice the UI
 ['pointerdown', 'keydown', 'touchstart'].forEach(ev => addEventListener(ev, () => sfx.init(), { once: false, passive: true }));
 // light hover shimmer: mouse only, only the important controls, once per entry
-const HOVER_SEL = '.btn, .float-cv, .gear, .lang-btn, .role, .project, .chip, .tl-dot, .nav ul a';
+const HOVER_SEL = '.btn, .gear, .lang-btn, .role, .project, .chip, .tl-dot, .nav ul a';
 document.addEventListener('pointerover', e => {
   if (e.pointerType !== 'mouse') return; const el = e.target.closest(HOVER_SEL); if (!el) return;
   if (e.relatedTarget && el.contains(e.relatedTarget)) return; sfx.hover();
